@@ -314,6 +314,7 @@
 .capTxt { justify-self: center; width: min(100%, 600px); }
 .midia { justify-content: center; }
 .t_ruido { padding-left: clamp(56px, 9vw, 170px); }
+.cap.t_verso { padding-left: 0; } /* a frase do verso fica no centro real da tela (o recuo da régua não vale aqui) */
 .t_cena .midia, .t_soundcloud .midia { justify-content: center; }
 .feed { max-width: min(100%, 54vw); }
 .feedGrade { grid-template-columns: repeat(6, 1fr); }
