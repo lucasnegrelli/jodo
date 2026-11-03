@@ -1,0 +1,55 @@
+.raiz { --papel: #ece6d8; --tinta: #1b1712; --suave: rgba(27, 23, 18, .6); --linha: rgba(27, 23, 18, .28); --giz: #c3261c; --vel: 0; position: relative; min-height: 100vh; overflow-x: clip; background: var(--papel); color: var(--tinta); font-family: var(--mk-ui), "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+.raiz ::selection { background: var(--tinta); color: var(--papel); }
+.raiz button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+.grao { position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: .5; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' seed='5'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .4  0 0 0 0 .32  0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.raiz :global(a[aria-label^="Voltar para a JODO"]) { color: var(--tinta); mix-blend-mode: normal; border-color: var(--tinta); }
+.raiz :global(a[aria-label^="Voltar para a JODO"]):hover { background: var(--tinta); color: var(--papel); }
+
+/* abertura: a assinatura dele, escrita da esquerda para a direita */
+.hero { position: relative; z-index: 2; padding: max(15vh, 120px) clamp(18px, 4vw, 56px) 5vh; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: 4vw; align-items: end; }
+.hero > img, .hero > h1, .hero > p { grid-column: 1; }
+.numeros { grid-column: 2; grid-row: 1 / span 4; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 26px 20px; align-self: end; padding-bottom: 6px; }
+.numeros div { border-top: 1px solid var(--tinta); padding-top: 10px; }
+.numeros dt { font-family: var(--mk-mono), monospace; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--suave); }
+.numeros dd { margin: 4px 0 0; font-weight: 800; font-size: clamp(54px, 8vw, 128px); line-height: .85; letter-spacing: -.06em; font-variant-numeric: lining-nums tabular-nums; }
+.numeros div:nth-child(odd) dd { color: var(--giz); }
+.assinatura { display: block; width: min(82vw, 900px); height: auto; mix-blend-mode: multiply; transform: rotate(-2.2deg); transform-origin: left; clip-path: inset(0 100% 0 0); animation: escreve 1.9s cubic-bezier(.5, 0, .2, 1) .25s forwards; }
+.titulo { margin: 1.1em 0 0; font-weight: 800; font-size: clamp(22px, 3vw, 46px); line-height: 1.02; letter-spacing: -.035em; text-wrap: balance; }
+.conta { margin: 1.4em 0 0; font-family: var(--mk-mono), monospace; font-size: 12px; line-height: 1.9; letter-spacing: .08em; text-transform: uppercase; color: var(--suave); }
+.conta b { color: var(--giz); font-weight: 500; }
+.dica { margin: 1.1em 0 0; font-family: var(--mk-mao), cursive; font-size: clamp(22px, 2.2vw, 30px); color: var(--giz); transform: rotate(-1.5deg); transform-origin: left; }
+
+/* a fábrica: uma esteira por ano */
+.fabrica { position: relative; z-index: 2; padding: 3vh 0 8vh; }
+.faixa { position: relative; border-top: 1px solid var(--tinta); }
+.faixa:last-child { border-bottom: 1px solid var(--tinta); }
+.placa { position: absolute; left: 0; top: 0; bottom: 0; z-index: 5; width: clamp(104px, 13vw, 210px); padding-left: clamp(14px, 3vw, 44px); display: flex; flex-direction: column; justify-content: center; gap: 6px; background: linear-gradient(90deg, var(--papel) 72%, rgba(236, 230, 216, 0)); pointer-events: none; }
+.placa b { font-weight: 800; font-size: clamp(34px, 5.2vw, 84px); line-height: .85; letter-spacing: -.05em; font-variant-numeric: lining-nums tabular-nums; }
+.placa span { font-family: var(--mk-mono), monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--suave); }
+.esteira { overflow: hidden; padding: 22px 0 26px; transform: skewX(calc(var(--vel) * -1deg)); transform-origin: 50% 50%; }
+.esteira::after { content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 6px; background: repeating-linear-gradient(90deg, var(--linha) 0 2px, transparent 2px 22px); pointer-events: none; }
+.trilho { display: flex; align-items: center; gap: 26px; width: max-content; margin: 0; padding: 0 0 0 clamp(120px, 14vw, 230px); list-style: none; animation: corre var(--dur) linear infinite var(--dir); will-change: transform; }
+.faixa:hover .trilho, .faixa:focus-within .trilho { animation-play-state: paused; }
+.disco { flex: none; width: min(230px, 54vw); }
+.avulso { flex: none; width: min(140px, 36vw); }
+.cartao { position: relative; display: block; width: 100%; padding: 0; transition: transform .4s cubic-bezier(.2, .8, .2, 1); }
+.cartao img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: #d8d0bd; box-shadow: 0 0 0 1px rgba(27, 23, 18, .5), 0 16px 22px -14px rgba(40, 25, 5, .55); transition: filter .4s, box-shadow .4s; }
+.avulso .cartao img { filter: grayscale(.8) contrast(1.05); }
+.cartao:hover, .cartao:focus-visible { transform: translateY(-9px) scale(1.05); z-index: 4; outline: none; }
+.cartao:hover img, .cartao:focus-visible img { filter: none; box-shadow: 0 0 0 2px var(--tinta), 0 26px 30px -16px rgba(40, 25, 5, .7); }
+.etiqueta { position: absolute; left: 0; right: 0; bottom: 0; display: grid; gap: 2px; padding: 22px 10px 9px; text-align: left; color: #f4efe4; background: linear-gradient(0deg, rgba(10, 8, 6, .86), rgba(10, 8, 6, 0)); opacity: 0; transition: opacity .3s; pointer-events: none; }
+.etiqueta b { font-weight: 600; font-size: 13px; line-height: 1.12; }
+.etiqueta i { font-style: normal; font-family: var(--mk-mono), monospace; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+.cartao:hover .etiqueta, .cartao:focus-visible .etiqueta { opacity: 1; }
+.rodape { position: relative; z-index: 2; padding: 3vh clamp(18px, 4vw, 56px) 8vh; font-family: var(--mk-mono), monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--suave); }
+.rodape p { margin: 0; }
+
+@keyframes corre { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes escreve { to { clip-path: inset(0 0 0 0); } }
+@media (max-width: 860px) {
+  .hero { padding-top: 14vh; display: block; }
+  .numeros { margin-top: 5vh; }
+  .placa b { font-size: 12vw; }
+  .esteira { padding: 16px 0 22px; }
+}
+@media (prefers-reduced-motion: reduce) { .trilho { animation: none; } .assinatura { animation: none; clip-path: none; } .esteira { transform: none; } }

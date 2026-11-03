@@ -1,4 +1,4 @@
-import MakalisterMergulho from "@/components/makalister/MakalisterMergulho";
+import MakalisterLinha from "@/components/makalister/MakalisterLinha";
 
 export const metadata = {
   title: "Makalister | Rapper e produtor de São José (SC) | JODO",
@@ -6,5 +6,5 @@ export const metadata = {
 };
 
 export default function PaginaMakalister() {
-  return <MakalisterMergulho />;
+  return <MakalisterLinha />;
 }
