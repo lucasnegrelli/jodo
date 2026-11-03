@@ -1,0 +1,912 @@
+// Gerado por build_mk.py (2026-11-03): discografia do Makalister (Deezer, artista 10709967), do mais novo ao mais velho.
+export const LANCAMENTOS = [
+ {
+  "id": 1109728032,
+  "t": "Endrick (Remix)",
+  "d": "2026-10-21",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/1109728032.jpg"
+ },
+ {
+  "id": 1014450211,
+  "t": "Linha de Pipa",
+  "d": "2026-07-29",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/1014450211.jpg"
+ },
+ {
+  "id": 988255391,
+  "t": "EL NENE",
+  "d": "2026-06-06",
+  "tipo": "EP",
+  "faixas": [
+   "EN OCULTO",
+   "ROA",
+   "DE TI",
+   "SUBIENDO NIVEL (feat. B-swing)",
+   "BIKINI (feat. Yeimora)"
+  ],
+  "label": "Discreto Records",
+  "nota": null,
+  "nf": 5,
+  "img": "/mk/988255391.jpg"
+ },
+ {
+  "id": 917812531,
+  "t": "Todo Lugar Tem Um Jovem",
+  "d": "2026-02-19",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/917812531.jpg"
+ },
+ {
+  "id": 918544351,
+  "t": "Com Amor, Com Dinheiro",
+  "d": "2026-02-19",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/918544351.jpg"
+ },
+ {
+  "id": 918570511,
+  "t": "Flor de Alcaçúz",
+  "d": "2026-02-19",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/918570511.jpg"
+ },
+ {
+  "id": 918570551,
+  "t": "O Tempo é Tudo Que Eu Não Posso Perder",
+  "d": "2026-02-19",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/918570551.jpg"
+ },
+ {
+  "id": 918577391,
+  "t": "Dois Continentes (Ao Alcance das Mãos)",
+  "d": "2026-02-19",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/918577391.jpg"
+ },
+ {
+  "id": 918577421,
+  "t": "Vai Saber!",
+  "d": "2026-02-19",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/918577421.jpg"
+ },
+ {
+  "id": 918581671,
+  "t": "GANA 2",
+  "d": "2026-02-19",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/918581671.jpg"
+ },
+ {
+  "id": 915434391,
+  "t": "dEPOIS dE sOBREVIVER qUERO vIVER e dEPOIS dE vIVER qUERO eXISTIR",
+  "d": "2026-02-18",
+  "tipo": "álbum",
+  "faixas": [
+   "O Tempo é Tudo Que Eu Não Posso Perder",
+   "Amante do Ritmo",
+   "LiBRE!",
+   "Com Amor, Com Dinheiro",
+   "Vai Saber!",
+   "GANA 2",
+   "Dois Continentes (Ao Alcance das Mãos)",
+   "Flor de Alcaçúz",
+   "Todo Lugar Tem Um Jovem",
+   "Cent'anni"
+  ],
+  "label": "alamanak & polvo roxo",
+  "nota": null,
+  "nf": 10,
+  "img": "/mk/915434391.jpg"
+ },
+ {
+  "id": 905641592,
+  "t": "Amante do Ritmo",
+  "d": "2026-02-10",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/905641592.jpg"
+ },
+ {
+  "id": 896003982,
+  "t": "LiBRE!",
+  "d": "2026-01-28",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/896003982.jpg"
+ },
+ {
+  "id": 895007732,
+  "t": "no mesmo gueto que você me esqueceu",
+  "d": "2026-01-20",
+  "tipo": "participação",
+  "faixas": [
+   "Beba um gole desse Rap",
+   "Rebeldes",
+   "Cânticos de Guerra",
+   "Desabafo",
+   "Último Dia de Carnaval",
+   "Paraíso dos Gangsta",
+   "Monte Bronx de Cristo",
+   "Romances da Oeste",
+   "No Mesmo Gueto Que Você Me Esqueceu"
+  ],
+  "label": "Polvo Roxo e Almanak",
+  "nota": "Disco do Negro Rudhy, com participação e produção do Makalister.",
+  "nf": 9,
+  "img": "/mk/895007732.jpg"
+ },
+ {
+  "id": 893009202,
+  "t": "Cânticos de Guerra",
+  "d": "2026-01-13",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/893009202.jpg"
+ },
+ {
+  "id": 838525422,
+  "t": "O Gênio e o Louco “Entre o Céu e a Terra“",
+  "d": "2025-10-27",
+  "tipo": "álbum",
+  "faixas": [
+   "Pra Nós Cantar",
+   "Ladrão de Sonhos",
+   "Trago pra City",
+   "Pais e Filhos",
+   "Ventriloucos",
+   "Vidente",
+   "A Parte Escura da Lua",
+   "1 Bob Marley Vs 30 Caretas",
+   "Dejavu II"
+  ],
+  "label": "Froid",
+  "nota": null,
+  "nf": 9,
+  "img": "/mk/838525422.jpg"
+ },
+ {
+  "id": 789519241,
+  "t": "Dor e Delírio (Era um Menino)",
+  "d": "2025-07-22",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/789519241.jpg"
+ },
+ {
+  "id": 774056771,
+  "t": "SOU APENAS OS MEUS SONHOS",
+  "d": "2025-06-20",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/774056771.jpg"
+ },
+ {
+  "id": 774057531,
+  "t": "CARLITO'S WAY FREEVERSE",
+  "d": "2025-06-18",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/774057531.jpg"
+ },
+ {
+  "id": 759549921,
+  "t": "BANDIDA",
+  "d": "2025-05-30",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/759549921.jpg"
+ },
+ {
+  "id": 717451071,
+  "t": "ME ATREVO (feat. B-swing)",
+  "d": "2025-02-27",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/717451071.jpg"
+ },
+ {
+  "id": 743639691,
+  "t": "Viva",
+  "d": "2025-02-25",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/743639691.jpg"
+ },
+ {
+  "id": 644626391,
+  "t": "Cerol",
+  "d": "2024-10-10",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/644626391.jpg"
+ },
+ {
+  "id": 616762451,
+  "t": "TUTA X MAKALISTER",
+  "d": "2024-07-17",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/616762451.jpg"
+ },
+ {
+  "id": 601745472,
+  "t": "A Volta da Esperança",
+  "d": "2024-07-03",
+  "tipo": "álbum",
+  "faixas": [
+   "A Volta da Esperança",
+   "Dos Mistérios",
+   "Tudo se sabe (Véu da Ilusão)",
+   "Dinamite Fernandes",
+   "Jóias e Mascaras (Quanto Me Matares Atires no Peito)",
+   "Amores Expressos",
+   "Palma de Ouro",
+   "Tesão, Nostalgia, Ambição",
+   "Homens Estão se Tornando Máquinas"
+  ],
+  "label": "Mondé",
+  "nota": null,
+  "nf": 9,
+  "img": "/mk/601745472.jpg"
+ },
+ {
+  "id": 606367982,
+  "t": "Palma de Ouro",
+  "d": "2024-06-26",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/606367982.jpg"
+ },
+ {
+  "id": 555115272,
+  "t": "Te Va Gustar (feat. B-swing & Eysi Blessed)",
+  "d": "2024-03-02",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/555115272.jpg"
+ },
+ {
+  "id": 539615512,
+  "t": "Montparnasse, São José",
+  "d": "2024-02-20",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/539615512.jpg"
+ },
+ {
+  "id": 526126592,
+  "t": "Futón (Efieli Remix) (Remix)",
+  "d": "2024-01-01",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/526126592.jpg"
+ },
+ {
+  "id": 504683651,
+  "t": "Bença",
+  "d": "2023-11-02",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/504683651.jpg"
+ },
+ {
+  "id": 486782415,
+  "t": "NO VUELVO",
+  "d": "2023-09-12",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/486782415.jpg"
+ },
+ {
+  "id": 477483925,
+  "t": "Algoritmos",
+  "d": "2023-09-01",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/477483925.jpg"
+ },
+ {
+  "id": 436341247,
+  "t": "Los Pinky",
+  "d": "2023-05-02",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/436341247.jpg"
+ },
+ {
+  "id": 389013097,
+  "t": "Filhos",
+  "d": "2023-01-13",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/389013097.jpg"
+ },
+ {
+  "id": 370185997,
+  "t": "Mais Que Lágrimas",
+  "d": "2022-11-11",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/370185997.jpg"
+ },
+ {
+  "id": 373713107,
+  "t": "Quartos Escuros",
+  "d": "2022-11-11",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/373713107.jpg"
+ },
+ {
+  "id": 356496527,
+  "t": "Gatunos",
+  "d": "2022-09-23",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/356496527.jpg"
+ },
+ {
+  "id": 308592037,
+  "t": "Ladrón",
+  "d": "2022-04-29",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/308592037.jpg"
+ },
+ {
+  "id": 307529857,
+  "t": "¡Oye Tú!",
+  "d": "2022-04-22",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/307529857.jpg"
+ },
+ {
+  "id": 295862862,
+  "t": "De Menor",
+  "d": "2022-02-15",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/295862862.jpg"
+ },
+ {
+  "id": 286834892,
+  "t": "Meus Segredos",
+  "d": "2022-02-01",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/286834892.jpg"
+ },
+ {
+  "id": 263885112,
+  "t": "Ondas 2",
+  "d": "2021-11-04",
+  "tipo": "álbum",
+  "faixas": [
+   "Fênix",
+   "Dias Iguais",
+   "Nuvens",
+   "O Diabo na Terra do Sol",
+   "Ondas Mornas de Verão",
+   "Mesmo Longe Eu Te Sinto",
+   "O Meu Dilema",
+   "O Monstro",
+   "Que Bom Que Você Veio",
+   "Meus Pés na Chuva"
+  ],
+  "label": "Polvo Roxo & Almanak",
+  "nota": null,
+  "nf": 10,
+  "img": "/mk/263885112.jpg"
+ },
+ {
+  "id": 241738832,
+  "t": "Gatâmia",
+  "d": "2021-07-16",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/241738832.jpg"
+ },
+ {
+  "id": 223965152,
+  "t": "O Apanhador no Campo dos Desejos",
+  "d": "2021-05-12",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/223965152.jpg"
+ },
+ {
+  "id": 213311402,
+  "t": "Toda Guerra Tem Tréguas",
+  "d": "2021-03-19",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/213311402.jpg"
+ },
+ {
+  "id": 207796072,
+  "t": "Do Fogão para a Pia",
+  "d": "2021-02-19",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/207796072.jpg"
+ },
+ {
+  "id": 154440912,
+  "t": "Burn Burn (Remix)",
+  "d": "2020-06-26",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/154440912.jpg"
+ },
+ {
+  "id": 151619832,
+  "t": "Barka EP",
+  "d": "2020-06-09",
+  "tipo": "álbum",
+  "faixas": [
+   "Cartas Que Deixo para o Vento",
+   "Gaivotas",
+   "Chantal",
+   "Estrela Polar",
+   "Barka (O Que Sobrou de Mim)",
+   "Tema dos Meus Sonhos",
+   "Na Prensa Francesa",
+   "Semelhante aos Acasos e os Encontros",
+   "Estações"
+  ],
+  "label": "Almanaque de Outono e Polvo Roxo Records",
+  "nota": null,
+  "nf": 9,
+  "img": "/mk/151619832.jpg"
+ },
+ {
+  "id": 150984842,
+  "t": "Chantal",
+  "d": "2020-06-02",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/150984842.jpg"
+ },
+ {
+  "id": 123095012,
+  "t": "Cassino de Desejos",
+  "d": "2019-12-13",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/123095012.jpg"
+ },
+ {
+  "id": 111272722,
+  "t": "ONDAS",
+  "d": "2019-09-25",
+  "tipo": "álbum",
+  "faixas": [
+   "Seus Planos",
+   "Debaixo do Travesseiro",
+   "Flechas",
+   "Janelas Que Abri para o Vento",
+   "Quando Tudo Passar",
+   "Futón",
+   "Gengivas",
+   "Não Me Prendo a Nada 2",
+   "Cauda do Cometa",
+   "Mar Revolto",
+   "Fantasias 2",
+   "Pressões Momentâneas",
+   "Todo Mar",
+   "Solidão",
+   "Princesinha Frozen",
+   "Curso D'água",
+   "Mar de Dor",
+   "O Que Cê Quer",
+   "Ondas",
+   "O Mundo Não Cabe na Minha Bolsa",
+   "Só de Garra",
+   "Veleiro"
+  ],
+  "label": "Polvo Roxo Records e Almanaque de Outono",
+  "nota": null,
+  "nf": 22,
+  "img": "/mk/111272722.jpg"
+ },
+ {
+  "id": 108282722,
+  "t": "Quando Tudo Passar",
+  "d": "2019-08-30",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/108282722.jpg"
+ },
+ {
+  "id": 103747762,
+  "t": "O Que Cê Quer",
+  "d": "2019-07-23",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/103747762.jpg"
+ },
+ {
+  "id": 102155862,
+  "t": "Olho D'água",
+  "d": "2019-06-06",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/102155862.jpg"
+ },
+ {
+  "id": 97814862,
+  "t": "Todo Mar",
+  "d": "2019-05-22",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/97814862.jpg"
+ },
+ {
+  "id": 92631272,
+  "t": "Extravagância e Perfume Mixtape",
+  "d": "2019-04-16",
+  "tipo": "álbum",
+  "faixas": [
+   "Extravagância e Perfume",
+   "Gana",
+   "O Rosto",
+   "Tens uma Arma",
+   "Sabes Que Sou Assim",
+   "Nada Muda Sob o Sol Que Iluminas",
+   "Thunder",
+   "O Kulto Verso Livre",
+   "Dale",
+   "Novas do Minério, Finge Que Não Sabe",
+   "Heart Healing",
+   "Coração Partido"
+  ],
+  "label": "Almanaque de Outono",
+  "nota": null,
+  "nf": 12,
+  "img": "/mk/92631272.jpg"
+ },
+ {
+  "id": 91206372,
+  "t": "Veleiro",
+  "d": "2019-03-29",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/91206372.jpg"
+ },
+ {
+  "id": 86475292,
+  "t": "Fantasias",
+  "d": "2019-02-04",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/86475292.jpg"
+ },
+ {
+  "id": 86475652,
+  "t": "Pressões Momentâneas",
+  "d": "2019-02-04",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/86475652.jpg"
+ },
+ {
+  "id": 85372282,
+  "t": "Extravagance Parfums",
+  "d": "2019-01-25",
+  "tipo": "álbum",
+  "faixas": [
+   "Promises",
+   "Sloppy Blow",
+   "No Straps",
+   "Blow Down",
+   "Horsehair",
+   "Br",
+   "Your Neck",
+   "Thunderstorm"
+  ],
+  "label": "Almanaque de Outono",
+  "nota": null,
+  "nf": 8,
+  "img": "/mk/85372282.jpg"
+ },
+ {
+  "id": 80956632,
+  "t": "Jovens Astronautas do Passado",
+  "d": "2018-12-14",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/80956632.jpg"
+ },
+ {
+  "id": 81379392,
+  "t": "Falen",
+  "d": "2018-12-07",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/81379392.jpg"
+ },
+ {
+  "id": 81276192,
+  "t": "Inevitável",
+  "d": "2018-12-06",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/81276192.jpg"
+ },
+ {
+  "id": 55006352,
+  "t": "Mal dos Trópikos, Construindo a Ponte da Prata Roubada",
+  "d": "2018-01-15",
+  "tipo": "álbum",
+  "faixas": [
+   "Quando Observo a Cruz de Folga (Na Maratona de Queijos e Vinhos)",
+   "Da Era do Amor Virtual",
+   "Synedoche Linhas Pífias",
+   "Sem Fôlego",
+   "Corpos de Cera no Incêndio",
+   "Linhas Abissais",
+   "D.A.Z.A City",
+   "Bobby James",
+   "Eu Já Suei a Blusa",
+   "Spice Girl",
+   "Quando as Sombras Brilharem"
+  ],
+  "label": "Makalister",
+  "nota": null,
+  "nf": 11,
+  "img": "/mk/55006352.jpg"
+ },
+ {
+  "id": 51695592,
+  "t": "Estilo Selvagem",
+  "d": "2017-11-03",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/51695592.jpg"
+ },
+ {
+  "id": 44755301,
+  "t": "Instalações Noturnas, Assuntos de Rua",
+  "d": "2017-07-12",
+  "tipo": "EP",
+  "faixas": [
+   "A Mosca no Vidro e a Gota na Sopa de Letras",
+   "Flow Caixa de Surpresa (De Frente a Fila Preferencial)",
+   "Instalações Noturnas, Assuntos de Rua",
+   "Peixes Ornamentais"
+  ],
+  "label": "Loopicotado",
+  "nota": null,
+  "nf": 4,
+  "img": "/mk/44755301.jpg"
+ },
+ {
+  "id": 57960842,
+  "t": "Laura Muller Mixtape",
+  "d": "2016-09-19",
+  "tipo": "álbum",
+  "faixas": [
+   "Punto G",
+   "Um Homem Que Dorme",
+   "Jovemblvckfriday",
+   "Pele Que Abandono",
+   "Sampa Plus",
+   "Garotas Curtem Don L",
+   "Jovem Frozen (Versão Extendida)",
+   "Faixa 8",
+   "Efieli Clothing Baunilha",
+   "Doce Bárbaros, Country Wine",
+   "Eu Torci por Acidentes",
+   "Eu Sinto o Cheiro",
+   "O Tempo nos Parece Mais Pesado Que o Físico, Pt. 2"
+  ],
+  "label": "Makalister",
+  "nota": null,
+  "nf": 13,
+  "img": "/mk/57960842.jpg"
+ },
+ {
+  "id": 58497462,
+  "t": "Driver Psone",
+  "d": "2016-05-23",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/58497462.jpg"
+ },
+ {
+  "id": 70076032,
+  "t": "Ponga, Espanha - Fita Perdida 2016",
+  "d": "2016-05-07",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/70076032.jpg"
+ },
+ {
+  "id": 57587452,
+  "t": "A Terça Parte da Noite",
+  "d": "2016-03-02",
+  "tipo": "EP",
+  "faixas": [
+   "Exercício de Elogios a Mulheres Que Amei",
+   "A Terça Parte da Noite Não Dormi",
+   "A Vida e Suas Voltas Redondas",
+   "Amores Perros"
+  ],
+  "label": "Makalister",
+  "nota": null,
+  "nf": 4,
+  "img": "/mk/57587452.jpg"
+ },
+ {
+  "id": 118875882,
+  "t": "Makalister Renton",
+  "d": "2015-04-01",
+  "tipo": "EP",
+  "faixas": [
+   "Ensaio Sobre o Sol",
+   "Subway 24Hrs",
+   "Flores de Galeano",
+   "Flatsh"
+  ],
+  "label": "Loopicotado",
+  "nota": "O primeiro EP, lançado com o nome Makalister Renton.",
+  "nf": 4,
+  "img": "/mk/118875882.jpg"
+ },
+ {
+  "id": 428786207,
+  "t": "0214: A Fuga",
+  "d": "2014-02-26",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/428786207.jpg"
+ },
+ {
+  "id": 404716787,
+  "t": "0114: Crystal",
+  "d": "2014-01-20",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/404716787.jpg"
+ },
+ {
+  "id": 389197557,
+  "t": "1213: O Adeus",
+  "d": "2013-12-24",
+  "tipo": "single",
+  "faixas": [],
+  "label": null,
+  "nota": null,
+  "img": "/mk/s/389197557.jpg"
+ }
+];

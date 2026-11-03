@@ -22,6 +22,7 @@ export const LUGARES = {
   alfenas: { cidade: 'Alfenas', pais: 'Brasil', lat: -21.4267, lon: -45.9470 },
   guarulhos: { cidade: 'Guarulhos', pais: 'Brasil', lat: -23.4538, lon: -46.5333 },
   mesquita: { cidade: 'Mesquita', pais: 'Brasil', lat: -22.7829, lon: -43.4246 },
+  saojose: { cidade: 'São José (SC)', pais: 'Brasil', lat: -27.6136, lon: -48.6366 },
   nepomuceno: { cidade: 'Nepomuceno', pais: 'Brasil', lat: -21.2319, lon: -45.2347 },
   pouso: { cidade: 'Pouso Alegre', pais: 'Brasil', lat: -22.23, lon: -45.9361 },
   lages: { cidade: 'Lages', pais: 'Brasil', lat: -27.8153, lon: -50.3264 },
@@ -201,6 +202,10 @@ const artistas = [
     'Gustavo Lessa, da Baixada Fluminense (RJ). Sereno da Via Light, Muita Ostra e Pouca Pérola, Mojica e uma obra que passa por música, arte conceitual, design e moda.',
     laranja, 'novaiguacu', { redes: [{ rotulo: 'Spotify', url: 'https://open.spotify.com/artist/1Fxj29J2wowDAzBFPzaTDQ' }, { rotulo: 'YouTube', url: 'https://www.youtube.com/channel/UCZDYrpQqQnDcdPHf6BkPlOA' }, { rotulo: 'Instagram', url: 'https://www.instagram.com/gessalustavo/' }, { rotulo: 'SoundCloud', url: 'https://soundcloud.com/lessagustavo' }, { rotulo: 'Bandcamp', url: 'https://lessagustavo.bandcamp.com/' }] }),
 
+  a('makalister', 'Makalister', 'Rap e produção',
+    'Rapper e produtor de São José, em Santa Catarina, do selo e canal Almanak. De 2013 a 2026 são mais de setenta lançamentos entre discos, EPs e avulsos, com letras que conversam com cinema e literatura.',
+    azul, 'saojose', { redes: [{ rotulo: 'Deezer', url: 'https://www.deezer.com/artist/10709967' }, { rotulo: 'SoundCloud', url: 'https://soundcloud.com/saintmakalister' }] }),
+
   a('bruxos-do-norte', 'Bruxos do Norte', 'Coletivo',
     'Coletivo de Manaus ligado à JODAM.',
     roxo, 'manaus'),
@@ -306,7 +311,7 @@ const BAIRROS_SP = {
   mapa (bio, links, trabalhos do acervo e textos), sem trocar de página. Quando uma página nova ficar pronta,
   é só incluir o slug na lista e o clique passa a levar para ela.
 */
-export const PAGINAS_PRONTAS = ['82', 'isa-katupyryb', 'romulo-spuri', 'rap-delivery', '1cort3', 'sergio-estranho', 'margarida-the-cat', 'phineas', 'prisma', 'vicente-blow', 'domrafa', '1lum3', 'van-mc', 'rogdog', 'alfano', 'herick-olx', 'el-mandarim', 'insyt', 'saull-oe', 'davzera', 'headb', 'lessa-gustavo'];
+export const PAGINAS_PRONTAS = ['82', 'isa-katupyryb', 'romulo-spuri', 'rap-delivery', '1cort3', 'sergio-estranho', 'margarida-the-cat', 'phineas', 'prisma', 'vicente-blow', 'domrafa', '1lum3', 'van-mc', 'rogdog', 'alfano', 'herick-olx', 'el-mandarim', 'insyt', 'saull-oe', 'davzera', 'headb', 'lessa-gustavo', 'makalister'];
 
 // como cada artista aparece escrito nas fichas técnicas e nos textos (para achar os trabalhos dele no acervo)
 export const APELIDOS = {
@@ -327,6 +332,7 @@ export const APELIDOS = {
   'davzera': ['davzera', 'davi nadier'],
   'headb': ['headb', 'head b', 'bruno headb', 'bruno saraiva'],
   'lessa-gustavo': ['lessa gustavo', 'lessa', 'gustavo lessa', 'gessa'],
+  'makalister': ['makalister', 'saintmakalister'],
   'bruxos-do-norte': ['bruxos do norte'],
   '1lum3': ['1lum3'],
   'van-mc': ['van mc', 'vanmc'],
@@ -342,7 +348,7 @@ const CORES_PINO = {
   'sergio-estranho': '#ff7a6b', 'domrafa': '#4fd6c3', 'margarida-the-cat': '#ff3b30', 'trinca': '#f3dc4f', 'el-mandarim': '#7be0ff',
   'phineas': '#ff6fd8', 'prisma': '#ffd1a1', 'vicente-blow': '#ff9a3c', 'saull-oe': '#9aa6ff', 'davzera': '#3ce0d6', 'headb': '#c8ff00', 'lessa-gustavo': '#e6231c', 'bruxos-do-norte': '#b48cff',
   '1lum3': '#8cf0a8', 'van-mc': '#3fe0b0', 'rogdog': '#ffe08a', 'alfano': '#ff4d5a', 'cevas': '#ffa6a6', 'herick-olx': '#c9f26b',
-  'insyt': '#e8e4d0',
+  'insyt': '#e8e4d0', 'makalister': '#5fc7d6',
 };
 artistas.forEach((art) => {
   art.corPino = CORES_PINO[art.slug] || '#cfcfe8';
@@ -370,9 +376,9 @@ const SEG_ARTISTA = {
   '82': ['Audiovisual'], 'isa-katupyryb': ['Audiovisual', 'Produção e cultura'], 'romulo-spuri': ['Produção e cultura'],
   'rap-delivery': ['Rap'], '1cort3': ['Rap'], 'sergio-estranho': ['Rap'], domrafa: ['Rap'], 'margarida-the-cat': ['Rock'],
   trinca: ['Artes visuais'], 'el-mandarim': ['Rap'], phineas: ['Rap', 'Produção e cultura'], prisma: ['Rap'],
-  'vicente-blow': ['Rap'], 'saull-oe': ['Rap'], davzera: ['Rap', 'Produção e cultura'], headb: ['Rap', 'Produção e cultura'], 'lessa-gustavo': ['Rap', 'Artes visuais'], 'bruxos-do-norte': ['Coletivo'], '1lum3': ['Rap'], 'van-mc': ['Rap'], 'herick-olx': ['Rap', 'Produção e cultura'], rogdog: ['Audiovisual'], cevas: ['Rap'], insyt: ['Rap', 'Produção e cultura'],
+  'vicente-blow': ['Rap'], 'saull-oe': ['Rap'], davzera: ['Rap', 'Produção e cultura'], headb: ['Rap', 'Produção e cultura'], 'lessa-gustavo': ['Rap', 'Artes visuais'], makalister: ['Rap'], 'bruxos-do-norte': ['Coletivo'], '1lum3': ['Rap'], 'van-mc': ['Rap'], 'herick-olx': ['Rap', 'Produção e cultura'], rogdog: ['Audiovisual'], cevas: ['Rap'], insyt: ['Rap', 'Produção e cultura'],
 };
-export const LANCOU_2026 = ['1cort3', 'margarida-the-cat', '1lum3'];
+export const LANCOU_2026 = ['1cort3', 'margarida-the-cat', '1lum3', 'makalister'];
 const FUNC_AUDIOVISUAL = ['imagem', 'edição', 'captação', 'cor', 'roteiro', 'takes', 'direção', 'câmera', 'arte'];
 artistas.forEach((art) => {
   if (SEG_ARTISTA[art.slug]) art.segmentos = SEG_ARTISTA[art.slug];
