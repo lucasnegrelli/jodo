@@ -22,6 +22,6 @@ jobs:
           auth=$(curl -s -o /dev/null -w "%{http_code}" "$SUPABASE_URL/auth/v1/health" -H "apikey: $SUPABASE_PUBLISHABLE_KEY")
           echo "auth/health respondeu $auth"
           # consulta de verdade ao banco (a tabela "artistas" nasce na fase 2; antes disso o REST devolve 404/401, e tudo bem)
-          rest=$(curl -s -o /dev/null -w "%{http_code}" "$SUPABASE_URL/rest/v1/artistas?select=id&limit=1" -H "apikey: $SUPABASE_PUBLISHABLE_KEY")
+          rest=$(curl -s -o /dev/null -w "%{http_code}" "$SUPABASE_URL/rest/v1/artistas?select=slug&limit=1" -H "apikey: $SUPABASE_PUBLISHABLE_KEY")
           echo "rest/artistas respondeu $rest"
           test "$auth" = "200"
