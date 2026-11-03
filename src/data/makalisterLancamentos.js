@@ -21,23 +21,6 @@ export const LANCAMENTOS = [
   "img": "/mk/s/1014450211.jpg"
  },
  {
-  "id": 988255391,
-  "t": "EL NENE",
-  "d": "2026-06-06",
-  "tipo": "EP",
-  "faixas": [
-   "EN OCULTO",
-   "ROA",
-   "DE TI",
-   "SUBIENDO NIVEL (feat. B-swing)",
-   "BIKINI (feat. Yeimora)"
-  ],
-  "label": "Discreto Records",
-  "nota": null,
-  "nf": 5,
-  "img": "/mk/988255391.jpg"
- },
- {
   "id": 917812531,
   "t": "Todo Lugar Tem Um Jovem",
   "d": "2026-02-19",
@@ -232,26 +215,6 @@ export const LANCAMENTOS = [
   "img": "/mk/s/774057531.jpg"
  },
  {
-  "id": 759549921,
-  "t": "BANDIDA",
-  "d": "2025-05-30",
-  "tipo": "single",
-  "faixas": [],
-  "label": null,
-  "nota": null,
-  "img": "/mk/s/759549921.jpg"
- },
- {
-  "id": 717451071,
-  "t": "ME ATREVO (feat. B-swing)",
-  "d": "2025-02-27",
-  "tipo": "single",
-  "faixas": [],
-  "label": null,
-  "nota": null,
-  "img": "/mk/s/717451071.jpg"
- },
- {
   "id": 743639691,
   "t": "Viva",
   "d": "2025-02-25",
@@ -270,16 +233,6 @@ export const LANCAMENTOS = [
   "label": null,
   "nota": null,
   "img": "/mk/s/644626391.jpg"
- },
- {
-  "id": 616762451,
-  "t": "TUTA X MAKALISTER",
-  "d": "2024-07-17",
-  "tipo": "single",
-  "faixas": [],
-  "label": null,
-  "nota": null,
-  "img": "/mk/s/616762451.jpg"
  },
  {
   "id": 601745472,
@@ -313,16 +266,6 @@ export const LANCAMENTOS = [
   "img": "/mk/s/606367982.jpg"
  },
  {
-  "id": 555115272,
-  "t": "Te Va Gustar (feat. B-swing & Eysi Blessed)",
-  "d": "2024-03-02",
-  "tipo": "single",
-  "faixas": [],
-  "label": null,
-  "nota": null,
-  "img": "/mk/s/555115272.jpg"
- },
- {
   "id": 539615512,
   "t": "Montparnasse, São José",
   "d": "2024-02-20",
@@ -353,16 +296,6 @@ export const LANCAMENTOS = [
   "img": "/mk/s/504683651.jpg"
  },
  {
-  "id": 486782415,
-  "t": "NO VUELVO",
-  "d": "2023-09-12",
-  "tipo": "single",
-  "faixas": [],
-  "label": null,
-  "nota": null,
-  "img": "/mk/s/486782415.jpg"
- },
- {
   "id": 477483925,
   "t": "Algoritmos",
   "d": "2023-09-01",
@@ -371,16 +304,6 @@ export const LANCAMENTOS = [
   "label": null,
   "nota": null,
   "img": "/mk/s/477483925.jpg"
- },
- {
-  "id": 436341247,
-  "t": "Los Pinky",
-  "d": "2023-05-02",
-  "tipo": "single",
-  "faixas": [],
-  "label": null,
-  "nota": null,
-  "img": "/mk/s/436341247.jpg"
  },
  {
   "id": 389013097,
@@ -421,36 +344,6 @@ export const LANCAMENTOS = [
   "label": null,
   "nota": null,
   "img": "/mk/s/356496527.jpg"
- },
- {
-  "id": 308592037,
-  "t": "Ladrón",
-  "d": "2022-04-29",
-  "tipo": "single",
-  "faixas": [],
-  "label": null,
-  "nota": null,
-  "img": "/mk/s/308592037.jpg"
- },
- {
-  "id": 307529857,
-  "t": "¡Oye Tú!",
-  "d": "2022-04-22",
-  "tipo": "single",
-  "faixas": [],
-  "label": null,
-  "nota": null,
-  "img": "/mk/s/307529857.jpg"
- },
- {
-  "id": 295862862,
-  "t": "De Menor",
-  "d": "2022-02-15",
-  "tipo": "single",
-  "faixas": [],
-  "label": null,
-  "nota": null,
-  "img": "/mk/s/295862862.jpg"
  },
  {
   "id": 286834892,

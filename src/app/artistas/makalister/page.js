@@ -1,10 +1,10 @@
-import MakalisterAlmanaque from "@/components/makalister/MakalisterAlmanaque";
+import MakalisterMergulho from "@/components/makalister/MakalisterMergulho";
 
 export const metadata = {
-  title: "Makalister | Almanaque de lançamentos | JODO",
-  description: "Makalister, rapper e produtor de São José (SC), do selo Almanak: todos os lançamentos de 2013 a 2026, em ordem de almanaque, com a fase da lua de cada dia.",
+  title: "Makalister | Rapper e produtor de São José (SC) | JODO",
+  description: "Makalister, rapper e produtor de São José (SC): os discos e EPs, de 2013 a 2026. Entre nas capas.",
 };
 
 export default function PaginaMakalister() {
-  return <MakalisterAlmanaque />;
+  return <MakalisterMergulho />;
 }
