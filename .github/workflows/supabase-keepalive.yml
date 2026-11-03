@@ -1,5 +1,5 @@
 # Mantém o projeto Supabase (plano grátis) acordado: o plano pausa depois de ~1 semana sem uso.
-# Precisa dos secrets SUPABASE_URL e SUPABASE_ANON_KEY no repositório (Settings > Secrets and variables > Actions).
+# Secrets do repositório (Settings > Secrets and variables > Actions): SUPABASE_URL e SUPABASE_PUBLISHABLE_KEY.
 # Sem os secrets, o job só avisa e termina sem erro.
 name: supabase-keepalive
 on:
@@ -13,12 +13,15 @@ jobs:
       - name: Ping no Supabase
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
         run: |
-          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_PUBLISHABLE_KEY" ]; then
             echo "Secrets do Supabase ainda não configurados; nada a fazer."
             exit 0
           fi
-          code=$(curl -s -o /dev/null -w "%{http_code}" "$SUPABASE_URL/rest/v1/" -H "apikey: $SUPABASE_ANON_KEY" -H "Authorization: Bearer $SUPABASE_ANON_KEY")
-          echo "Supabase respondeu $code"
-          test "$code" -lt 500
+          auth=$(curl -s -o /dev/null -w "%{http_code}" "$SUPABASE_URL/auth/v1/health" -H "apikey: $SUPABASE_PUBLISHABLE_KEY")
+          echo "auth/health respondeu $auth"
+          # consulta de verdade ao banco (a tabela "artistas" nasce na fase 2; antes disso o REST devolve 404/401, e tudo bem)
+          rest=$(curl -s -o /dev/null -w "%{http_code}" "$SUPABASE_URL/rest/v1/artistas?select=id&limit=1" -H "apikey: $SUPABASE_PUBLISHABLE_KEY")
+          echo "rest/artistas respondeu $rest"
+          test "$auth" = "200"
