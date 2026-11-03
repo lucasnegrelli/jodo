@@ -350,7 +350,7 @@ artistas.forEach((art) => {
 });
 
 artistas.forEach((art) => {
-  art.temPagina = PAGINAS_PRONTAS.includes(art.slug);
+  art.temPagina = PAGINAS_PRONTAS.includes(art.slug) || !!art.externo; // site próprio (ex.: Trinca, trincamosaico.art) conta como página e abre em nova aba
 });
 
 artistas.forEach((art) => {
