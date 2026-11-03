@@ -1,0 +1,130 @@
+
+
+.archiveTag {
+    display: inline-block;
+    margin: 10px 3px;
+    font-size: 14px;
+}
+.archiveTag:hover {
+    text-decoration: underline;
+}
+.featuredTitle {
+    padding: calc(2 * var(--gap)) 0;;
+}
+.contentArchive {
+  padding: 100px 2%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.archiveTitle h3{
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 900;
+}
+
+
+.archiveImage img {
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.archiveItem img:hover {
+    transform: scale(1.2);
+}
+
+.contentArchiveSideA {
+    width: 30%;
+}
+.contentArchiveSideB {
+    width: 70%;
+}
+
+.contentArchiveSideB li div a {
+    font-size: 30px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    transition: transform 0.2s ease-in-out;
+    transform-origin: center;
+}
+
+.contentArchiveSideB li div a:hover {
+    transform: rotateX(180deg);
+}
+
+.contentArchiveYear {
+    text-align: left;
+}
+  .archives {
+    position: relative;
+  }
+  
+  .archiveImage {
+    position: absolute;
+    top: 0;
+    left: -18%; /* ajuste a posição como quiser */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+    z-index: 1;
+  }
+  
+  .archiveItem:hover + .archiveImage {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .archives:hover .archiveImage {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .archivePic {
+    width: 300px;
+    height: 300px;
+}
+.archiveItem {
+    border-bottom: 1px solid #fff;
+}
+
+.archiveItem:hover {
+    border-bottom: 1px solid black;
+}
+
+@keyframes inverter-vertical {
+    0% {
+      transform: rotateX(0deg);
+    }
+    100% {
+      transform: rotateX(180deg);
+    }
+  }
+
+@media (max-width: 1024px) {
+    .contentArchive {
+      display: block;
+    }
+    .contentArchiveSideB {
+      width: 100%;
+      padding: 0 10px;
+      margin-top: 40px;
+    }
+    .contentArchiveSideB li div a {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    .archiveItem:hover + .archiveImage {
+      opacity: 0;
+      visibility: hidden;
+    }
+  
+    .archives:hover .archiveImage {
+      opacity: 0;
+      visibility: hidden;
+    }
+}

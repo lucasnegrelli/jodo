@@ -1,0 +1,249 @@
+
+
+.contentCardLow {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 20%;
+    box-sizing: border-box;
+    display:inline-block;
+    margin-top: -33px;
+}
+
+.imgThumb {
+    aspect-ratio: 1;
+}
+
+.imgThumb img {
+    object-fit: cover;
+    width: 100%;
+    height: 90%;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: grayscale(1) ;
+}
+
+.imgThumb:hover img {
+    transform: scale(1.05);
+    filter: grayscale(0) ;
+}
+
+.hoverOverlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+    padding: 40px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 1000;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.overlayContent {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+
+.contentCardLow:hover .hoverOverlay {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.contentCardLow:hover .overlayContent {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.overlayTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-family: var(--serif);
+    background: linear-gradient(45deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShine 3s ease-in-out infinite;
+}
+
+.overlayDescription {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease 0.4s;
+}
+
+.contentCardLow:hover .overlayDescription {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.overlayMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease 0.6s;
+}
+
+.contentCardLow:hover .overlayMeta {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.overlayAuthor {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.overlayAuthor img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.overlayAuthor span {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.overlayDate {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+@keyframes textShine {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.cardLowInfos {
+    display: none;
+}
+
+.cardLowTitle:hover {
+    text-decoration: underline;
+}
+
+.cardLowfooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardLowfooter span {
+    font-weight: 600;
+}
+
+.cardLowTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 130%;
+    font-family: var(--serif);
+    transition: opacity 0.3s ease;
+}
+
+.contentCardLow:hover .cardLowTitle {
+    opacity: 0.7;
+}
+
+.cardLowDescription {
+    line-height: 27px;
+}
+
+@keyframes myAnim {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 2400px) {
+    .cardsContainer {
+        grid-template-columns: repeat(5, 1fr);
+        max-width: 2200px;
+        gap: 45px;
+    }
+}
+
+@media (max-width: 2000px) {
+    .cardsContainer {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1800px;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 1600px) {
+    .cardsContainer {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1400px;
+        gap: 35px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .cardsContainer {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 1000px;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 800px) {
+    .cardsContainer {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .contentCardLow {
+        display: block;
+        width: 100%;
+    }
+    .hoverOverlay {
+        opacity: 1;
+        position: absolute;
+    }
+    .overlayContent{
+        opacity: 1;
+    }
+    .overlayMeta {
+        opacity: 1;
+    }
+    .overlayTitle {
+        font-size: 1.5rem;
+    }  
+  }

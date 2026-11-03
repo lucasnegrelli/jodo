@@ -1,0 +1,77 @@
+.sec {
+  --pv: #7fcf6a; --pg: #e9e4d6;
+  position: relative; z-index: 3; color: var(--pg);
+  padding: clamp(40px, 8vh, 100px) clamp(14px, 4vw, 80px) 10vh;
+  /* parede de concreto: grão fino + manchas */
+  background-color: #141413;
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(255,255,255,0.05), transparent 45%),
+    radial-gradient(ellipse at 85% 60%, rgba(255,255,255,0.04), transparent 50%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.09 0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>");
+}
+.etiqueta { font-family: "CasualHuman", var(--fonte-principal); font-size: 1rem; letter-spacing: 0.04em; color: var(--pv); margin: 0 0 1vh; }
+.topo h2 { margin: 0; font-family: "AmericanCaptain", "Anton", var(--fonte-principal); font-weight: 400; font-size: clamp(3rem, 10vw, 9rem); line-height: 0.88; color: #f4f1e8; text-shadow: 4px 4px 0 #e8213f, 0 0 2px #000; transform: rotate(-1.2deg); transform-origin: left; }
+.hero { display: grid; grid-template-columns: auto 1fr; gap: clamp(16px, 4vw, 60px); align-items: end; margin-top: 3vh; }
+.total { display: grid; gap: 4px; }
+.total b { font-family: "AmericanCaptain", var(--fonte-principal); font-weight: 400; font-size: clamp(3rem, 8vw, 7rem); line-height: 0.88; color: var(--pv); }
+.total span, .kpis span { font-family: "SpaceMono", monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
+.kpis { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 14px clamp(14px, 3vw, 40px); }
+.kpis li { border-left: 3px solid #f4f1e8; padding-left: 10px; display: grid; }
+.kpis b { font-family: "AmericanCaptain", var(--fonte-principal); font-weight: 400; font-size: clamp(1.6rem, 3vw, 2.6rem); line-height: 1; }
+
+.controles { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin: 4vh 0 3vh; }
+.controles input { font-family: "SpaceMono", monospace; background: rgba(0,0,0,0.35); border: 0; border-bottom: 2px solid #f4f1e8; color: var(--pg); padding: 7px 8px; font-size: 0.85rem; outline: none; width: min(100%, 240px); }
+.controles input::placeholder { color: rgba(233,228,214,0.45); }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chips button { font-family: "SpaceMono", monospace; font-size: 0.68rem; color: var(--pg); background: rgba(0,0,0,0.35); border: 1px solid rgba(233,228,214,0.28); padding: 3px 8px; cursor: pointer; transition: all 0.15s; }
+.chips button i { font-style: normal; opacity: 0.5; margin-left: 4px; }
+.chips button:hover { border-color: #f4f1e8; }
+.on { background: #f4f1e8 !important; color: #111 !important; border-color: #f4f1e8 !important; }
+
+.muro { display: grid; gap: clamp(30px, 6vh, 70px); }
+.parede { position: relative; }
+.parede h3 { margin: 0 0 14px; font-family: "AmericanCaptain", "Anton", var(--fonte-principal); font-weight: 400; font-size: clamp(2.4rem, 6vw, 5.4rem); line-height: 0.9; letter-spacing: 0.02em; color: var(--cor); /* tinta spray */ text-shadow: 0 0 3px var(--cor), 0 0 14px color-mix(in srgb, var(--cor) 55%, transparent); filter: blur(0.35px); transform-origin: left; text-transform: uppercase; }
+.parede h3 small { font-family: "SpaceMono", monospace; font-size: 0.7rem; letter-spacing: 0.1em; margin-left: 14px; color: #f4f1e8; text-shadow: none; filter: none; opacity: 0.8; vertical-align: 0.4em; }
+.lambes { display: flex; flex-wrap: wrap; gap: 12px 6px; align-items: flex-start; }
+
+/* o lambe: papel branco com fita, levemente torto */
+.lambe { position: relative; width: var(--w); margin: var(--m) 0 0; padding: 7px 7px 8px; background: #f4f1e8; color: #151515; border: 0; text-align: left; cursor: pointer; transform: rotate(var(--r)); box-shadow: 2px 5px 14px rgba(0,0,0,0.6); transition: transform 0.18s cubic-bezier(.3,1.6,.5,1), box-shadow 0.18s; display: grid; gap: 3px; }
+.lambe img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; filter: grayscale(0.85) contrast(1.15); transition: filter 0.2s; mix-blend-mode: multiply; background: #fff; }
+.lambe strong { font-family: "CasualHuman", var(--fonte-principal); font-size: clamp(0.82rem, 1.05vw, 1.05rem); line-height: 1.05; overflow-wrap: anywhere; }
+.lambe small { font-family: "SpaceMono", monospace; font-size: 0.58rem; opacity: 0.65; }
+.fita { position: absolute; left: 50%; top: -9px; width: 46%; height: 16px; background: rgba(255, 214, 90, 0.78); transform: translateX(-50%) rotate(-3deg); box-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+.lambe:hover, .lambe:focus-visible { transform: rotate(0deg) scale(1.08) translateY(-4px); z-index: 4; box-shadow: 6px 14px 26px rgba(0,0,0,0.75); }
+.lambe:hover img, .lambe:focus-visible img { filter: none; mix-blend-mode: normal; }
+.descolado { transform: rotate(0) scale(1.05); outline: 3px solid #e8213f; }
+
+.cartaz { display: grid; gap: 4px; justify-items: start; background: #e8213f; color: #fff; padding: 14px 16px 16px; max-width: 480px; transform: rotate(-1.6deg); box-shadow: 4px 8px 20px rgba(0,0,0,0.65); position: relative; }
+.cartaz::before { content: ""; position: absolute; left: 24px; top: -10px; width: 90px; height: 18px; background: rgba(255,214,90,0.8); transform: rotate(-4deg); }
+.cartaz h3 { margin: 0; font-family: "AmericanCaptain", var(--fonte-principal); font-weight: 400; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 0.9; }
+.cartaz p { margin: 0 0 8px; font-family: "SpaceMono", monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.cartaz div { display: flex; gap: 8px; }
+.cartaz button { position: relative; width: clamp(100px, 10vw, 140px); padding: 0; border: 3px solid #fff; background: #000; cursor: pointer; }
+.cartaz img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+.cartaz span { position: absolute; left: 4px; bottom: 3px; font-family: "SpaceMono", monospace; font-size: 0.64rem; color: #fff; text-shadow: 0 0 4px #000; }
+
+.fundoCartaz { position: fixed; inset: 0; z-index: 80; background: rgba(0,0,0,0.72); display: grid; place-items: center; padding: 14px; }
+.ficha { position: relative; width: min(560px, 100%); max-height: 86vh; overflow: auto; background: #f4f1e8; color: #151515; padding: 20px; transform: rotate(-0.6deg); box-shadow: 0 20px 70px rgba(0,0,0,0.8); scrollbar-width: thin; }
+.ficha::before { content: ""; position: absolute; left: 50%; top: -9px; width: 120px; height: 20px; background: rgba(255,214,90,0.85); transform: translateX(-50%) rotate(2deg); }
+.fecha { position: absolute; right: 10px; top: 6px; background: none; border: 0; font-size: 1.7rem; cursor: pointer; color: #151515; }
+.ficha h3 { margin: 0 28px 2px 0; font-family: "AmericanCaptain", var(--fonte-principal); font-weight: 400; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 0.9; }
+.local { font-family: "SpaceMono", monospace; font-size: 0.7rem; margin: 4px 0 10px; opacity: 0.75; }
+.colegas { font-family: "SpaceMono", monospace; font-size: 0.66rem; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; margin: 0 0 12px; }
+.colegas button { font-family: inherit; font-size: inherit; background: #151515; color: #f4f1e8; border: 0; padding: 2px 7px; cursor: pointer; }
+.colegas button:hover { background: #e8213f; }
+.ficha ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.ficha li button { width: 100%; display: grid; grid-template-columns: 96px 1fr auto; gap: 10px; align-items: center; text-align: left; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.18); color: #151515; padding: 4px; cursor: pointer; }
+.ficha li button:hover { background: #151515; color: #f4f1e8; }
+.ficha li img { width: 96px; height: 54px; object-fit: cover; display: block; }
+.ficha li strong { font-family: "CasualHuman", var(--fonte-principal); font-size: 0.98rem; line-height: 1.1; display: block; }
+.ficha li small { font-family: "SpaceMono", monospace; font-size: 0.6rem; opacity: 0.7; }
+.ficha li b { padding-right: 6px; font-weight: 400; }
+.vazio { font-family: "SpaceMono", monospace; font-size: 0.85rem; opacity: 0.7; }
+
+@media (max-width: 800px) {
+  .hero { grid-template-columns: 1fr; }
+  .lambe { --w: 120px !important; }
+}

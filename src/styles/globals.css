@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --contentCenter:  100%;
+  --gap: 20px;
+  --serif: "Merriweather", serif;
+  --card-height: 300px;
+  --card-width: calc(var(--card-height) / 1.5);
+}
+
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+main {
+  margin: 0 auto;
+}
+
+li {
+  list-style: none;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'HelveticaNowDisplay';
+  src: url('/fonts/HelveticaNowDisplay-Light.woff2') format('woff2'),
+       url('/fonts/HelveticaNowDisplay-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNowDisplay';
+  src: url('/fonts/HelveticaNowDisplay-Regular.woff2') format('woff2'),
+       url('/fonts/HelveticaNowDisplay-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNowDisplay';
+  src: url('/fonts/HelveticaNowDisplay-Bold.woff2') format('woff2'),
+       url('/fonts/HelveticaNowDisplay-Bold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNowDisplay';
+  src: url('/fonts/HelveticaNowDisplay-ExtraBold.woff2') format('woff2'),
+       url('/fonts/HelveticaNowDisplay-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+}
+
+.helvetica-now-display {
+  font-family: 'HelveticaNowDisplay', sans-serif;
+}
+
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

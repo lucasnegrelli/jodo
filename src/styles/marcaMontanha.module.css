@@ -1,0 +1,76 @@
+/* Logo da montanha desenhado em código (ver data/logoMontanha.js) */
+.marca {
+  position: absolute;
+  top: clamp(10px, 2vh, 22px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  margin: 0;
+  cursor: default;
+  line-height: 0;
+}
+.marca svg { display: block; width: clamp(78px, 6.8vw, 104px); height: auto; overflow: visible; }
+.marca path { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+
+/* base: branco; desenha na entrada e respira depois */
+.base path {
+  stroke: #fff;
+  stroke-width: 1.2px;
+  stroke-dasharray: 1;
+  animation:
+    desenha 1.5s cubic-bezier(0.5, 0, 0.2, 1) calc(0.25s + var(--i) * 0.032s) both,
+    respira 7s ease-in-out calc(3.4s + var(--i) * 0.21s) infinite;
+}
+@keyframes desenha { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes respira { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+/* luz: um trecho curto de cada traço, na cor do modo, correndo ao longo da linha */
+.luz { opacity: 0.4; transition: opacity 0.4s ease; }
+.luz path {
+  stroke: var(--acento, #7fcf6a);
+  stroke-width: 1.6px;
+  stroke-dasharray: 0.12 0.88;
+  stroke-dashoffset: 0.12;
+  filter: drop-shadow(0 0 2px var(--acento, #7fcf6a));
+  animation: corre 5.5s linear calc(var(--i) * -0.37s) infinite;
+}
+@keyframes corre { to { stroke-dashoffset: -0.88; } }
+.marca:hover .luz, .marca:focus-within .luz { opacity: 1; }
+.marca:hover .luz path { animation-duration: 1.8s; }
+.marca:hover .base path { stroke: color-mix(in srgb, var(--acento, #7fcf6a) 35%, #fff); }
+.base path { transition: stroke 0.35s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .base path, .luz path { animation: none; stroke-dashoffset: 0; }
+  .luz { display: none; }
+}
+
+/* crédito da arte: uma frase discreta ao lado do logo, com um tracinho na cor do modo */
+.marca { outline: none; }
+.balao {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 10px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: translate(-6px, -50%);
+  white-space: nowrap;
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-shadow: 0 1px 8px #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.balao::before {
+  content: "";
+  width: 16px;
+  height: 1px;
+  background: var(--acento, #7fcf6a);
+  opacity: 0.8;
+}
+.marca:hover .balao, .marca:focus-visible .balao { opacity: 0.75; transform: translate(0, -50%); }

@@ -1,0 +1,640 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Saira+Extra+Condensed:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap");
+
+.pagina { --tit: "Saira Extra Condensed", "Arial Narrow", Impact, sans-serif; position: relative; background: #0b0b0b; color: #fff; font-family: "Space Mono", ui-monospace, monospace; }
+
+/* manchas de tinta: uma por seção, empilhadas; o centro é onde estava o mouse */
+.mancha { position: fixed; inset: 0; pointer-events: none; clip-path: circle(0px at 0 0); }
+.conteudo { position: relative; z-index: 20; }
+
+/* abertura: o logotipo dela, altíssimo, branco sobre preto */
+.abertura { position: relative; min-height: 100vh; display: grid; place-items: center; padding: 70px 5vw 40px; }
+.logo { height: min(74vh, 86vw); width: auto; display: block; filter: brightness(0) invert(1); animation: sobe 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes sobe { from { clip-path: inset(100% 0 0 0); transform: translateY(5%); } to { clip-path: inset(0); transform: none; } }
+.numeros0 { position: absolute; left: clamp(18px, 4vw, 56px); bottom: 34px; display: grid; gap: 10px; }
+.numeros0 p { margin: 0; display: flex; align-items: baseline; gap: 12px; }
+.n0 { font-family: var(--tit); font-weight: 600; font-size: clamp(1.6rem, 3vw, 2.6rem); line-height: 1; letter-spacing: 0.01em; font-variant-numeric: tabular-nums; min-width: 4.4ch; }
+.numeros0 span:not(.n0) { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; max-width: 26ch; line-height: 1.4; }
+.rola { position: absolute; right: clamp(18px, 4vw, 56px); bottom: 34px; margin: 0; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.8; }
+
+/* capítulos */
+.cap { position: relative; min-height: 112vh; display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 5vw, 80px); padding: 12vh clamp(20px, 6vw, 90px); }
+.figura { position: relative; justify-self: center; width: min(100%, 68vh); }
+.num { position: absolute; left: -0.18em; top: -0.5em; font-family: var(--tit); font-weight: 700; font-size: clamp(5rem, 14vw, 13rem); line-height: 1; color: transparent; -webkit-text-stroke: 2px currentColor; opacity: 0.55; pointer-events: none; }
+.pintura { position: relative; aspect-ratio: 1; width: 100%; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35); background: #00000022; }
+.pintura img, .pintura canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.pintura canvas { opacity: 0; transition: opacity 0.6s ease; }
+.pintura canvas.vivo { opacity: 1; }
+
+.texto { max-width: 560px; }
+.tipo { margin: 0 0 14px; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.8; }
+.texto h2 { margin: 0; font-family: var(--tit); font-weight: 600; font-size: clamp(3.4rem, 8vw, 8rem); line-height: 0.84; letter-spacing: 0.005em; text-transform: uppercase; }
+.texto h2 small { display: block; margin-top: 0.3em; font-family: "Space Mono", monospace; font-weight: 400; font-size: 0.17em; letter-spacing: 0.1em; text-transform: none; opacity: 0.85; line-height: 1.4; }
+.com { margin: 14px 0 0; font-size: 0.82rem; opacity: 0.9; }
+.faixas { list-style: none; margin: 26px 0 0; padding: 0; counter-reset: f; }
+.faixas li { counter-increment: f; display: flex; gap: 12px; padding: 9px 0; border-bottom: 1.5px solid currentColor; font-size: 0.82rem; }
+.faixas li::before { content: counter(f, decimal-leading-zero); opacity: 0.55; font-variant-numeric: tabular-nums; }
+.faixas li span { flex: 1; }
+.faixas li b { font-weight: 400; font-variant-numeric: tabular-nums; opacity: 0.8; }
+.ouvir { margin-top: 26px; display: inline-flex; align-items: center; gap: 10px; font: inherit; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: inherit; background: none; border: 2px solid currentColor; border-radius: 999px; padding: 12px 22px; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+.ouvir i { width: 0; height: 0; border-left: 10px solid currentColor; border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
+.spot { margin-top: 24px; width: 100%; height: 152px; border: 0; border-radius: 12px; }
+
+/* 01 álbum: ocre */
+.c_album { color: #1b0d03; }
+.c_album .ouvir:hover { background: #1b0d03; color: #e9b43a; }
+.c_album .num { color: #1b0d03; }
+/* 02 single vermelho */
+.c_cansar { color: #ffe9d6; grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); }
+.c_cansar .figura { order: 2; }
+.c_cansar .texto { order: 1; justify-self: end; }
+.c_cansar .ouvir:hover { background: #ffe9d6; color: #7a110d; }
+/* 03 ep: o branco */
+.c_ep { color: #111; min-height: 100vh; }
+.capaEp { aspect-ratio: 1; width: 100%; background: #fff; display: grid; place-items: center; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06); }
+.capaEp span { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(1.4rem, 2.6vw, 2.4rem); letter-spacing: 0.01em; }
+.c_ep .texto h2 { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; font-size: clamp(3.4rem, 8vw, 8rem); line-height: 0.95; }
+.c_ep .num { color: #111; opacity: 0.25; }
+.c_ep .ouvir:hover { background: #111; color: #fff; }
+/* 04 centro parte II: céu */
+.c_centro { color: #1a1410; grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); }
+.c_centro .figura { order: 2; }
+.c_centro .texto { order: 1; justify-self: end; }
+.c_centro .texto h2 { text-transform: lowercase; font-family: "Space Mono", monospace; font-weight: 700; font-size: clamp(2.2rem, 5vw, 5rem); letter-spacing: -0.04em; line-height: 0.95; }
+.c_centro .num { color: #1a1410; }
+.c_centro .ouvir:hover { background: #1a1410; color: #cbbba5; }
+
+/* números */
+.numeros { position: relative; min-height: 100vh; padding: 14vh clamp(20px, 6vw, 90px) 12vh; color: #f4f1e8; }
+.gigante { margin: 0 0 40px; font-family: var(--tit); font-weight: 600; font-size: clamp(5rem, 22vw, 22rem); line-height: 0.8; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.gigante small { display: block; margin-top: 0.1em; font-family: "Space Mono", monospace; font-weight: 400; font-size: 0.08em; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.7; }
+.top { list-style: none; margin: 0 0 34px; padding: 0; display: grid; gap: 4px; max-width: 1100px; }
+.top li { position: relative; display: grid; grid-template-columns: 3ch minmax(0, 1fr) auto; align-items: baseline; gap: 14px; padding: 14px 0 16px; border-bottom: 1px solid rgba(244, 241, 232, 0.25); overflow: hidden; }
+.top li b { font-weight: 400; opacity: 0.5; font-size: 0.8rem; }
+.nomeTop { font-family: var(--tit); font-weight: 600; font-size: clamp(1.7rem, 3.6vw, 3.2rem); line-height: 1; text-transform: uppercase; }
+.nomeTop small { display: block; margin-top: 4px; font-family: "Space Mono", monospace; font-weight: 400; font-size: 0.26em; letter-spacing: 0.08em; text-transform: none; opacity: 0.65; }
+.playsTop { font-family: var(--tit); font-weight: 600; font-size: clamp(1.6rem, 3.4vw, 3rem); font-variant-numeric: tabular-nums; }
+.barra { position: absolute; left: 0; bottom: 0; height: 4px; width: var(--w); background: #ff5fa8; transform-origin: left; animation: cresce 1.6s var(--d) cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes cresce { from { transform: scaleX(0); } }
+.comQuem { margin: 0 0 22px; font-size: 0.82rem; line-height: 1.8; max-width: 72ch; }
+.comQuem span { display: inline-block; margin-right: 8px; font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6; }
+.bio { margin: 0; max-width: 62ch; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(1.3rem, 2.2vw, 1.9rem); line-height: 1.35; opacity: 0.92; }
+
+/* parede: todos os lançamentos */
+.parede { position: relative; padding: 14vh clamp(20px, 6vw, 90px) 12vh; color: #141210; }
+.parede h2, .cinema h2 { margin: 0 0 36px; font-family: var(--tit); font-weight: 600; font-size: clamp(4rem, 12vw, 11rem); line-height: 0.82; text-transform: uppercase; }
+.parede h2 small, .cinema h2 small { font-family: "Space Mono", monospace; font-weight: 400; font-size: 0.1em; letter-spacing: 0.18em; text-transform: none; opacity: 0.65; }
+.ano { display: grid; grid-template-columns: clamp(96px, 9.5vw, 160px) minmax(0, 1fr); gap: 16px; padding: 18px 0; border-top: 1.5px solid #141210; }
+.ano h3 { margin: 0; font-family: var(--tit); font-weight: 600; font-size: clamp(2rem, 3.6vw, 3.4rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.ano ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+.ano button { width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; display: grid; gap: 8px; }
+.ano img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform 0.35s cubic-bezier(0.3, 0.9, 0.3, 1), box-shadow 0.35s ease; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18); }
+.ano button:hover img, .ano button:focus-visible img { transform: translateY(-8px) rotate(-1.5deg); box-shadow: 0 22px 40px rgba(0, 0, 0, 0.3); }
+.ano span b { display: block; font-size: 0.78rem; line-height: 1.25; }
+.ano span small { display: block; margin-top: 2px; font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; }
+
+/* gaveta do Spotify */
+.gaveta { position: fixed; z-index: 50; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); overflow-y: auto; padding: 70px 24px 30px; background: #0f0f0f; color: #f4f1e8; border-left: 3px solid #ff5fa8; animation: entra 0.35s cubic-bezier(0.3, 0.9, 0.3, 1) both; }
+@keyframes entra { from { transform: translateX(40px); opacity: 0; } }
+.gaveta img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; margin-bottom: 18px; }
+.gaveta h3 { margin: 0 0 16px; font-family: var(--tit); font-weight: 600; font-size: 2.4rem; line-height: 0.95; text-transform: uppercase; }
+.gaveta iframe { width: 100%; height: 352px; border: 0; border-radius: 12px; }
+.fecha { position: absolute; top: 20px; left: 24px; font: inherit; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: inherit; background: none; border: 1px solid currentColor; padding: 6px 10px; cursor: pointer; }
+
+/* a sala: vídeos */
+.cinema { position: relative; padding: 14vh clamp(20px, 6vw, 90px) 12vh; color: #f2efe6; }
+.sala { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(260px, 1fr); gap: clamp(18px, 3vw, 44px); align-items: start; margin-bottom: 54px; }
+.tela { position: sticky; top: 90px; }
+.tela iframe, .poster { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #000; }
+.poster { position: relative; background-size: cover; background-position: center; cursor: pointer; filter: grayscale(0.4) contrast(1.1); transition: filter 0.3s ease; padding: 0; }
+.poster:hover { filter: none; }
+.poster i { position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.25); }
+.poster i::after { content: ""; position: absolute; left: 34px; top: 26px; border-left: 24px solid #0b0b0b; border-top: 16px solid transparent; border-bottom: 16px solid transparent; }
+.legendaV { margin: 14px 0 0; display: grid; gap: 4px; }
+.legendaV b { font-family: var(--tit); font-weight: 600; font-size: clamp(1.6rem, 2.8vw, 2.6rem); line-height: 1; text-transform: uppercase; }
+.legendaV span { font-size: 0.74rem; opacity: 0.7; }
+.lista { list-style: none; margin: 0; padding: 0; display: grid; }
+.lista li { border-top: 1px solid rgba(242, 239, 230, 0.2); }
+.lista button { width: 100%; display: grid; grid-template-columns: 74px 3.4ch minmax(0, 1fr); gap: 12px; align-items: center; text-align: left; font: inherit; color: inherit; background: none; border: 0; padding: 10px 0; cursor: pointer; opacity: 0.7; transition: opacity 0.2s ease, padding 0.25s ease; }
+.lista button:hover, .lista .sel button { opacity: 1; padding-left: 8px; }
+.lista .sel button { color: #ff5fa8; }
+.min { aspect-ratio: 16 / 10; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.2); }
+.lista button:hover .min, .lista .sel .min { filter: none; }
+.lista em { font-style: normal; font-size: 0.7rem; opacity: 0.6; font-variant-numeric: tabular-nums; }
+.lista b { font-size: 0.82rem; line-height: 1.3; font-weight: 400; }
+.redes { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.redes a { display: inline-block; color: #f2efe6; border: 1.5px solid #f2efe6; border-radius: 999px; padding: 10px 18px; font-size: 0.78rem; letter-spacing: 0.08em; text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
+.redes a:hover { background: #f2efe6; color: #0b0b0b; }
+
+@media (max-width: 860px) {
+  .cap, .c_cansar, .c_centro { grid-template-columns: 1fr; padding-top: 14vh; min-height: auto; gap: 30px; }
+  .c_cansar .figura, .c_centro .figura { order: 0; }
+  .c_cansar .texto, .c_centro .texto { order: 1; justify-self: start; }
+  .figura { width: min(100%, 84vw); }
+  .num { font-size: 6rem; }
+  .logo { height: min(60vh, 120vw); }
+  .numeros0 { bottom: 66px; }
+  .sala { grid-template-columns: 1fr; }
+  .tela { position: static; }
+  .ano { grid-template-columns: 1fr; gap: 8px; }
+  .ano ul { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  .top li { grid-template-columns: 2ch minmax(0, 1fr); }
+  .playsTop { grid-column: 2; }
+}
+@media (prefers-reduced-motion: reduce) { .logo, .barra, .gaveta { animation: none; } }
+
+/* ===== v2.1: composição própria por capítulo ===== */
+.cap { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); grid-template-areas: "fig tit" "fig inf"; align-content: center; column-gap: clamp(24px, 5vw, 80px); row-gap: 22px; }
+.figura { grid-area: fig; align-self: center; }
+.titulo { grid-area: tit; align-self: end; }
+.info { grid-area: inf; align-self: start; max-width: 600px; }
+.titulo h2 { margin: 0; font-family: var(--tit); font-weight: 600; font-size: clamp(2.6rem, 5.4vw, 5.4rem); line-height: 0.9; letter-spacing: 0.005em; text-transform: uppercase; }
+.titulo h2 small { display: block; margin-top: 0.35em; font-family: "Space Mono", monospace; font-weight: 400; font-size: 0.2em; letter-spacing: 0.08em; text-transform: none; opacity: 0.85; line-height: 1.4; }
+.ficha { margin: 0 0 22px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 22px; }
+.ficha div { border-top: 1.5px solid currentColor; padding-top: 7px; }
+.ficha dt { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.65; }
+.ficha dd { margin: 4px 0 0; font-size: 0.98rem; line-height: 1.3; }
+.faixas { margin: 0 0 22px; }
+.faixas li { font-size: 0.92rem; padding: 10px 0; }
+.acoes { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.acoes .ouvir { margin-top: 0; }
+.acoes .spot { margin-top: 0; }
+
+/* 01 álbum: capa grande, título contido, ficha e faixas legíveis */
+.c_album .titulo h2 { max-width: 11ch; }
+
+/* 02 single: o título é a imagem; a capa entra por baixo, à direita */
+.c_cansar { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.9fr); grid-template-areas: "tit tit" "inf fig"; }
+.c_cansar .titulo { align-self: start; }
+.c_cansar .titulo h2 { font-size: clamp(3.4rem, 10.5vw, 10.5rem); line-height: 0.84; max-width: 14ch; }
+.c_cansar .titulo h2 small { font-size: 0.14em; }
+.c_cansar .figura { order: 0; justify-self: end; width: min(100%, 56vh); margin-top: -4vh; transform: rotate(2.5deg); }
+.c_cansar .info { justify-self: start; }
+
+/* 03 ep: tudo no centro, bastante branco */
+.c_ep { grid-template-columns: minmax(0, 1fr); grid-template-areas: "fig" "tit" "inf"; justify-items: center; text-align: center; row-gap: 26px; padding-top: 14vh; }
+.c_ep .figura { width: min(100%, 40vh); }
+.c_ep .titulo { align-self: auto; }
+.c_ep .titulo h2 { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; font-size: clamp(3.4rem, 8vw, 8rem); line-height: 0.95; }
+.c_ep .info { max-width: 520px; width: 100%; }
+.c_ep .ficha { grid-template-columns: repeat(3, minmax(0, 1fr)); text-align: left; }
+.c_ep .faixas li { justify-content: center; border-bottom-color: rgba(17, 17, 17, 0.18); }
+.c_ep .faixas li::before { display: none; }
+.c_ep .faixas li span { flex: 0 1 auto; }
+.c_ep .acoes { justify-content: center; }
+
+/* 04 centro parte II: a colagem sangra para fora da tela, o texto fica em mono */
+.c_centro { overflow: hidden; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "tit fig" "inf fig"; }
+.c_centro .figura { width: min(76vh, 62vw); margin-right: -9vw; justify-self: end; }
+.c_centro .titulo { align-self: end; }
+.c_centro .titulo h2 { text-transform: lowercase; font-family: "Space Mono", monospace; font-weight: 700; font-size: clamp(2.2rem, 5vw, 5rem); letter-spacing: -0.04em; line-height: 0.95; }
+
+/* deep down: o número dele na seção dele */
+.baco { position: relative; min-height: 90vh; display: flex; flex-direction: column; justify-content: center; padding: 14vh clamp(20px, 6vw, 90px); color: #eef1ff; }
+.baco h2 { margin: 0 0 28px; font-family: var(--tit); font-weight: 600; font-size: clamp(5rem, 21vw, 21rem); line-height: 0.8; font-variant-numeric: tabular-nums; }
+.baco h2 small { display: block; margin-top: 0.12em; font-family: "Space Mono", monospace; font-weight: 400; font-size: 0.075em; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.75; }
+.baco .ouvir { align-self: flex-start; margin-top: 8px; text-decoration: none; }
+.baco .ouvir:hover { background: #eef1ff; color: #16205c; }
+
+
+@media (max-width: 860px) {
+  .cap, .c_cansar, .c_ep, .c_centro { grid-template-columns: 1fr; grid-template-areas: "tit" "fig" "inf"; min-height: auto; row-gap: 26px; }
+  .c_cansar .figura, .c_centro .figura { justify-self: center; width: min(100%, 84vw); margin: 0; transform: none; }
+  .c_centro { overflow: visible; }
+  .c_ep .ficha { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===== v2.2 ===== */
+.numeros0 span:not(.n0) { max-width: none; white-space: nowrap; }
+.ano ul { grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 14px; }
+.tambem { margin: 14px 0 0; font-size: 0.74rem; opacity: 0.8; }
+.tambem button { margin-left: 8px; font: inherit; color: inherit; background: none; border: 1px solid currentColor; border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+.tambem button:hover { background: #f4f1e8; color: #0f0f0f; }
+
+/* sala: a lista rola e o pôster troca ao passar o mouse */
+.lista { max-height: min(70vh, 620px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: #ff5fa8 transparent; padding-right: 6px; }
+.poster { transition: filter 0.3s ease, background-image 0.2s ease; }
+.setas { display: flex; align-items: center; gap: 14px; margin-top: 14px; font-size: 0.74rem; letter-spacing: 0.14em; }
+.setas button { width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid currentColor; background: none; color: inherit; font: inherit; font-size: 1.3rem; line-height: 1; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+.setas button:hover { background: #f2efe6; color: #0b0b0b; }
+
+/* rodapé: a cara dela */
+.rodape { position: relative; z-index: 25; overflow: hidden; background: #d8281f; color: #140a08; padding: 9vh clamp(20px, 6vw, 90px) 0; }
+.rodTopo { position: relative; z-index: 3; display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; flex-wrap: wrap; }
+.rodNome { margin: 0; font-family: var(--tit); font-weight: 700; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1; }
+.rodSub { margin: 6px 0 0; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.rodLinks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 10px; max-width: 560px; }
+.rodLinks a { display: inline-block; color: #140a08; border: 1.5px solid #140a08; border-radius: 999px; padding: 8px 16px; font-size: 0.76rem; letter-spacing: 0.08em; text-decoration: none; transition: background 0.2s ease, color 0.2s ease; }
+.rodLinks a:hover { background: #140a08; color: #ffe9d6; }
+.rodPalco { position: relative; height: clamp(300px, 54vh, 580px); margin-top: 2vh; }
+.rodLogo { position: absolute; left: 50%; bottom: -24%; height: 124%; width: auto; transform: translateX(-50%); display: block; filter: brightness(0); opacity: 0.92; }
+.rodRosto { position: absolute; left: 50%; bottom: -8%; width: clamp(150px, 20vw, 290px); margin-left: clamp(-145px, -10vw, -75px); transition: transform 0.25s ease-out; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45)); }
+.rodPe { position: relative; z-index: 3; display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 16px 0 18px; border-top: 1.5px solid #140a08; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; background: #d8281f; }
+.rodPe a { color: inherit; text-decoration: none; }
+.rodPe a:hover { text-decoration: underline; }
+@media (max-width: 860px) { .rodPalco { height: 46vh; } .rodRosto { width: 38vw; margin-left: -22vw; } }
+
+/* emblema do cabeçalho: as letras do logotipo acendem uma a uma, rápido (1, L, U, M, 3) */
+.emb { position: relative; display: block; width: 100%; height: 100%; }
+.ltr { position: absolute; top: 0; height: 100%; object-fit: fill; display: block; opacity: 0; filter: brightness(0) invert(1); }
+header:hover .ltr { animation: pa 0.24s cubic-bezier(0.2, 1.5, 0.4, 1) both; animation-delay: calc(var(--i) * 0.14s); }
+@keyframes pa { from { opacity: 0; transform: translateY(40%) scaleY(0.6); } to { opacity: 1; transform: none; } }
+
+/* rosto do rodapé: inteiro (o queixo não fica atrás da barra) e 100% opaco quando o mouse está em cima (ou no toque) */
+.rodPalco { pointer-events: none; }
+.rodRosto { position: absolute; left: 50%; bottom: 14px; z-index: 5; width: clamp(150px, 20vw, 290px); margin-left: clamp(-145px, -10vw, -75px); display: block; cursor: pointer; pointer-events: auto; transition: transform 0.25s ease-out; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45)); }
+.rodRosto img { display: block; width: 100%; height: auto; }
+.rostoCheio { position: absolute; inset: 0; opacity: 0; transition: opacity 0.18s ease; }
+.rodRosto:hover .rostoCheio, .rostoOn .rostoCheio { opacity: 1; }
+.rodPe { z-index: 3; }
+
+/* o nome dela nunca é escrito em texto: é sempre o logotipo, na cor do texto em volta */
+.marcaIn { display: inline-block; height: 1.05em; aspect-ratio: 818 / 1200; background-color: currentColor; -webkit-mask: url("/lum3/logo.png") center / contain no-repeat; mask: url("/lum3/logo.png") center / contain no-repeat; vertical-align: -0.14em; margin: 0 0.1em; }
+.marcaGrande { height: clamp(2.4rem, 4.4vw, 4rem); vertical-align: top; margin: 0; }
+
+/* ===== v3: projetos (mais capítulos), bio com logo grande, rodapé redesenhado ===== */
+.num { font-size: clamp(4rem, 11vw, 10rem); left: -0.1em; top: -0.45em; }
+
+/* destaque numérico dentro do capítulo (deep down, com Baco Exu do Blues) */
+.destaque { margin: 0 0 22px; display: grid; gap: 4px; }
+.destN { font-family: var(--tit); font-weight: 700; font-size: clamp(3.6rem, 8vw, 8rem); line-height: 0.85; font-variant-numeric: tabular-nums; color: #ff5fa8; }
+.destaque span:not(.destN) { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; }
+
+/* 05 FIDELIO: tom de pele */
+.c_fidelio { color: #fbeee2; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); grid-template-areas: "tit fig" "inf fig"; }
+.c_fidelio .figura { justify-self: end; width: min(100%, 66vh); }
+.c_fidelio .titulo h2 { font-size: clamp(4rem, 10vw, 10rem); }
+.c_fidelio .num { color: #fbeee2; }
+.c_fidelio .ouvir:hover { background: #fbeee2; color: #5a3526; }
+/* 06 antinomia: preto, com contorno na capa para ela não sumir */
+.c_antinomia { color: #f4f1e8; }
+.c_antinomia .pintura { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22), 0 30px 80px rgba(0, 0, 0, 0.6); }
+.c_antinomia .titulo h2 { font-size: clamp(3.4rem, 8vw, 8rem); }
+.c_antinomia .num { color: #f4f1e8; }
+.c_antinomia .ouvir:hover { background: #f4f1e8; color: #0c0c0c; }
+/* 07 waters: âmbar da lâmpada */
+.c_waters { color: #1a0d00; grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); grid-template-areas: "tit fig" "inf fig"; }
+.c_waters .figura { justify-self: end; width: min(100%, 64vh); }
+.c_waters .titulo h2 { font-size: clamp(4.4rem, 11vw, 11rem); }
+.c_waters .num { color: #1a0d00; }
+.c_waters .ouvir:hover { background: #1a0d00; color: #e8a400; }
+
+/* bio: o logotipo grande ao lado do texto, que termina na mesma linha dos números */
+.bioBloco { display: flex; align-items: flex-start; gap: clamp(20px, 3.4vw, 54px); max-width: 1100px; margin-top: 34px; }
+.marcaBio { flex: none; display: block; height: clamp(9rem, 17vw, 16rem); aspect-ratio: 818 / 1200; background-color: #f4f1e8; -webkit-mask: url("/lum3/logo.png") center / contain no-repeat; mask: url("/lum3/logo.png") center / contain no-repeat; }
+.bioBloco p { margin: 0; flex: 1; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(1.5rem, 2.7vw, 2.5rem); line-height: 1.22; opacity: 0.95; padding-top: 0.2em; }
+.bio { display: none; }
+
+/* rodapé: o logotipo inteiro, o rosto na frente e os links como lista grande */
+.rodape { padding: 10vh clamp(20px, 6vw, 90px) 0; }
+.rodGrade { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); gap: clamp(24px, 6vw, 100px); align-items: end; }
+.rodPalco { position: relative; height: clamp(360px, 66vh, 640px); margin: 0; pointer-events: none; }
+.rodLogo { position: absolute; left: 50%; top: 0; bottom: auto; height: 100%; width: auto; transform: translateX(-50%); filter: brightness(0); opacity: 1; }
+.rodRosto { left: 50%; bottom: 8%; width: clamp(150px, 19vw, 280px); margin-left: clamp(-140px, -9.5vw, -72px); }
+.rodLinks { position: relative; z-index: 3; align-self: stretch; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 14px; }
+.rodSub { margin: 0 0 18px; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.rodLinks ul { list-style: none; margin: 0; padding: 0; }
+.rodLinks li { border-top: 1.5px solid #140a08; }
+.rodLinks li:last-child { border-bottom: 1.5px solid #140a08; }
+.rodLinks a { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 12px 4px; border: 0; border-radius: 0; color: #140a08; font-family: var(--tit); font-weight: 600; font-size: clamp(1.8rem, 3.6vw, 3.4rem); line-height: 1; text-transform: uppercase; letter-spacing: 0.005em; text-decoration: none; transition: background 0.18s ease, color 0.18s ease, padding 0.25s ease; }
+.rodLinks a:hover { background: #140a08; color: #ffe9d6; padding-left: 16px; padding-right: 16px; }
+.rodLinks i { font-style: normal; font-size: 0.6em; }
+.rodPe { margin-top: 28px; }
+@media (max-width: 860px) { .rodGrade { grid-template-columns: 1fr; } .rodPalco { height: 52vh; } .bioBloco { flex-direction: column; } .marcaBio { height: 11rem; } .c_fidelio, .c_waters { grid-template-columns: 1fr; grid-template-areas: "tit" "fig" "inf"; } }
+
+/* emblema holográfico: o mesmo efeito da marca da JODO (inverte o que está atrás, trecho por trecho, com um degradê que anda),
+   agora nas letras do logotipo dela; as letras acendem uma a uma */
+.ltr { position: absolute; top: 0; height: 100%; display: block; opacity: 0; filter: none;
+  background: linear-gradient(115deg, rgba(255, 0, 170, 0.3), rgba(0, 200, 255, 0.3), rgba(255, 200, 0, 0.3), rgba(120, 60, 255, 0.3)); background-size: 320% 320%;
+  -webkit-backdrop-filter: invert(1) contrast(3.2) saturate(2.4) hue-rotate(0deg); backdrop-filter: invert(1) contrast(3.2) saturate(2.4) hue-rotate(0deg);
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; }
+header:hover .ltr { animation: pa 0.24s cubic-bezier(0.2, 1.5, 0.4, 1) both, holoL 8s ease-in-out infinite alternate; animation-delay: calc(var(--i) * 0.14s), 0s; }
+@keyframes holoL {
+  0% { background-position: 0% 40%; -webkit-backdrop-filter: invert(1) contrast(3.2) saturate(2.4) hue-rotate(0deg); backdrop-filter: invert(1) contrast(3.2) saturate(2.4) hue-rotate(0deg); }
+  100% { background-position: 100% 60%; -webkit-backdrop-filter: invert(1) contrast(3.2) saturate(2.4) hue-rotate(75deg); backdrop-filter: invert(1) contrast(3.2) saturate(2.4) hue-rotate(75deg); }
+}
+
+/* ===== v3.1: títulos em duas linhas, capítulos mais enxutos, ano atrás da capa, cards de clipe ===== */
+.cap { min-height: 100vh; padding-top: 9vh; padding-bottom: 9vh; row-gap: 16px; }
+.figura { width: min(100%, 72vh); }
+.pintura { position: relative; z-index: 1; }
+.num { z-index: 0; top: -0.62em; left: -0.14em; opacity: 0.9; }
+.titulo h2 { max-width: none; }
+.c_album .titulo h2 { max-width: none; font-size: clamp(2.4rem, 4.7vw, 4.9rem); line-height: 0.92; }
+.faixas li { padding: 7px 0; font-size: 0.88rem; }
+.ficha { margin-bottom: 16px; gap: 10px 22px; }
+
+/* single: título e capa lado a lado, alinhados */
+.c_cansar { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.9fr); grid-template-areas: "tit fig" "inf fig"; }
+.c_cansar .titulo { align-self: end; }
+.c_cansar .titulo h2 { font-size: clamp(3rem, 7.2vw, 7.4rem); line-height: 0.88; max-width: none; }
+.c_cansar .figura { align-self: center; justify-self: center; width: min(100%, 62vh); margin-top: 0; transform: rotate(2.2deg); }
+.c_cansar .info { align-self: start; }
+
+/* waters: o ano em branco, atrás da capa; os dois clipes viram cards embaixo dela */
+.c_waters .figura { width: min(100%, 56vh); }
+.c_waters .num { color: transparent; -webkit-text-stroke: 3px #fff; opacity: 1; }
+.clipeCards { display: flex; gap: 12px; margin-top: 18px; position: relative; z-index: 2; }
+.clipeCards button { flex: 1 1 0; min-width: 0; display: grid; gap: 7px; text-align: left; font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.clipeCards span { aspect-ratio: 16 / 9; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.2); transition: filter 0.25s ease, transform 0.3s cubic-bezier(0.3, 0.9, 0.3, 1); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3); }
+.clipeCards button:hover span { filter: none; transform: translateY(-5px); }
+.clipeCards b { font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
+.c_centro .figura { width: min(72vh, 62vw); }
+@media (max-width: 860px) { .c_cansar { grid-template-areas: "tit" "fig" "inf"; } .cap { min-height: auto; } }
+
+/* ===== v3.2: título do álbum em duas linhas certas, visualizer na capa, destaque embaixo da capa ===== */
+.linhaT { display: block; }
+.c_album .titulo h2 { font-size: clamp(2.2rem, 4.3vw, 4.5rem); line-height: 0.95; white-space: nowrap; }
+.capaLink { position: relative; }
+.bandeira { position: absolute; z-index: 3; top: 14px; right: -10px; display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 12px; font: inherit; font-weight: 700; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: #1a1410; background: #fff; border: 0; cursor: pointer; clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%); padding-right: 22px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); transition: transform 0.2s ease, background 0.2s ease; }
+.bandeira i { width: 0; height: 0; border-left: 9px solid #d8281f; border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
+.bandeira:hover { background: #ffe9d6; transform: translateX(-4px); }
+.capaLink .pintura { cursor: pointer; }
+/* o número de deep down fica pequeno e embaixo da capa (o rosa já destaca) */
+.figura .destaque { margin: 16px 0 0; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; position: relative; z-index: 2; }
+.figura .destN { font-size: clamp(2.2rem, 4vw, 3.8rem); line-height: 0.9; }
+.figura .destaque span:not(.destN) { flex: 1 1 200px; font-size: 0.7rem; }
+/* waters: título mais contido para a seção caber inteira */
+.c_waters .titulo h2 { font-size: clamp(3.6rem, 8.5vw, 8.4rem); }
+.c_waters .figura { width: min(100%, 52vh); }
+
+/* v3.2b: bandeirinha do visualizer do lado de dentro (a capa sangra para fora da tela) e antinomia com a capa menor */
+.bandeira { right: auto; left: -12px; padding: 8px 12px 8px 22px; clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%); }
+.c_antinomia .figura { width: min(100%, 54vh); }
+
+/* ===== v3.3: logo grande interativo; single com mais margem ===== */
+.logoG { position: relative; height: min(74vh, 86vw); aspect-ratio: 818 / 1200; cursor: pointer; animation: sobe 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.lg { position: absolute; top: 0; height: 100%; display: block; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  background-color: color-mix(in srgb, #ff5fa8 calc(var(--pk, 0) * 100%), #ffffff);
+  transform-origin: 50% 100%; transform: translateY(var(--ty, 0%)) skewX(var(--sk, 0deg)); will-change: transform; }
+.pula .lg { animation: pulaL 0.6s cubic-bezier(0.2, 1.6, 0.4, 1) both; animation-delay: calc(var(--i) * 0.09s); }
+@keyframes pulaL { 0% { transform: translateY(0) scaleY(1); } 35% { transform: translateY(-7%) scaleY(1.07); background-color: #ff5fa8; } 100% { transform: translateY(0) scaleY(1); } }
+.c_cansar { padding-left: clamp(28px, 8vw, 130px); padding-right: clamp(28px, 8vw, 130px); padding-bottom: 12vh; }
+.c_cansar .figura { margin-top: 2vh; }
+@media (prefers-reduced-motion: reduce) { .logoG, .pula .lg { animation: none; } }
+
+/* v3.4: o logo grande não se move nem se corta; a cor é o holográfico (como a marca da JODO), mais forte na letra perto do mouse */
+.lg { background-color: #ffffff; transform: none; will-change: auto; overflow: hidden; }
+.lg > i { position: absolute; inset: 0; display: block; opacity: var(--pk, 0); background: linear-gradient(115deg, #ff2bd6, #19d3ff, #ffe14a, #8b5cff, #ff2bd6); background-size: 320% 320%; animation: holoG 6s linear infinite; }
+@keyframes holoG { to { background-position: 100% 60%; } }
+.pula .lg { animation: none; }
+.pula .lg > i { animation: holoG 6s linear infinite, lampG 0.9s ease both; animation-delay: 0s, calc(var(--i) * 0.1s); }
+@keyframes lampG { 0% { opacity: 0; } 35% { opacity: 1; } 100% { opacity: var(--pk, 0); } }
+
+/* ===== v3.6: waters acende (cinza + luz), links, números e discografia com o player na direita ===== */
+.c_waters { color: #f2f2f2; position: relative; }
+.c_waters > * { position: relative; z-index: 1; }
+.c_waters::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; background: radial-gradient(ellipse 34% 52% at 74% 46%, rgba(255, 196, 80, 0.62), rgba(255, 150, 40, 0.22) 55%, transparent 78%); transition: opacity 0.6s ease; }
+.c_waters.acesa::before { animation: acende 2s ease both; }
+@keyframes acende { 0% { opacity: 0; } 12% { opacity: 0.55; } 18% { opacity: 0.12; } 30% { opacity: 0.8; } 38% { opacity: 0.3; } 55% { opacity: 1; } 100% { opacity: 1; } }
+.c_waters .titulo h2 { color: #f2f2f2; }
+.c_waters .num { -webkit-text-stroke-color: #f2f2f2; }
+.c_waters .ouvir:hover { background: #f2f2f2; color: #2a2a2a; }
+
+.linkN { display: flex; align-items: baseline; gap: 12px; color: inherit; text-decoration: none; }
+.linkN:hover span:not(.n0) { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+.gigLink { color: inherit; text-decoration: none; display: block; }
+.gigLink:hover .gigante { opacity: 0.82; }
+a.nomeTop { color: inherit; text-decoration: none; }
+a.nomeTop:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* números: a direita agora tem o player do Spotify dela */
+.numGrade { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.9fr); gap: clamp(24px, 4vw, 70px); align-items: start; }
+.numDir { position: sticky; top: 100px; }
+.numDir iframe { width: 100%; height: 420px; border: 0; border-radius: 14px; }
+.numEsq .top { max-width: none; }
+.numEsq .bioBloco { max-width: none; }
+
+/* discografia: capas à esquerda e o player sempre à direita */
+.paredeGrade { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(300px, 0.8fr); gap: clamp(24px, 4vw, 70px); align-items: start; }
+.paredeEsq { min-width: 0; }
+.parede .ano { grid-template-columns: clamp(80px, 8vw, 130px) minmax(0, 1fr); }
+.parede .ano ul { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+.parede .ano li.tocando img { box-shadow: 0 0 0 3px #d8281f, 0 14px 30px rgba(0, 0, 0, 0.3); }
+.player { position: sticky; top: 100px; color: #141210; }
+.player img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3); margin-bottom: 14px; }
+.player h3 { margin: 4px 0 12px; font-family: var(--tit); font-weight: 600; font-size: clamp(1.8rem, 2.8vw, 2.6rem); line-height: 0.95; text-transform: uppercase; }
+.player iframe { width: 100%; height: 352px; border: 0; border-radius: 12px; }
+.player .tambem button:hover { background: #141210; color: #e9e4d8; }
+@media (max-width: 960px) {
+  .numGrade, .paredeGrade { grid-template-columns: 1fr; }
+  .numDir, .player { position: static; }
+}
+.player img { width: min(100%, 40vh); }
+.player { padding-top: 0; }
+
+/* ===== v3.7 ===== */
+/* waters: cinza-água, fundo com um efeito de água bem sutil (ondulações quase invisíveis), sem a luz */
+.c_waters { overflow: hidden; }
+.c_waters::before { opacity: 1; animation: none; background:
+  repeating-radial-gradient(circle at 74% 46%, rgba(255, 255, 255, 0.05) 0 1.5px, transparent 1.5px 52px),
+  radial-gradient(ellipse 70% 60% at 22% 100%, rgba(170, 210, 220, 0.14), transparent 70%),
+  radial-gradient(ellipse 50% 50% at 85% 10%, rgba(170, 210, 220, 0.08), transparent 70%); transition: none; animation: agua 12s ease-in-out infinite alternate; }
+.c_waters.acesa::before { animation: agua 12s ease-in-out infinite alternate; }
+@keyframes agua { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.05) translate(-8px, -8px); } }
+/* logo grande: o clique levanta o logo inteiro de uma vez e acende o degradê em todas as letras juntas */
+.pula .lg { animation: ergue 0.75s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+.pula .lg > i { animation: holoG 6s linear infinite, lampG 1s ease both; animation-delay: 0s, 0s; }
+@keyframes ergue { 0% { transform: translateY(0); } 40% { transform: translateY(-2.6%); } 100% { transform: translateY(0); } }
+.logoG { animation-duration: 1s; }
+/* player da discografia: compacto, para ficar inteiro na tela enquanto a lista rola */
+.player { top: 84px; }
+.player img { width: min(100%, 27vh); margin-bottom: 10px; }
+.player h3 { font-size: clamp(1.5rem, 2.2vw, 2.1rem); margin: 2px 0 10px; }
+
+/* ===== v3.8: waters com água de verdade (shader WebGL), números neutro ===== */
+.c_waters::before { display: none; }
+.c_waters > .agua { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: block; }
+
+/* ===== v4: troca de cor desenhada por shader, com borda orgânica ===== */
+.fundoFluido { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none; opacity: 0; display: block; }
+
+/* v4.1: a água não termina numa linha reta: a camada passa dos limites da seção e some em degradê em cima e embaixo */
+.c_waters { overflow: visible; }
+.c_waters > .agua { inset: -26vh 0; height: auto; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 24%, #000 76%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 24%, #000 76%, transparent 100%); }
+
+/* ===== MOBILE / TELA ESTREITA (última regra do arquivo, vale sobre as de desktop) ===== */
+@media (max-width: 860px) {
+  .abertura { padding: 64px 5vw 30px; }
+  .logoG { height: min(60vh, 116vw); }
+  .numeros0 { bottom: 54px; }
+  .numeros0 span:not(.n0) { white-space: normal; max-width: 24ch; font-size: 0.6rem; }
+  .rola { bottom: 18px; }
+
+  .cap, .c_cansar, .c_centro, .c_fidelio, .c_waters, .c_ep, .c_album, .c_antinomia {
+    grid-template-columns: minmax(0, 1fr); grid-template-areas: "tit" "fig" "inf";
+    min-height: auto; padding: 13vh 20px 8vh; row-gap: 22px; justify-items: stretch; text-align: left; overflow: visible;
+  }
+  .c_ep { text-align: center; justify-items: center; }
+  .figura, .c_cansar .figura, .c_centro .figura, .c_fidelio .figura, .c_waters .figura, .c_antinomia .figura, .c_ep .figura {
+    width: min(100%, 86vw); margin: 0 auto 0.5em; justify-self: center; transform: none; align-self: auto;
+  }
+  .c_ep .figura { width: min(100%, 62vw); }
+  /* o ano espia por baixo da capa em vez de bater no título */
+  .num { top: auto; bottom: -0.5em; right: 0.08em; left: auto; font-size: 4.4rem; }
+  .titulo { align-self: auto; }
+  .titulo h2, .c_cansar .titulo h2 { font-size: clamp(2.6rem, 12vw, 4rem); line-height: 0.9; }
+  .c_album .titulo h2 { font-size: clamp(1.8rem, 8.4vw, 3rem); white-space: nowrap; }
+  .c_fidelio .titulo h2, .c_waters .titulo h2, .c_antinomia .titulo h2 { font-size: clamp(3rem, 15vw, 4.8rem); }
+  .c_centro .titulo h2 { font-size: clamp(2rem, 9.5vw, 3rem); }
+  .c_ep .titulo h2 { font-size: clamp(3rem, 15vw, 4.8rem); }
+  .ficha, .c_ep .ficha { grid-template-columns: 1fr; gap: 8px; }
+  .info { max-width: none; width: 100%; }
+  .faixas li { font-size: 0.84rem; }
+  .figura .destaque { margin-top: 12px; }
+  .bandeira { top: 10px; left: -8px; }
+  .clipeCards { flex-direction: row; }
+
+  .numeros { padding: 12vh 20px 8vh; }
+  .numGrade, .paredeGrade { grid-template-columns: minmax(0, 1fr); }
+  .numDir, .player { position: static; }
+  .top li { grid-template-columns: 2ch minmax(0, 1fr); }
+  .playsTop { grid-column: 2; }
+  .gigante { font-size: clamp(5rem, 28vw, 9rem); }
+  .bioBloco { flex-direction: column; gap: 14px; }
+  .marcaBio { height: 9rem; }
+
+  .parede { padding: 12vh 20px 240px; }
+  .parede .ano { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .parede .ano ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .player { display: none; position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 40; padding: 10px 14px 12px; background: #e9e4d8; box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.28); }
+  .player.dockOn { display: block; }
+  .player img, .player .tipo { display: none; }
+  .player h3 { font-size: 1.05rem; margin: 0 0 6px; }
+  .player iframe { height: 152px; }
+  .tambem { margin: 6px 0 0; }
+
+  .cinema { padding: 12vh 20px 8vh; }
+  .lista { max-height: 46vh; }
+
+  .rodape { padding: 8vh 20px 0; }
+  .rodGrade { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .rodPalco { height: 46vh; }
+  .rodLinks a { font-size: clamp(1.7rem, 8vw, 2.4rem); }
+  .rodPe { flex-direction: column; gap: 8px; }
+}
+@media (max-width: 860px) { .c_waters .num { display: none; } }
+
+/* ===== v5: abertura sem colisão, anos pequenos embaixo da capa, botões menores, seções que cabem numa tela ===== */
+.abertura { padding-top: 78px; padding-bottom: 15vh; }
+.logoG { height: min(64vh, 80vw); }
+.numeros0 { bottom: 30px; }
+
+/* ano: pequeno, embaixo da capa */
+.num, .c_waters .num, .c_fidelio .num, .c_antinomia .num, .c_ep .num, .c_centro .num, .c_album .num {
+  position: static; display: block; margin: 10px 0 0; font-family: var(--tit); font-weight: 600; font-size: 1.3rem; line-height: 1; letter-spacing: 0.22em;
+  color: currentColor; -webkit-text-stroke: 0; opacity: 0.7; text-align: left; z-index: auto; left: auto; top: auto; bottom: auto; right: auto;
+}
+.c_ep .num { text-align: center; }
+
+/* botões menores */
+.ouvir { padding: 8px 16px; font-size: 0.66rem; letter-spacing: 0.12em; gap: 8px; border-width: 1.5px; }
+.ouvir i { border-left-width: 8px; border-top-width: 5px; border-bottom-width: 5px; }
+.acoes { gap: 8px; }
+.clipeCards { gap: 10px; margin-top: 12px; }
+.clipeCards b { font-size: 0.62rem; letter-spacing: 0.06em; }
+.bandeira { font-size: 0.64rem; padding-top: 6px; padding-bottom: 6px; }
+
+/* seções mais compactas, para caber numa tela */
+.cap { padding-top: 7vh; padding-bottom: 7vh; row-gap: 12px; }
+.ficha { margin-bottom: 12px; gap: 8px 22px; }
+.ficha dd { font-size: 0.9rem; }
+.faixas { margin-bottom: 16px; }
+.faixas li { padding: 6px 0; font-size: 0.84rem; }
+.c_antinomia .faixas { columns: 2; column-gap: 28px; }
+.c_antinomia .faixas li { break-inside: avoid; }
+.tipo { margin-bottom: 8px; }
+
+@media (max-width: 860px) {
+  .abertura { padding-top: 70px; padding-bottom: 20vh; }
+  .logoG { height: min(54vh, 104vw); }
+  .num, .c_waters .num, .c_fidelio .num, .c_antinomia .num, .c_ep .num, .c_centro .num, .c_album .num { font-size: 1.1rem; display: block; margin-top: 8px; }
+  .c_antinomia .faixas { columns: 1; }
+}
+
+/* ep: mais compacto para caber numa tela */
+.c_ep { padding-top: 9vh; padding-bottom: 5vh; row-gap: 12px; min-height: 100vh; }
+.c_ep .figura { width: min(100%, 31vh); }
+.c_ep .titulo h2 { font-size: clamp(2.8rem, 6vw, 6rem); }
+.c_ep .faixas { margin-bottom: 12px; }
+.c_ep .faixas li { padding: 4px 0; font-size: 0.8rem; }
+.c_ep .ficha { margin-bottom: 10px; }
+
+/* ===== v5 mobile: tudo mais compacto, pequeno e perto: botões, anos, fichas em linhas, capas menores ===== */
+@media (max-width: 860px) {
+  .abertura { padding-top: 66px; padding-bottom: 24vh; }
+  .logoG { height: min(50vh, 100vw); }
+  .cap, .c_cansar, .c_centro, .c_fidelio, .c_waters, .c_ep, .c_album, .c_antinomia { padding: 11vh 18px 5vh; row-gap: 14px; }
+  .figura, .c_cansar .figura, .c_centro .figura, .c_fidelio .figura, .c_waters .figura, .c_antinomia .figura { width: min(100%, 62vw); margin-bottom: 0; }
+  .c_ep .figura { width: min(100%, 48vw); }
+  .titulo h2, .c_cansar .titulo h2 { font-size: clamp(2.3rem, 10.5vw, 3.4rem); }
+  .c_fidelio .titulo h2, .c_waters .titulo h2, .c_antinomia .titulo h2, .c_ep .titulo h2 { font-size: clamp(2.6rem, 13vw, 4rem); }
+  .ficha, .c_ep .ficha { display: block; margin-bottom: 10px; }
+  .ficha div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-top: 1px solid currentColor; padding: 5px 0 0; margin-bottom: 4px; }
+  .ficha dt { font-size: 0.56rem; flex: none; }
+  .ficha dd { margin: 0; font-size: 0.78rem; text-align: right; }
+  .faixas { margin-bottom: 12px; }
+  .faixas li { padding: 4px 0; font-size: 0.74rem; gap: 8px; }
+  .ouvir { padding: 7px 14px; font-size: 0.6rem; }
+  .clipeCards { gap: 8px; margin-top: 8px; }
+  .clipeCards b { font-size: 0.56rem; }
+  .figura .destaque { margin-top: 8px; gap: 10px; }
+  .figura .destN { font-size: 2rem; }
+  .figura .destaque span:not(.destN) { font-size: 0.6rem; }
+  .num, .c_waters .num, .c_fidelio .num, .c_antinomia .num, .c_ep .num, .c_centro .num, .c_album .num { font-size: 0.9rem; margin-top: 6px; }
+}
+
+/* ===== v6: rodapé com ícones de marca (menores), frase dela e barra final organizada ===== */
+.rodFrase { margin: 0 0 14px; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1.02; color: #140a08; }
+.rodLinks { justify-content: flex-end; padding-bottom: 18px; }
+.rodSub { margin: 0 0 16px; }
+.rodIcones { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.rodIcones li, .rodLinks .rodIcones li:last-child { border: 0; }
+.rodIcones a { position: relative; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border-radius: 50%; background: #140a08; color: var(--cm); text-decoration: none; transition: background 0.18s ease, color 0.18s ease, transform 0.22s cubic-bezier(0.3, 1.5, 0.4, 1); }
+.rodIcones a:hover { background: var(--cm); color: #fff; transform: translateY(-4px) rotate(-6deg); padding: 0; }
+.rodIcones svg { width: 21px; height: 21px; fill: currentColor; display: block; }
+.rodIcones em { position: absolute; left: 50%; bottom: -17px; transform: translateX(-50%); font-style: normal; font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: #140a08; white-space: nowrap; }
+
+.rodPe { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; margin-top: 34px; padding: 16px 0 18px; border-top: 1.5px solid #140a08; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; background: #d8281f; }
+.rodMapa { justify-self: start; color: #140a08; text-decoration: none; border: 1.5px solid #140a08; border-radius: 999px; padding: 8px 14px; transition: background 0.18s ease, color 0.18s ease; }
+.rodMapa:hover { background: #140a08; color: #ffe9d6; text-decoration: none; }
+.rodAssina { margin: 0; display: inline-flex; align-items: center; gap: 10px; justify-self: center; text-align: center; }
+.rodAssina i { width: 22px; height: 14px; background: #140a08; -webkit-mask: url("/jodo-montanha.png") center / contain no-repeat; mask: url("/jodo-montanha.png") center / contain no-repeat; flex: none; }
+.rodTopo { justify-self: end; display: inline-flex; align-items: center; gap: 10px; color: #140a08; text-decoration: none; }
+.rodTopo b { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #140a08; color: #ffe9d6; font-size: 1rem; transition: transform 0.22s cubic-bezier(0.3, 1.5, 0.4, 1); }
+.rodTopo:hover b { transform: translateY(-4px); }
+.rodTopo:hover { text-decoration: none; }
+@media (max-width: 860px) {
+  .rodPe { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .rodAssina { grid-column: 1 / -1; grid-row: 1; justify-self: center; font-size: 0.6rem; }
+  .rodMapa { grid-row: 2; font-size: 0.6rem; }
+  .rodTopo { grid-row: 2; }
+  .rodIcones a { width: 40px; height: 40px; }
+  .rodFrase { font-size: clamp(1.8rem, 9vw, 2.6rem); }
+}
+@media (max-width: 860px) { .rodAssina { justify-content: center; text-align: center; width: 100%; } .rodAssina span { text-align: center; } }
+
+/* v6.1: ícones centralizados em círculos menores; blog e @arquivofluxo ficam no nome (são outra coisa) */
+.rodIcones a { width: 38px; height: 38px; justify-content: center; align-content: center; justify-items: center; align-items: center; }
+.rodIcones a:hover { padding: 0; }
+.rodIcones svg { width: 19px; height: 19px; }
+.rodOutras { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.rodOutras li, .rodLinks .rodOutras li:last-child { border: 0; }
+.rodLinks .rodOutras a { display: inline-block; padding: 7px 14px; border: 1.5px solid #140a08; border-radius: 999px; font-family: "Space Mono", monospace; font-weight: 400; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: none; line-height: 1.1; color: #140a08; text-decoration: none; transition: background 0.18s ease, color 0.18s ease; }
+.rodLinks .rodOutras a:hover { background: #140a08; color: #ffe9d6; padding: 7px 14px; }
+@media (max-width: 860px) { .rodIcones a { width: 36px; height: 36px; } .rodIcones svg { width: 18px; height: 18px; } }
+
+/* v6.2: o círculo fica rente ao ícone (quase só uma borda) */
+.rodIcones { gap: 8px; }
+.rodIcones a { width: 29px; height: 29px; }
+.rodIcones svg { width: 19px; height: 19px; }
+@media (max-width: 860px) { .rodIcones a { width: 28px; height: 28px; } .rodIcones svg { width: 18px; height: 18px; } }
+
+/* o ícone do Spotify já é um disco verde com as ondas vazadas: não leva o círculo escuro por baixo */
+.rodIcones a.icoSpotify, .rodIcones a.icoSpotify:hover { background: transparent; }
+.rodIcones a.icoSpotify svg { width: 29px; height: 29px; }
+.rodIcones a.icoSpotify:hover { color: #140a08; }
+@media (max-width: 860px) { .rodIcones a.icoSpotify svg { width: 28px; height: 28px; } }
+
+/* v6.3: Spotify igual aos outros: três ondas verdes dentro do mesmo círculo escuro */
+.rodIcones a.icoSpotify { background: #140a08; }
+.rodIcones svg { overflow: visible; }

@@ -1,0 +1,208 @@
+/* JODOVERSO: manifesto, vitrine de artistas e páginas /artistas */
+
+.wrap {
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 0 var(--s-4);
+}
+
+/* manifesto */
+.manifesto {
+  padding: var(--s-7) 0 var(--s-6);
+  border-top: 1px solid var(--jodo-linha);
+}
+.manifestoKicker {
+  font-family: var(--fonte-complementar);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jodo-verde);
+  margin-bottom: var(--s-4);
+}
+.manifestoTexto {
+  font-size: var(--t-2xl);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 22ch;
+}
+.manifestoTexto mark {
+  background: var(--jodo-verde-neon);
+  color: var(--jodo-tinta);
+  padding: 0 0.15em;
+}
+.manifestoNota {
+  margin-top: var(--s-5);
+  max-width: 48ch;
+  font-size: var(--t-md);
+  color: var(--jodo-cinza);
+  line-height: 1.5;
+}
+
+/* vitrine */
+.vitrine {
+  padding: var(--s-6) 0 var(--s-7);
+}
+.vitrineTopo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-bottom: var(--s-5);
+  flex-wrap: wrap;
+}
+.vitrineTitulo {
+  font-size: var(--t-3xl);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+.vitrineLink {
+  font-weight: 600;
+  border-bottom: 2px solid var(--jodo-verde-neon);
+}
+.grade {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-4);
+}
+.cartao {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 320px;
+  padding: var(--s-4);
+  background: var(--cor);
+  color: var(--jodo-tinta);
+  border-radius: var(--raio);
+  overflow: hidden;
+  transition: transform 0.25s ease;
+}
+.cartao::after {
+  content: '';
+  position: absolute;
+  inset: auto -20% -40% auto;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--destaque);
+  opacity: 0.55;
+  transition: transform 0.4s ease;
+}
+.cartao:hover {
+  transform: translateY(-4px);
+}
+.cartao:hover::after {
+  transform: scale(1.25);
+}
+.cartaoPapel {
+  font-family: var(--fonte-complementar);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cartaoNome {
+  position: relative;
+  z-index: 1;
+  font-size: var(--t-xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-top: var(--s-2);
+}
+.cartaoResumo {
+  position: relative;
+  z-index: 1;
+  font-size: var(--t-sm);
+  line-height: 1.4;
+  margin-top: var(--s-3);
+  max-width: 34ch;
+}
+.cartaoRoxo {
+  color: var(--jodo-papel);
+}
+
+/* página do artista */
+.perfil {
+  padding: var(--s-6) 0 var(--s-7);
+}
+.perfilFaixa {
+  height: 14px;
+  background: var(--cor);
+  margin-bottom: var(--s-5);
+}
+.perfilNome {
+  font-size: var(--t-3xl);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+.perfilPapel {
+  font-family: var(--fonte-complementar);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: var(--t-sm);
+  margin-top: var(--s-3);
+  color: var(--cor);
+}
+.perfilResumo {
+  font-size: var(--t-xl);
+  font-weight: 300;
+  line-height: 1.25;
+  max-width: 34ch;
+  margin-top: var(--s-5);
+}
+.perfilLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+}
+.perfilLink {
+  border: 2px solid var(--jodo-tinta);
+  padding: var(--s-2) var(--s-4);
+  border-radius: var(--raio);
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.perfilLink:hover {
+  background: var(--destaque);
+}
+.perfilIntegrantes {
+  margin-top: var(--s-6);
+}
+.perfilIntegrantes h3 {
+  font-size: var(--t-lg);
+  margin-bottom: var(--s-3);
+}
+.perfilVoltar {
+  display: inline-block;
+  margin-bottom: var(--s-4);
+  font-weight: 600;
+  color: var(--jodo-cinza);
+}
+.aviso {
+  margin-top: var(--s-6);
+  font-size: var(--t-sm);
+  color: var(--jodo-cinza);
+}
+
+@media (max-width: 980px) {
+  .grade {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 620px) {
+  .grade {
+    grid-template-columns: 1fr;
+  }
+  .manifesto {
+    padding: var(--s-6) 0 var(--s-5);
+  }
+  .cartao {
+    min-height: 240px;
+  }
+}

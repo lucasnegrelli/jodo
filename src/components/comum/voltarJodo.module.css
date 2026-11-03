@@ -1,0 +1,3 @@
+.voltar { position: fixed; top: 14px; left: clamp(12px, 2vw, 28px); z-index: 90; display: inline-flex; gap: 6px; align-items: center; padding: 5px 10px 4px; font-family: "SpaceMono", "Courier New", monospace; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: #fff; text-decoration: none; mix-blend-mode: difference; border: 1px solid currentColor; background: transparent; transition: background 0.15s, color 0.15s; }
+.voltar:hover { background: #fff; color: #000; }
+@media (max-width: 800px) { .voltar { top: 8px; left: 8px; font-size: 0.62rem; padding: 3px 7px; } }

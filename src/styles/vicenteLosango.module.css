@@ -1,0 +1,54 @@
+.raiz {
+  --osso: #e9dfc9;
+  --uru: #d2381a;
+  --jen: #0b0a10;
+  --mono: "Space Mono", "Consolas", monospace;
+  --serif: "Instrument Serif", "Times New Roman", serif;
+  --wide: "Archivo", "Arial Black", Arial, sans-serif;
+  background: var(--jen);
+  color: var(--osso);
+  font-family: var(--wide);
+  position: relative;
+}
+.tela { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; z-index: 0; }
+.palco { position: fixed; inset: 0; z-index: 10; overflow: hidden; pointer-events: none; }
+.trilha { width: 1px; }
+
+.cap { position: absolute; inset: 0; opacity: 0; visibility: hidden; padding: 12vh 5vw 9vh; display: flex; flex-direction: column; will-change: opacity; }
+.rv { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(9px); transition: opacity 1s cubic-bezier(0.2, 0.7, 0.2, 1), transform 1s cubic-bezier(0.2, 0.7, 0.2, 1), filter 1s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: calc(var(--k, 0) * 100ms); }
+.on .rv { opacity: 1; transform: none; filter: none; }
+.on a, .on button { pointer-events: auto; }
+.raiz h1, .raiz h2, .raiz p, .raiz span { text-shadow: 0 0 18px rgba(11, 10, 16, 0.9), 0 0 40px rgba(11, 10, 16, 0.7); }
+
+.rot { display: inline-flex; align-items: center; gap: 12px; font: 700 12px/1 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--osso); }
+.rot::before { content: ""; width: 38px; height: 2px; background: var(--uru); }
+
+/* capa */
+.capa { justify-content: flex-end; padding-bottom: 12vh; }
+.capaTxt { display: grid; gap: 20px; justify-items: start; max-width: 46vw; }
+.raiz h1.nome { margin: 0; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(70px, 11.5vw, 200px); line-height: 0.86; letter-spacing: -0.025em; color: var(--osso); }
+.sub { margin: 0; font: 400 13px/1.5 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: rgba(233, 223, 201, 0.8); }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.btn, .btn2 { display: inline-block; padding: 14px 22px; font: 700 12px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; transition: 0.2s; text-shadow: none; }
+.btn { background: var(--osso); color: var(--jen); border: 1px solid var(--osso); }
+.btn:hover { background: transparent; color: var(--osso); }
+.btn2 { color: var(--osso); border: 1px solid rgba(233, 223, 201, 0.3); background: rgba(11, 10, 16, 0.5); }
+.btn2:hover { border-color: var(--uru); color: var(--uru); }
+.dica { position: absolute; right: 5vw; bottom: 5vh; margin: 0; font: 700 11px/1 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--uru); }
+
+/* quem é */
+.quem { justify-content: center; }
+.quemTxt { display: grid; gap: 18px; max-width: 520px; padding: 24px 28px 26px; background: rgba(11, 10, 16, 0.62); border-left: 3px solid var(--uru); }
+.raiz h2.manchete { margin: 0; font-weight: 900; font-stretch: 62%; font-variation-settings: "wdth" 62; text-transform: uppercase; font-size: clamp(40px, 4.8vw, 84px); line-height: 0.9; letter-spacing: -0.01em; }
+.manchete em { font-family: var(--serif); font-style: italic; font-weight: 400; font-stretch: 100%; font-variation-settings: normal; text-transform: none; letter-spacing: -0.02em; color: var(--osso); opacity: 0.92; }
+.corpo { margin: 0; font-size: clamp(15px, 1.2vw, 19px); line-height: 1.55; color: rgba(233, 223, 201, 0.86); }
+.corpo mark { background: none; color: var(--osso); font-weight: 800; box-shadow: inset 0 -0.4em 0 rgba(210, 56, 26, 0.55); }
+.epi { margin: 0; font: 700 12px/1.4 var(--mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--uru); }
+
+@media (max-width: 860px) {
+  .cap { padding: 11vh 18px 6vh; }
+  .capaTxt { max-width: 100%; gap: 12px; }
+  .raiz h1.nome { font-size: clamp(60px, 22vw, 120px); }
+  .dica { display: none; }
+  .quemTxt { padding: 16px 18px; gap: 12px; }
+}

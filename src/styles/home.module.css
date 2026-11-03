@@ -1,0 +1,60 @@
+
+.mainPage {
+    background-color: #fff;
+}
+.mainPageCenter {
+    max-width: var(--contentCenter);
+    margin: 0 auto;
+    margin-bottom: calc(2 * var(--gap));
+}
+
+
+.mainSideBar {
+    margin-top: 70px;
+}
+
+.mainGrid {
+    justify-content: space-between;
+}
+
+.contentListCardLow {
+    margin-top: 40px;
+}
+
+
+.contentListCardHigh {
+  max-width: var(--contentCenter);
+  margin: 0 auto;
+}
+
+.artistsContent {
+  margin-bottom: calc(2 * var(--gap));
+}
+
+  
+  
+  @media (max-width: 650px) {
+    .mainLogo {
+      border: none;
+    }
+    .mainLogo span {
+      font-size: 18vw;
+    }
+    .video {
+      display: none;
+    }
+    .marquee  {
+      display: none;
+    }
+    .artistsContent {
+      display: none;
+    }
+    .contentListCardLow {
+      margin: 0 auto;
+    } 
+    .gridResponsive {
+      margin-left: 5px;
+      width: 100%;
+    }
+
+  }

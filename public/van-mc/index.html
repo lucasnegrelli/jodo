@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-br" class="travado">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Van MC · punho de aço</title>
+<meta name="description" content="Dez trabalhos do Van MC, de Manaus. Quebre o muro.">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Anton&family=Space+Mono&family=Bebas+Neue&family=Rock+Salt&family=Special+Elite&family=Covered+By+Your+Grace&family=Stardos+Stencil&family=Bowlby+One&family=Rubik+Mono+One&family=Abril+Fatface&family=Courier+Prime:wght@700&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#030303;--giz:#e9e2d0;--ambar:#c9863a}
+*{box-sizing:border-box;margin:0}
+html{scroll-snap-type:y mandatory;background:var(--bg);scrollbar-width:none;-ms-overflow-style:none}
+html::-webkit-scrollbar{display:none;width:0;height:0}
+html.travado{overflow:hidden;scroll-snap-type:none}
+body{background:var(--bg);color:var(--giz);font-family:system-ui,sans-serif}
+#rolo section{height:100vh;height:100svh;scroll-snap-align:start;scroll-snap-stop:always}
+#stage{position:fixed;inset:0;overflow:hidden}
+#stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#gl{touch-action:pan-y;cursor:crosshair}
+#sh,#ov,#slab{pointer-events:none}
+#dica{position:fixed;left:0;right:0;bottom:11vh;text-align:center;color:#8d877a;font-size:12px;line-height:1.4;letter-spacing:.18em;text-transform:uppercase;transition:opacity 1.2s;pointer-events:none;padding:0 16px;z-index:4}
+#barra{position:fixed;left:0;bottom:0;height:3px;width:0;background:var(--ambar);transition:width .25s,opacity .6s;pointer-events:none;z-index:6}
+#pl{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:6;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;pointer-events:none}
+#pl>*{pointer-events:auto}
+#tit{grid-column:2;display:flex;gap:14px;align-items:center;justify-content:center;background:rgba(12,9,7,.66);padding:7px 10px 7px 20px;border:1px solid rgba(233,226,208,.16);border-radius:999px;backdrop-filter:blur(8px);max-width:min(560px,calc(100vw - 32px))}
+#tt{font:400 15px "Permanent Marker",system-ui,sans-serif;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#f1e9d6}
+#yt{display:grid;place-items:center;width:46px;height:32px;border-radius:9px;transition:transform .2s ease,filter .2s ease}
+#yt:hover{transform:scale(1.1);filter:brightness(1.12)}
+#yt svg{width:46px;height:32px;display:block}
+#sobe{display:none;grid-column:1;justify-self:start;color:#f1e9d6;font:700 11px/1 "Space Mono",monospace;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;background:rgba(12,9,7,.66);border:1px solid rgba(233,226,208,.16);border-radius:999px;padding:12px 16px;cursor:pointer;backdrop-filter:blur(8px)}
+#sobe:hover{color:#ff4b3a}
+#tt{flex:none}#tt .col{opacity:.6;font-size:.82em}
+#ctl{grid-column:3;justify-self:end;display:flex;gap:6px;align-items:center;background:rgba(12,9,7,.66);padding:6px 14px 6px 6px;border:1px solid rgba(233,226,208,.16);border-radius:999px;backdrop-filter:blur(8px)}
+#ctl button{background:none;border:0;color:#f1e9d6;width:32px;height:32px;cursor:pointer;display:grid;place-items:center;border-radius:50%}
+#ctl button:hover{color:#fff;background:rgba(255,75,58,.22)}
+#ctl svg{width:18px;height:18px;fill:currentColor}
+#ctl input{width:84px;accent-color:#ff4b3a}
+#borda{position:fixed;left:0;top:0;bottom:0;width:34px;z-index:7;touch-action:pan-y;display:none}
+#setas{position:fixed;right:12px;top:50%;transform:translateY(-50%);z-index:7;display:none;flex-direction:column;gap:10px}
+#setas button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(233,226,208,.25);background:rgba(12,9,7,.6);color:#f1e9d6;font-size:20px;line-height:1;backdrop-filter:blur(6px)}
+@media(pointer:coarse){#gl{touch-action:none}body.livre #borda{display:block}body.livre #setas{display:flex}}
+@media(max-width:700px){#tt{font-size:13px}#yt,#yt svg{width:40px;height:28px}}
+video{position:fixed;width:1px;height:1px;opacity:0;pointer-events:none}
+/* cabeçalho igual ao das outras páginas de artista: marca da JODO holográfica que vira o nome; ← JODO volta ao mapa */
+.topo{position:fixed;top:0;left:0;right:0;z-index:45;display:flex;justify-content:center;pointer-events:none}
+.marca{position:relative;margin-top:8px;pointer-events:auto}
+.logo{position:relative;display:block;width:clamp(72px,6vw,96px);aspect-ratio:1.6;padding:0;border:0;background:none;cursor:pointer;color:#e9dfc9}
+.logo i,.logo b{position:absolute;inset:0;transition:opacity .3s ease,transform .35s ease}
+.montanha{background:transparent;-webkit-backdrop-filter:grayscale(1) invert(1) contrast(6);backdrop-filter:grayscale(1) invert(1) contrast(6);-webkit-mask:url("jodo-montanha.png") center/contain no-repeat,url("jodo-montanha.png") center/contain no-repeat,url("jodo-montanha.png") center/contain no-repeat,url("jodo-montanha.png") center/contain no-repeat;mask:url("jodo-montanha.png") center/contain no-repeat,url("jodo-montanha.png") center/contain no-repeat,url("jodo-montanha.png") center/contain no-repeat,url("jodo-montanha.png") center/contain no-repeat}
+.logo b.nome{inset:auto;left:50%;top:50%;width:max-content;max-width:92vw;display:block;text-align:center;font:400 clamp(15px,1.35vw,19px)/1 Anton,Impact,sans-serif;letter-spacing:.18em;text-indent:.18em;text-transform:uppercase;white-space:nowrap;color:transparent;background:linear-gradient(100deg,#fff 0%,#ffe9ff 35%,#d8fbff 65%,#fffbd0 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-stroke:.5px rgba(0,0,0,.7);filter:drop-shadow(0 0 5px rgba(0,0,0,.75)) drop-shadow(0 1px 1px rgba(0,0,0,.8));opacity:0;transform:translate(-50%,-50%) scale(.85)}
+.marca:hover .montanha,.logo:focus-visible .montanha{opacity:0;transform:scale(1.12)}
+.marca:hover .nome,.logo:focus-visible .nome{opacity:1;transform:translate(-50%,-50%)}
+.voltar{position:fixed;top:14px;left:clamp(12px,2vw,28px);z-index:90;display:inline-flex;gap:6px;align-items:center;padding:5px 10px 4px;font-family:"Space Mono","Courier New",monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;text-decoration:none;mix-blend-mode:difference;border:1px solid currentColor;background:transparent;transition:background .15s,color .15s}
+.voltar:hover{background:#fff;color:#000}
+@media(max-width:800px){.voltar{top:8px;left:8px;font-size:.62rem;padding:3px 7px}.logo{width:70px}.marca{margin-top:6px}}
+@media(max-width:700px){#pl{grid-template-columns:1fr;justify-items:center;bottom:12px}#sobe{grid-column:1;justify-self:center}#tit{grid-column:1}#tt .col{display:none}#ctl{grid-column:1;justify-self:center}#ctl input{display:none}}
+</style>
+</head>
+<body>
+<a class="voltar" href="/" target="_top" aria-label="Voltar para a JODO (mapa)"><span aria-hidden="true">←</span> JODO</a>
+<header class="topo"><div class="marca"><button type="button" class="logo" id="logo" aria-label="Van MC: voltar ao topo da página"><i class="montanha"></i><b class="nome">Van MC</b></button></div></header>
+<div id="stage">
+ <canvas id="gl"></canvas><canvas id="sh"></canvas><canvas id="ov"></canvas><canvas id="slab"></canvas>
+</div>
+<video id="v" loop playsinline preload="auto"></video>
+<div id="rolo"></div>
+<div id="borda" aria-hidden="true"></div>
+<div id="setas"><button id="sUp" aria-label="sala anterior">↑</button><button id="sDown" aria-label="próxima sala">↓</button></div>
+<div id="dica">arrasta pra riscar · toca pra bater</div>
+<div id="barra"></div>
+<div id="pl">
+ <button id="sobe">↑ voltar ao início</button>
+ <div id="tit"><b id="tt"></b><a id="yt" target="_blank" rel="noopener" aria-label="Ver no YouTube" title="Ver no YouTube"><svg viewBox="0 0 46 32" aria-hidden="true"><rect width="46" height="32" rx="9" fill="#ff0033"/><path d="M18.5 9.5v13l11.5-6.5z" fill="#fff"/></svg></a></div>
+ <div id="ctl"><button id="pp" aria-label="tocar ou pausar"></button><button id="mu" aria-label="mudo"></button><input id="vo" type="range" min="0" max="1" step=".01" value=".8" aria-label="volume"></div>
+</div>
+<script src="data.js?v=15381dc4"></script>
+<script src="app.js?v=15381dc4"></script>
+</body>
+</html>

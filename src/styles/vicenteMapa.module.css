@@ -1,0 +1,189 @@
+.raiz {
+  --osso: #ece4d3;
+  --ciano: #7cf2d0;
+  --uru: #ff5a2a;
+  --suave: rgba(236, 228, 211, 0.78);
+  --fio: rgba(236, 228, 211, 0.2);
+  --mono: "Space Mono", "Consolas", monospace;
+  --wide: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Instrument Serif", "Times New Roman", serif;
+  position: relative;
+  background: #04070a;
+  color: var(--osso);
+  font-family: var(--wide);
+}
+.tela { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; z-index: 0; }
+.palco { position: fixed; inset: 0; z-index: 10; overflow: hidden; pointer-events: none; }
+.trilha { width: 1px; position: relative; z-index: 0; }
+
+/* ---------- tipografia base ---------- */
+.raiz h1, .raiz h2, .raiz h3 { margin: 0; font-weight: 900; font-stretch: 62%; font-variation-settings: "wdth" 62; text-transform: uppercase; line-height: 0.86; letter-spacing: -0.012em; }
+.raiz h2 em, .raiz h1 em { font-family: var(--serif); font-style: italic; font-weight: 400; font-stretch: 100%; font-variation-settings: normal; text-transform: none; letter-spacing: -0.02em; line-height: 0.9; }
+.rot { display: inline-flex; align-items: center; gap: 12px; font: 700 12px/1 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ciano); }
+.rot::before { content: ""; width: 38px; height: 2px; background: currentColor; }
+.raiz h1, .raiz h2, .raiz h3, .raiz p, .raiz li > span, .raiz .rot, .raiz b, .raiz small { text-shadow: 0 0 12px rgba(4, 7, 10, 0.96), 0 0 30px rgba(4, 7, 10, 0.9), 0 0 60px rgba(4, 7, 10, 0.7); }
+
+/* ---------- capítulos em tela cheia, que trocam por fusão ---------- */
+.cap { position: absolute; inset: 0; opacity: 0; visibility: hidden; display: flex; flex-direction: column; padding: 11vh 5vw 8vh; will-change: opacity; }
+.rv { opacity: 0; transform: translate3d(0, 26px, 0); filter: blur(10px); transition: opacity 1.1s cubic-bezier(0.2, 0.7, 0.2, 1), transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1), filter 1.1s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: calc(var(--k, 0) * 90ms); }
+.on .rv { opacity: 1; transform: none; filter: none; }
+.on a, .on button, .on [data-ui] { pointer-events: auto; }
+
+/* ---------- menu ---------- */
+.menu { position: absolute; top: 20px; right: 24px; z-index: 5; display: flex; gap: 20px; font: 700 11px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; pointer-events: auto; mix-blend-mode: difference; color: #fff; }
+.menu button { background: none; border: 0; border-bottom: 1px solid transparent; padding: 6px 0; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; opacity: 0.6; transition: 0.2s; }
+.menu button i { font-style: normal; opacity: 0.55; margin-right: 6px; }
+.menu button:hover, .menuOn { opacity: 1 !important; border-color: #fff !important; }
+
+/* ============ 1. capa ============ */
+.capa { justify-content: flex-end; padding-bottom: 12vh; }
+.heroTxt { display: grid; gap: 18px; max-width: 920px; justify-items: start; padding: 3vh 0; background: linear-gradient(90deg, rgba(4, 7, 10, 0.7), rgba(4, 7, 10, 0) 85%); }
+.raiz h1.nome { font-family: var(--serif); font-style: italic; font-weight: 400; font-stretch: 100%; font-variation-settings: normal; text-transform: none; letter-spacing: -0.025em; line-height: 0.86; font-size: clamp(64px, 11vw, 188px); color: var(--osso); }
+.sub { margin: 0; font: 400 13px/1.5 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--suave); }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.btn, .btn2 { display: inline-block; padding: 14px 22px; font: 700 12px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: 0.2s; text-shadow: none; }
+.btn { background: var(--osso); color: #04070a; border: 1px solid var(--osso); }
+.btn:hover { background: transparent; color: var(--osso); }
+.btn2 { color: var(--osso); border: 1px solid var(--fio); background: rgba(4, 7, 10, 0.6); }
+.btn2:hover { border-color: var(--ciano); color: var(--ciano); }
+.rolar { position: absolute; right: 5vw; bottom: 12vh; margin: 0; font: 700 11px/1 var(--mono); letter-spacing: 0.3em; text-transform: uppercase; color: var(--ciano); writing-mode: vertical-rl; }
+.rolar::after { content: ""; display: block; width: 1px; height: 60px; margin: 14px auto 0; background: var(--ciano); transform-origin: top; animation: desce 2s ease-in-out infinite; }
+@keyframes desce { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* ============ 2. quem ============ */
+.quem { justify-content: center; gap: 6vh; }
+.quemGrid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.8fr); gap: 4vw; align-items: end; background: linear-gradient(90deg, rgba(4, 7, 10, 0.78), rgba(4, 7, 10, 0.4) 60%, transparent); padding: 2vh 0; }
+.quemT { font-size: clamp(46px, 6.6vw, 124px) !important; display: grid; }
+.quemT > * { display: block; }
+.quemT em { font-size: 1.06em; color: var(--ciano); }
+.quemTxt { display: grid; gap: 16px; padding: 22px 22px 22px 0; max-width: 520px; background: rgba(4, 7, 10, 0.7); }
+.quemTxt p { margin: 0; font-size: clamp(15px, 1.2vw, 19px); line-height: 1.55; color: var(--suave); }
+.quemTxt mark { background: none; color: var(--osso); font-weight: 800; box-shadow: inset 0 -0.4em 0 rgba(124, 242, 208, 0.28); }
+.capitular::first-letter { float: left; font-family: var(--serif); font-size: 4.2em; line-height: 0.78; padding: 0.06em 0.1em 0 0; color: var(--ciano); font-style: italic; }
+.epi { font: 700 12px/1.4 var(--mono) !important; letter-spacing: 0.2em; text-transform: uppercase; color: var(--uru) !important; }
+.ficha { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3vw; }
+.ficha li { display: grid; gap: 8px; border-top: 2px solid var(--uru); padding-top: 12px; }
+.ficha b { font-weight: 900; font-stretch: 62%; font-variation-settings: "wdth" 62; font-size: clamp(36px, 4.4vw, 76px); line-height: 0.85; }
+.ficha span { font-size: clamp(13px, 1.05vw, 16px); line-height: 1.4; color: var(--suave); max-width: 26ch; }
+
+/* ============ 3. mapa ============ */
+.mapa { padding: 0; }
+.mapaTopo { position: absolute; left: 5vw; top: 12vh; display: grid; gap: 14px; max-width: 460px; padding: 18px 22px 18px 0; background: linear-gradient(90deg, rgba(4, 7, 10, 0.82), transparent); }
+.mapaTopo h2 { font-size: clamp(32px, 3.4vw, 60px) !important; }
+.mapaTopo p { margin: 0; font-size: clamp(14px, 1.1vw, 17px); line-height: 1.5; color: var(--suave); }
+.carta { position: absolute; right: 5vw; top: 12vh; width: min(440px, 40vw); display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 16px; background: rgba(4, 7, 10, 0.9); border-top: 2px solid var(--uru); opacity: 0.6; transition: opacity 0.25s; }
+.cartaOn { opacity: 1; }
+.cartaCapa { width: 120px; height: 120px; background: rgba(236, 228, 211, 0.06); }
+.cartaCapa img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cartaTxt { display: grid; gap: 8px; align-content: start; }
+.cartaTxt small { font: 700 10px/1.4 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--uru); }
+.cartaTxt h3 { font-size: clamp(24px, 2.4vw, 42px); }
+.cartaTxt p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--suave); }
+.cartaLinks { display: flex; flex-wrap: wrap; gap: 10px 16px; }
+.cartaLinks a { font: 700 11px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ciano); text-decoration: none; border-bottom: 1px solid var(--ciano); padding-bottom: 3px; text-shadow: none; }
+.cartaVazia { grid-column: 1 / -1; margin: 0; font: 400 12px/1.6 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(236, 228, 211, 0.55); }
+.tempo { position: absolute; left: 5vw; right: 5vw; bottom: 6vh; display: grid; gap: 14px; padding: 18px 22px; background: rgba(4, 7, 10, 0.86); border-left: 2px solid var(--ciano); }
+.tempoAnos { display: flex; flex-wrap: wrap; gap: 8px; }
+.tempoAnos button { padding: 9px 16px; background: none; border: 1px solid var(--fio); color: rgba(236, 228, 211, 0.55); font: 700 13px/1 var(--mono); letter-spacing: 0.1em; cursor: pointer; transition: 0.2s; }
+.tempoAnos button:hover { border-color: var(--ciano); color: var(--osso); }
+.tempoAnos .anoPassou { color: var(--osso); border-color: rgba(236, 228, 211, 0.4); }
+.tempoAnos .anoOn { background: var(--osso); color: #04070a; border-color: var(--osso); }
+.tempoTxt { display: grid; grid-template-columns: 200px 1fr; gap: 18px; align-items: baseline; }
+.tempoTxt b { font-weight: 900; font-stretch: 62%; font-variation-settings: "wdth" 62; text-transform: uppercase; font-size: clamp(24px, 2.2vw, 38px); line-height: 0.9; }
+.tempoTxt p { margin: 0; max-width: 70ch; font-size: clamp(14px, 1.15vw, 18px); line-height: 1.5; color: var(--suave); }
+
+/* ============ 4. a mata viva ============ */
+.mata { padding: 0; }
+.mataTopo { position: absolute; left: 5vw; top: 12vh; display: grid; gap: 14px; max-width: 560px; padding: 14px 22px 14px 0; background: linear-gradient(90deg, rgba(4, 7, 10, 0.8), transparent); }
+.mataTopo h2 { font-size: clamp(30px, 3.2vw, 56px) !important; }
+.mataTopo h2 em { color: var(--ciano); }
+.mataLegenda { position: absolute; left: 5vw; bottom: 8vh; min-height: 96px; display: grid; gap: 6px; align-content: end; max-width: 520px; }
+.mataLegenda b { font-weight: 900; font-stretch: 62%; font-variation-settings: "wdth" 62; text-transform: uppercase; font-size: clamp(28px, 3vw, 52px); line-height: 0.9; }
+.mataLegenda em { font-family: var(--serif); font-style: italic; font-size: clamp(18px, 1.6vw, 26px); color: var(--suave); }
+.mataLegenda p { margin: 0; font-size: 15px; line-height: 1.45; color: var(--suave); }
+.mataLegenda .dicaBicho { font: 400 12px/1.5 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(236, 228, 211, 0.6); }
+
+/* ============ 5. discografia ============ */
+.discos { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 4vw; align-items: center; }
+.discosEsq { display: grid; gap: 18px; align-content: center; background: linear-gradient(90deg, rgba(4, 7, 10, 0.8), transparent); padding: 3vh 2vw 3vh 0; }
+.anoGrande { font-size: clamp(110px, 17vw, 300px) !important; line-height: 0.8 !important; color: transparent; -webkit-text-stroke: 1.5px rgba(124, 242, 208, 0.7); text-shadow: none !important; animation: anoIn 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@keyframes anoIn { from { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
+.passos { display: flex; flex-wrap: wrap; gap: 8px; }
+.passos button { padding: 9px 14px; background: none; border: 1px solid var(--fio); color: rgba(236, 228, 211, 0.55); font: 700 12px/1 var(--mono); letter-spacing: 0.1em; cursor: pointer; transition: 0.2s; }
+.passos button:hover { border-color: var(--ciano); color: var(--osso); }
+.passos .passoOn { background: var(--osso); color: #04070a; border-color: var(--osso); }
+.discosDica { margin: 0; font: 400 11px/1.6 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(236, 228, 211, 0.55); max-width: 36ch; }
+.itens { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; align-content: center; max-height: 82vh; }
+.itens li { display: grid; gap: 6px; opacity: 0; animation: itIn 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--k, 0) * 90ms + 120ms); }
+@keyframes itIn { from { opacity: 0; transform: translate3d(0, 22px, 0); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+.itens li > a { display: grid; grid-template-columns: 150px minmax(0, 1fr) 30px; gap: 20px; align-items: center; padding: 14px; background: rgba(4, 7, 10, 0.82); border-left: 2px solid transparent; color: inherit; text-decoration: none; transition: border-color 0.25s, background 0.25s, transform 0.3s; }
+.itens li > a:hover { border-left-color: var(--ciano); background: rgba(124, 242, 208, 0.08); transform: translateX(8px); }
+.itens img { width: 150px; height: 150px; object-fit: cover; display: block; box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6); }
+.itTxt { display: grid; gap: 8px; }
+.itTxt small { font: 700 11px/1.4 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ciano); }
+.itTxt b { font-weight: 900; font-stretch: 62%; font-variation-settings: "wdth" 62; text-transform: uppercase; font-size: clamp(30px, 3.6vw, 64px); line-height: 0.88; }
+.itTxt em { font-style: normal; font-size: 14px; line-height: 1.45; color: var(--suave); }
+.itSeta { font: 700 22px/1 var(--mono); color: var(--ciano); opacity: 0.4; transition: 0.25s; }
+.itens li > a:hover .itSeta { opacity: 1; }
+.itLinks { margin: 0; padding-left: 14px; display: flex; gap: 16px; }
+.itLinks a { font: 700 11px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ciano); text-decoration: none; border-bottom: 1px solid var(--ciano); padding-bottom: 3px; text-shadow: none; }
+.itensMuitos { grid-template-columns: 1fr 1fr; gap: 10px; }
+.itensMuitos li > a { grid-template-columns: 78px minmax(0, 1fr) 22px; gap: 12px; padding: 10px; }
+.itensMuitos img { width: 78px; height: 78px; }
+.itensMuitos .itTxt b { font-size: clamp(20px, 1.9vw, 32px); }
+.itensMuitos .itTxt em { display: none; }
+
+/* ============ 6. ouvir ============ */
+.ouvir { justify-content: center; gap: 14px; padding-top: 13vh; }
+.ouvir h2 { font-size: clamp(44px, 6.2vw, 112px) !important; }
+.volta { margin: 0; font-family: var(--serif); font-style: italic; font-size: clamp(24px, 2.8vw, 48px); line-height: 1; color: rgba(236, 228, 211, 0.85); }
+.plats { list-style: none; margin: 1.5vh 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.plats a { display: grid; gap: 10px; align-content: start; height: 100%; padding: 22px 18px; border: 1px solid var(--fio); color: inherit; text-decoration: none; transition: 0.25s; background: rgba(4, 7, 10, 0.7); }
+.plats a:hover { border-color: var(--ciano); transform: translateY(-8px); background: rgba(124, 242, 208, 0.08); }
+.ic { width: 36px; height: 36px; display: block; }
+.ic svg { width: 100%; height: 100%; }
+.plats b { font-weight: 900; font-stretch: 62%; font-variation-settings: "wdth" 62; font-size: clamp(26px, 2.4vw, 40px); text-transform: uppercase; line-height: 1; }
+.plats em { font: 400 12px/1.5 var(--mono); letter-spacing: 0.06em; font-style: normal; color: var(--suave); }
+.nota { max-width: 760px; margin: 2vh 0 0; font: 400 11px/1.75 var(--mono); letter-spacing: 0.05em; color: rgba(236, 228, 211, 0.5); }
+.topo { width: fit-content; padding: 14px 26px; background: rgba(4, 7, 10, 0.6); border: 1px solid var(--ciano); color: var(--ciano); font: 700 12px/1 var(--mono); letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: 0.2s; text-shadow: none; }
+.topo:hover { background: var(--ciano); color: #04070a; }
+
+/* ============ celular ============ */
+@media (max-width: 860px) {
+  .menu { display: none; }
+  .cap { padding: 12vh 18px 6vh; }
+  .raiz h1.nome { font-size: clamp(54px, 19vw, 96px); }
+  .rolar { display: none; }
+  .quemGrid { grid-template-columns: 1fr; gap: 14px; }
+  .quemT { font-size: clamp(40px, 13vw, 76px) !important; }
+  .quemTxt { padding: 14px 14px 14px 0; gap: 10px; }
+  .quemTxt p { font-size: 14px; line-height: 1.45; }
+  .ficha { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ficha b { font-size: 34px; }
+  .mapaTopo { left: 14px; top: 10vh; max-width: 80vw; }
+  .mapaTopo p { display: none; }
+  .carta { right: 14px; left: 14px; width: auto; top: auto; bottom: 31vh; grid-template-columns: 76px 1fr; padding: 12px; }
+  .cartaCapa { width: 76px; height: 76px; }
+  .cartaTxt h3 { font-size: 22px; }
+  .cartaTxt p { display: none; }
+  .tempo { left: 10px; right: 10px; bottom: 3vh; padding: 12px 14px; gap: 10px; }
+  .tempoAnos button { padding: 7px 10px; font-size: 11px; }
+  .tempoTxt { grid-template-columns: 1fr; gap: 6px; }
+  .tempoTxt p { font-size: 13px; }
+  .mataTopo { left: 14px; top: 10vh; max-width: 86vw; }
+  .mataLegenda { left: 14px; bottom: 6vh; }
+  .discos { grid-template-columns: 1fr; gap: 10px; align-content: start; padding-top: 11vh; }
+  .discosEsq { gap: 10px; padding: 0; }
+  .anoGrande { font-size: clamp(76px, 26vw, 140px) !important; }
+  .discosDica { display: none; }
+  .itens li > a { grid-template-columns: 76px minmax(0, 1fr) 20px; gap: 12px; padding: 10px; }
+  .itens img { width: 76px; height: 76px; }
+  .itTxt b { font-size: clamp(22px, 7vw, 34px); }
+  .itTxt em { display: none; }
+  .itensMuitos { grid-template-columns: 1fr; gap: 6px; }
+  .itensMuitos li > a { grid-template-columns: 54px minmax(0, 1fr) 18px; padding: 8px; }
+  .itensMuitos img { width: 54px; height: 54px; }
+  .plats { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .plats a { padding: 14px 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .rolar::after { animation: none; } }

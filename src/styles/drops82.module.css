@@ -1,0 +1,197 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Pirata+One&display=swap");
+
+/* Identidade tirada dos drops: papel creme, traço preto, marcas vermelho/verde/azul, preto riscado com gótico vermelho. */
+
+.raiz {
+  --creme: #f9f5ee;
+  --tinta: #1d1d1d;
+  --verm: #b8132b;
+  --verde: #4f9d5a;
+  --azul: #4a86c8;
+  --noite: #0d0d0d;
+  background: var(--creme);
+  color: var(--tinta);
+  font-family: var(--fonte-principal);
+  overflow-x: hidden;
+}
+
+.topo {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: space-between;
+  padding: 14px clamp(16px, 3vw, 40px);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  mix-blend-mode: difference;
+  color: #fff;
+}
+.topo a:hover { opacity: 0.6; }
+
+/* ===== capa viva ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.palco {
+  position: relative;
+  width: min(88vh, 92vw);
+  aspect-ratio: 1;
+}
+.camada {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: var(--z, 1);
+  will-change: transform;
+  pointer-events: none;
+}
+.heroTexto {
+  position: absolute;
+  left: clamp(18px, 3vw, 48px);
+  right: clamp(18px, 3vw, 48px);
+  bottom: clamp(14px, 3vh, 36px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+}
+.nome82 {
+  font-family: "Anton", var(--fonte-principal);
+  font-weight: 400;
+  font-size: clamp(3.4rem, 9vw, 7.6rem);
+  line-height: 0.9;
+  order: 2;
+}
+.linhagem { display: grid; gap: 3px; }
+.linhagem li { display: flex; gap: 10px; align-items: baseline; font-size: 0.8rem; }
+.linhagem span { font-family: "Courier New", monospace; opacity: 0.55; width: 2.6em; }
+.linhagem strong { font-family: "Anton", var(--fonte-principal); font-weight: 400; letter-spacing: 0.03em; font-size: 1rem; }
+.rolar {
+  position: absolute;
+  top: 50%;
+  right: clamp(10px, 1.6vw, 24px);
+  writing-mode: vertical-rl;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+/* ===== Häxan, o cartaz escuro ===== */
+.haxan {
+  position: relative;
+  min-height: 120vh;
+  background: var(--noite);
+  color: #e9e1d4;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 14vh clamp(16px, 4vw, 60px);
+}
+.cartazFundo { position: absolute; inset: -12% 0; opacity: 0.55; overflow: hidden; }
+.cartazFundo img { width: 100%; height: 100%; max-width: none; object-fit: cover; will-change: transform; filter: contrast(1.05); }
+.haxanMiolo { position: relative; z-index: 2; width: min(620px, 100%); text-align: center; }
+.capKicker { font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; opacity: 0.75; font-family: "Courier New", monospace; }
+.goticoTitulo {
+  font-family: "Pirata One", serif;
+  font-weight: 400;
+  font-size: clamp(5rem, 16vw, 11rem);
+  line-height: 0.9;
+  color: #9d1424;
+  text-shadow: 0 0 40px rgba(157, 20, 36, 0.35);
+  margin: 10px 0 24px;
+}
+.faixas { display: grid; gap: 2px; }
+.faixas button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2em 1fr auto auto;
+  gap: 12px;
+  align-items: baseline;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgba(233, 225, 212, 0.18);
+  padding: 12px 6px;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, padding-left 0.25s ease;
+}
+.faixas button:hover { background: rgba(157, 20, 36, 0.18); padding-left: 16px; }
+.fn { font-family: "Pirata One", serif; color: #9d1424; font-size: 1.3rem; }
+.ft { font-family: "Pirata One", serif; font-size: clamp(1.4rem, 3vw, 2rem); }
+.faixas small { opacity: 0.6; font-family: "Courier New", monospace; font-size: 0.72rem; }
+.fp { color: #9d1424; font-size: 0.8rem; }
+.gnomo {
+  position: absolute;
+  right: clamp(-40px, 3vw, 80px);
+  bottom: -4%;
+  width: clamp(180px, 28vw, 420px);
+  z-index: 3;
+  will-change: transform;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+}
+
+/* ===== negativos ===== */
+.negativos {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: var(--creme);
+  overflow: hidden;
+}
+.negativos img { width: 100%; height: auto; display: block; will-change: transform; }
+
+/* ===== zine da Realeza ===== */
+.zine {
+  background: #0a0720;
+  color: #f0e9ff;
+  padding: 16vh clamp(14px, 3vw, 48px) 14vh;
+  overflow: hidden;
+}
+.zineTitulo { max-width: 900px; margin: 0 auto 18vh; text-align: center; position: relative; z-index: 3; }
+.zineTitulo h2 {
+  font-family: "Pirata One", serif;
+  font-weight: 400;
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 0.95;
+  background: linear-gradient(90deg, #4af, #c4f, #f48);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.zineGrade { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(8px, 1.4vw, 22px); align-items: start; max-width: 1200px; margin: 0 auto; }
+.zineCol { display: grid; gap: clamp(8px, 1.4vw, 22px); }
+.zineCol:nth-child(even) { margin-top: 10vh; }
+.zineCol img { width: 100%; height: auto; display: block; border-radius: 2px; will-change: transform; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5); }
+
+/* modal */
+.modal { position: fixed; inset: 0; z-index: 60; background: rgba(5, 5, 5, 0.92); display: grid; place-items: center; padding: 20px; }
+.caixa { width: min(1000px, 100%); }
+.fechar { display: block; margin: 0 0 8px auto; background: none; border: 0; color: #fff; font: inherit; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; }
+.player { aspect-ratio: 16/9; background: #000; border: 1px solid rgba(255, 255, 255, 0.25); }
+.player iframe { width: 100%; height: 100%; border: 0; display: block; }
+.legenda { margin-top: 10px; color: #ccc; font-size: 0.9rem; }
+
+@media (max-width: 760px) {
+  .zineGrade { grid-template-columns: repeat(2, 1fr); }
+  .negativos { grid-template-columns: 1fr; }
+  .heroTexto { flex-direction: column-reverse; align-items: flex-start; gap: 8px; }
+  .nome82 { order: 0; }
+  .rolar { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .camada, .gnomo, .cartazFundo img, .negativos img, .zineCol img { transform: none !important; }
+}

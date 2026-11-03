@@ -1,0 +1,491 @@
+@font-face { font-family: "RDMono"; src: url("/fonts/SpaceMono-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "RDHuman"; src: url("/fonts/CasualHuman-Bold.otf") format("opentype"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "RDSmithy"; src: url("/fonts/SmithyXT-Heavy.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "RDHelv"; src: url("/fonts/HelveticaNowDisplay-ExtraBold.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "RDCap"; src: url("/fonts/AmericanCaptain.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+
+.raiz { --am: #ffd400; --lar: #ff8a1f; --pap: #f1ece0; font-family: "RDMono", monospace; color: #fff; background: #0b0b0b; overflow-x: hidden; }
+.kick, .kickEscuro { font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase; margin: 0 0 1.2vh; }
+.kick { color: var(--am); }
+.kickEscuro { color: #111; }
+.sub { font-size: clamp(0.82rem, 1.1vw, 1rem); line-height: 1.6; opacity: 0.88; max-width: 56ch; margin: 0; }
+
+.topo { position: fixed; top: 0; left: 0; right: 0; z-index: 40; display: flex; justify-content: space-between; align-items: center; padding: 12px clamp(14px, 3vw, 40px); mix-blend-mode: difference; pointer-events: none; }
+.topo a { pointer-events: auto; color: #fff; }
+.marca img { width: clamp(70px, 6vw, 96px); height: auto; display: block; }
+.eu { font-family: "RDCap", sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; }
+
+/* rota: o fio que liga as cenas */
+.rota { position: fixed; left: clamp(10px, 1.6vw, 26px); top: 0; bottom: 0; width: 34px; z-index: 35; pointer-events: none; }
+.rotaLinha { position: absolute; left: 16px; top: 7%; bottom: 7%; width: 0; border-left: 2px dashed rgba(255,212,0,0.55); mix-blend-mode: difference; }
+.rotaMarca { position: absolute; left: 0; width: 34px; height: auto; transform: translateY(-50%) rotate(8deg); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6)); top: 6%; }
+.rota ul { list-style: none; margin: 0; padding: 0; position: absolute; left: 0; top: 50%; transform: translateY(-50%); display: grid; gap: 16px; pointer-events: auto; }
+.rota button { background: none; border: 0; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 10px; color: #fff; }
+.rota b { width: 8px; height: 8px; border-radius: 50%; border: 2px solid var(--am); background: #0b0b0b; margin-left: 12px; display: block; }
+.rotaAtiva b { background: var(--am); }
+.rota span { font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; opacity: 0; transform: translateX(-6px); transition: opacity 0.15s, transform 0.15s; background: rgba(11,11,11,0.85); padding: 2px 6px; }
+.rota button:hover span, .rotaAtiva span { opacity: 1; transform: none; }
+
+/* palco fixo: as cenas se sobrepõem e se transformam */
+.trilha { position: relative; }
+.palco { position: fixed; inset: 0; overflow: hidden; }
+.fundo { position: absolute; inset: 0; background: #0b0b0b; }
+.rua { position: absolute; inset: 0; display: flex; align-items: center; width: max-content; animation: passa 120s linear infinite; opacity: 0.5; pointer-events: none; }
+.rua img { height: 50vh; width: auto; filter: contrast(1.1) saturate(1.2); }
+.rua img:nth-child(odd) { transform: translateY(-6vh) rotate(-1.5deg); }
+.rua img:nth-child(even) { transform: translateY(8vh) rotate(1.2deg); }
+@keyframes passa { to { transform: translateX(-50%); } }
+.cena { --t: 0; position: absolute; inset: 0; padding: clamp(70px, 11vh, 120px) clamp(16px, 5vw, 90px) clamp(40px, 8vh, 90px) clamp(52px, 7vw, 110px); opacity: 0; visibility: hidden; }
+
+/* ===== ABERTURA ===== */
+.hero { display: grid; align-items: center; }
+.heroTxt { position: relative; z-index: 2; max-width: 720px; transform: translateY(calc((var(--t) - 0.4) * -90px)); }
+.hero h1 { margin: 0 0 1.4vh; font-family: "RDCap", sans-serif; font-weight: 400; font-size: clamp(4.2rem, 13vw, 11.5rem); line-height: 0.82; color: var(--am); text-shadow: 6px 6px 0 #000; }
+.dica { margin: 3vh 0 0; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.55; }
+.placa { --m: 0; position: absolute; right: clamp(-40px, 2vw, 60px); top: 50%; width: min(42vw, 520px); z-index: 2; transform: translate(calc(var(--m) * -87vw), calc(-50% + var(--m) * -44vh)) rotate(calc(8deg + var(--m) * -8deg)) scale(calc(1 - var(--m) * 0.93)); opacity: calc(1 - var(--m) * 0.25); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.6)); transform-origin: center; }
+
+/* ===== CYBER DELIVERY (+ Vol. 2 no botão) ===== */
+.proximas { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(20px, 4vw, 70px); align-items: center; }
+.cyberVideo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.24; filter: saturate(1.4) hue-rotate(-8deg); }
+.cyberVeu { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(26,13,46,0.82), rgba(26,13,46,0.35)); }
+.cyberCap { position: relative; justify-self: center; width: min(34vw, 62vh, 500px); transform: translateY(calc((0.5 - var(--t)) * 120px)) rotate(-2deg); }
+.capaCyber { width: 100%; display: block; box-shadow: 0 0 60px rgba(214, 41, 118, 0.5), 0 30px 80px rgba(0,0,0,0.7); }
+.brilho { position: absolute; inset: -6%; background: radial-gradient(circle, rgba(255,0,170,0.35), transparent 60%); z-index: -1; animation: pulsa 3.2s ease-in-out infinite; }
+@keyframes pulsa { 50% { opacity: 0.45; transform: scale(1.06); } }
+.cyberTxt { position: relative; transform: translateY(calc((0.5 - var(--t)) * -60px)); }
+.cyberTxt h2 { margin: 0 0 1.4vh; font-family: "RDCap", sans-serif; font-weight: 400; font-size: clamp(3.2rem, 8vw, 7.4rem); line-height: 0.88; color: var(--am); text-shadow: 3px 0 #ff2bb3, -3px 0 #2be3ff, 0 0 30px rgba(255,212,0,0.35); }
+.cyberLista { list-style: none; margin: 2.4vh 0 0; padding: 0; display: grid; gap: 4px; max-width: 440px; }
+.cyberLista li { display: grid; grid-template-columns: 2.4em 1fr; column-gap: 10px; padding: 8px 12px; border-left: 3px solid var(--am); background: rgba(255,255,255,0.05); align-items: center; }
+.cyberLista i { font-style: normal; color: #ff2bb3; font-size: 0.78rem; }
+.cyberLista strong { font-family: "RDHuman", sans-serif; font-size: clamp(1rem, 1.4vw, 1.25rem); letter-spacing: 0.04em; text-transform: uppercase; }
+/* Vol. 2 em off: só um botão discreto; a nota de entrega aparece no hover */
+.vol2Box { position: relative; margin-top: 3vh; width: max-content; }
+.vol2Btn { font-family: "RDMono", monospace; background: transparent; color: #fff; border: 1px dashed rgba(255,212,0,0.6); padding: 9px 14px; cursor: help; letter-spacing: 0.06em; font-size: 0.76rem; transition: background 0.15s, color 0.15s; }
+.vol2Btn i { font-style: normal; color: var(--lar); margin-right: 8px; letter-spacing: 0.12em; }
+.vol2Box:hover .vol2Btn, .vol2Btn:focus-visible { background: var(--am); color: #111; }
+.vol2Box:hover .vol2Btn i, .vol2Btn:focus-visible i { color: #111; }
+.nota { position: absolute; left: 0; bottom: calc(100% + 14px); width: min(380px, 80vw); background: var(--pap); color: #1a1a1a; padding: 18px 20px; box-shadow: 0 30px 80px rgba(0,0,0,0.6); transform: translateY(14px) rotate(-2deg) scale(0.96); transform-origin: bottom left; opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.25s cubic-bezier(.3,1.5,.5,1); background-image: repeating-linear-gradient(0deg, transparent 0 27px, rgba(0,0,0,0.05) 27px 28px); z-index: 5; }
+.vol2Box:hover .nota, .vol2Btn:focus-visible + .nota { opacity: 1; transform: rotate(-1.5deg); }
+.notaTopo { font-size: 0.6rem; letter-spacing: 0.2em; margin: 0 0 6px; text-align: center; opacity: 0.7; }
+.nota h3 { margin: 0 0 10px; font-family: "RDHuman", sans-serif; font-size: 1.5rem; line-height: 1; text-align: center; }
+.nota h3 span { color: #c4161c; }
+.nota ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.nota li { display: grid; grid-template-columns: 2em auto 1fr auto; align-items: baseline; gap: 6px; font-size: 0.78rem; }
+.nota i { font-style: normal; font-size: 0.62rem; opacity: 0.55; }
+.nota strong { font-family: "RDHuman", sans-serif; font-size: 1rem; letter-spacing: 0.02em; }
+.nota em { border-bottom: 2px dotted rgba(0,0,0,0.4); height: 0.8em; }
+.nota small { font-size: 0.6rem; opacity: 0.75; }
+
+/* ===== RIMAS PRA VIAGEM VOL. 1 ===== */
+.rimas { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(20px, 4vw, 70px); align-items: center; max-width: 1360px; margin: 0 auto; }
+.rimasCapaBox { transform: translateY(calc((0.5 - var(--t)) * 80px)); justify-self: center; width: min(100%, 78vh); }
+.rimasCapa { width: 100%; display: block; box-shadow: 0 30px 90px rgba(0,0,0,0.75); transform: rotate(calc(-1.6deg + var(--t) * 3.2deg)); }
+.rimasInfo { display: grid; gap: 10px; background: rgba(11,11,11,0.78); padding: clamp(14px, 1.8vw, 24px); border-left: 4px solid var(--am); transform: translateY(calc((0.5 - var(--t)) * -50px)); }
+.albumBtn { background: #1db954; color: #0b0b0b; padding: 12px 20px; font-family: "RDMono", monospace; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.78rem; justify-self: start; font-weight: 700; transition: transform 0.15s; }
+.albumBtn:hover { transform: translateY(-2px) rotate(-1deg); }
+.rimasLista { list-style: none; margin: 0; padding: 0; display: grid; }
+.rimasLista li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.18); padding: 5px 4px 5px 2.4em; }
+.num { position: absolute; left: 2px; top: 4px; font-style: normal; font-family: "RDCap", sans-serif; font-size: 1.2rem; color: var(--am); }
+.rimasLista span { font-family: "RDHuman", sans-serif; font-size: clamp(0.98rem, 1.3vw, 1.2rem); grid-column: 1; }
+.rimasLista small { grid-column: 1; font-size: 0.58rem; opacity: 0.65; }
+.rimasLista li button { grid-column: 2; grid-row: 1 / span 2; align-self: center; background: var(--am); color: #111; border: 0; padding: 4px 10px; font-family: "RDMono", monospace; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+.clipes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.clipes button { display: grid; grid-template-columns: 84px 1fr; gap: 10px; align-items: center; text-align: left; background: rgba(255,255,255,0.07); color: #fff; border: 0; padding: 6px; cursor: pointer; transition: background 0.15s; }
+.clipes button:hover { background: rgba(255,212,0,0.18); }
+.clipes img { width: 84px; aspect-ratio: 16/9; object-fit: cover; }
+.clipes em { font-style: normal; color: var(--am); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; display: block; }
+.clipes strong { font-family: "RDHuman", sans-serif; font-size: 0.98rem; line-height: 1.05; display: block; }
+
+/* ===== O DIA DO SHOW ===== */
+.dia { display: grid; align-content: center; gap: 8px; max-width: 1360px; margin: 0 auto; }
+.stops { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(10px, 2vw, 30px); margin-top: 8px; }
+.stops figure { margin: 0; position: relative; }
+.stops figure:nth-child(1) { transform: translateY(calc((0.5 - var(--t)) * 60px)); }
+.stops figure:nth-child(2) { transform: translateY(calc(40px + (0.5 - var(--t)) * -60px)); }
+.stops img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; filter: contrast(1.05) saturate(1.1); box-shadow: 0 18px 50px rgba(0,0,0,0.65); max-height: 62vh; }
+.stops figcaption { position: absolute; left: 10px; bottom: 10px; font-size: 0.78rem; letter-spacing: 0.08em; color: #fff; text-shadow: 0 1px 6px #000; background: rgba(11,11,11,0.55); padding: 4px 8px; }
+.stops b { color: var(--lar); font-weight: 400; margin-right: 6px; }
+.nota2 { font-size: 0.7rem; opacity: 0.6; margin: 18px 0 0; }
+
+/* ===== A CAMINHO ===== */
+.caminho { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 70px); align-items: center; color: #111; }
+.faixaRua { position: absolute; left: 0; right: 0; bottom: 9%; height: 14px; background: repeating-linear-gradient(90deg, #111 0 44px, transparent 44px 88px); transform: translateX(calc((0.5 - var(--t)) * 480px)); }
+.caminhoCol { position: relative; z-index: 2; max-width: 640px; transform: translateY(calc((0.5 - var(--t)) * -50px)); }
+.caminho h2 { margin: 0 0 1.2vh; font-family: "RDCap", sans-serif; font-weight: 400; font-size: clamp(3.6rem, 10vw, 9rem); line-height: 0.85; color: #111; }
+.tracksCam { list-style: none; margin: 1vh 0 2vh; padding: 0; display: flex; gap: 18px; flex-wrap: wrap; }
+.tracksCam li { font-family: "RDCap", sans-serif; font-size: clamp(2rem, 3.6vw, 3.2rem); color: #111; line-height: 1; }
+.tracksCam i { font-style: normal; font-family: "RDMono", monospace; font-size: 0.8rem; margin-right: 6px; opacity: 0.6; }
+.credCam { list-style: none; margin: 1.4vh 0 2vh; padding: 0; font-size: 0.76rem; line-height: 1.7; color: #111; }
+.botoes { display: flex; flex-wrap: wrap; gap: 10px; }
+.botoes button { background: #111; color: var(--am); border: 0; padding: 12px 20px; font-family: "RDMono", monospace; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.76rem; cursor: pointer; transition: transform 0.15s; }
+.botoes button:hover { transform: translateY(-3px) rotate(-1deg); }
+.botoes small { opacity: 0.7; margin-left: 6px; text-transform: none; }
+.camFotos { position: relative; height: min(70vh, 640px); }
+.camFotos figure { position: absolute; margin: 0; width: 62%; }
+.camFotos figure:nth-child(1) { left: 0; top: 0; transform: translateY(calc((0.5 - var(--t)) * 90px)) rotate(-3deg); }
+.camFotos figure:nth-child(2) { right: 0; top: 24%; transform: translateY(calc((0.5 - var(--t)) * -60px)) rotate(2.5deg); }
+.camFotos figure:nth-child(3) { left: 8%; bottom: 0; transform: translateY(calc((0.5 - var(--t)) * 120px)) rotate(-1.5deg); }
+.camFotos img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
+.camFotos figcaption { position: absolute; left: 0; bottom: 0; background: #111; color: var(--am); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 8px; }
+
+/* ===== OS PRIMEIROS PEDIDOS ===== */
+.pedido { display: grid; align-items: center; }
+.bag { position: absolute; right: 2%; bottom: 4%; width: min(26vw, 340px); transform: translateY(calc((0.5 - var(--t)) * 140px)) rotate(calc(var(--t) * 10deg)); filter: drop-shadow(0 20px 40px rgba(255, 212, 0, 0.18)); opacity: 0.85; }
+.pedidoCol { position: relative; z-index: 2; max-width: 1180px; }
+.pedido h2 { margin: 0 0 1.4vh; font-family: "RDCap", sans-serif; font-weight: 400; font-size: clamp(2.8rem, 6vw, 5.4rem); line-height: 0.88; color: #fff; }
+.comandas { list-style: none; margin: 2.4vh 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, clamp(220px, 21vw, 300px))); gap: 18px 16px; }
+.comandas li { transform: rotate(var(--r)) translateY(calc((0.5 - var(--t)) * (20px + var(--i) * 26px))); }
+.comandas button { width: 100%; display: grid; gap: 6px; text-align: left; background: var(--pap); color: #1a1a1a; border: 0; padding: 12px 10px 20px; cursor: pointer; box-shadow: 0 14px 30px rgba(0,0,0,0.5); transition: transform 0.18s cubic-bezier(.3,1.6,.5,1); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), 95% 100%, 90% calc(100% - 8px), 85% 100%, 80% calc(100% - 8px), 75% 100%, 70% calc(100% - 8px), 65% 100%, 60% calc(100% - 8px), 55% 100%, 50% calc(100% - 8px), 45% 100%, 40% calc(100% - 8px), 35% 100%, 30% calc(100% - 8px), 25% 100%, 20% calc(100% - 8px), 15% 100%, 10% calc(100% - 8px), 5% 100%, 0 calc(100% - 8px)); }
+.comandas button:hover { transform: translateY(-6px) rotate(-1.5deg); }
+.comNum { font-size: 0.62rem; letter-spacing: 0.18em; opacity: 0.65; }
+.comandas img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; filter: grayscale(0.15) contrast(1.05); }
+.comandas strong { font-family: "RDHuman", sans-serif; font-size: 1.2rem; line-height: 1.05; }
+.comandas small { font-size: 0.64rem; opacity: 0.7; }
+
+/* ===== OS QUATRO ===== */
+.quatro { display: grid; justify-items: center; align-content: center; gap: 18px; text-align: center; }
+.grupo { width: min(78vw, 820px, 56vh * 1.5); height: auto; display: block; box-shadow: 0 20px 60px rgba(0,0,0,0.6); transform: translateY(calc((0.5 - var(--t)) * 60px)) rotate(calc((var(--t) - 0.5) * -3deg)); }
+.integrantes { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.integrantes a { display: grid; gap: 2px; padding: 10px 18px; border: 2px solid var(--am); color: #fff; background: rgba(11,11,11,0.6); transition: background 0.15s, color 0.15s, transform 0.15s; }
+.integrantes a:hover { background: var(--am); color: #111; transform: translateY(-3px); }
+.integrantes strong { font-family: "RDHuman", sans-serif; font-size: 1.2rem; }
+.integrantes small { font-size: 0.66rem; opacity: 0.8; }
+.numeros { font-size: 0.8rem; letter-spacing: 0.1em; opacity: 0.85; margin: 0; }
+.numeros b { color: var(--am); font-weight: 400; font-size: 1.1rem; }
+
+.rodape { position: relative; z-index: 3; background: #0b0b0b; padding: 6vh 0 10vh; display: grid; justify-items: center; gap: 20px; border-top: 1px solid rgba(255,212,0,0.25); }
+.rodape button { display: grid; justify-items: center; gap: 8px; background: none; border: 0; color: #fff; cursor: pointer; font-family: "RDMono", monospace; letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.78rem; }
+.rodape img { width: clamp(80px, 11vh, 120px); height: auto; transition: transform 0.4s cubic-bezier(.2,1.6,.4,1); }
+.rodape button:hover img { transform: translateY(-8px) rotate(-6deg) scale(1.06); }
+.redes { display: flex; gap: 14px; }
+.redes a { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,0.35); color: #fff; border-radius: 50%; transition: transform 0.2s cubic-bezier(.2,1.6,.4,1), background 0.2s, color 0.2s; }
+.redes a:hover { background: var(--g); color: var(--ic); border-color: var(--c); transform: translateY(-4px) scale(1.08); }
+
+.modal { position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.82); display: grid; place-items: center; padding: 14px; }
+.caixa { width: min(900px, 100%); }
+.fechar { background: var(--am); border: 0; padding: 6px 14px; font-family: "RDMono", monospace; cursor: pointer; margin-bottom: 8px; }
+.player { aspect-ratio: 16/9; background: #000; }
+.player iframe { width: 100%; height: 100%; border: 0; }
+.legenda { margin: 8px 0 0; font-size: 0.8rem; }
+
+/* celular / telas estreitas: sem palco fixo; cenas empilhadas, cada uma com seu fundo e uma borda inclinada de costura */
+@media (max-width: 800px) {
+  .trilha { height: auto !important; }
+  .palco { position: relative; inset: auto; overflow: visible; }
+  .fundo, .rua { display: none; }
+  .cena { position: relative; inset: auto; opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; min-height: 100vh; padding: 80px 18px 70px 46px; overflow: hidden; }
+  .rota span { display: none; }
+  .hero { background: #0b0b0b; align-items: end; }
+  .placa { top: 14%; width: 58vw; right: -4vw; transform: translateY(-10%) rotate(8deg); }
+  .proximas { grid-template-columns: 1fr; background: #1a0d2e; }
+  .cyberCap { width: min(70vw, 320px); transform: rotate(-2deg); }
+  .cyberTxt, .caminhoCol, .rimasInfo { transform: none; }
+  .rimas { grid-template-columns: 1fr; background: #0b0b0b; }
+  .dia { background: #0b0b0b; }
+  .stops { grid-template-columns: 1fr; }
+  .stops figure:nth-child(n) { transform: none; }
+  .caminho { grid-template-columns: 1fr; background: var(--am); }
+  .camFotos { height: auto; display: grid; gap: 14px; }
+  .camFotos figure { position: relative; width: 100%; transform: none !important; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; }
+  .pedido { background: #0b0b0b; }
+  .comandas { grid-template-columns: 1fr 1fr; }
+  .bag { width: 36vw; opacity: 0.3; }
+  .quatro { background: #0b0b0b; }
+  .grupo { width: 100%; transform: none; }
+  .clipes { grid-template-columns: 1fr; }
+  .nota { left: 0; width: min(340px, 82vw); }
+}
+
+/* topo: montanha com blend; a caixinha mostra os quatro nomes, cada um numa tipografia */
+.marcaFixa { position: fixed; top: 12px; left: clamp(14px, 3vw, 40px); z-index: 40; mix-blend-mode: difference; }
+.marcaFixa img { width: clamp(70px, 6vw, 96px); height: auto; display: block; }
+.caixaMenu { position: fixed; top: 10px; right: clamp(14px, 3vw, 40px); z-index: 41; display: grid; justify-items: end; }
+.caixaBtn { background: none; border: 0; padding: 0; cursor: pointer; }
+.caixaBtn img { width: clamp(46px, 4.4vw, 64px); height: auto; display: block; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); transition: transform 0.35s cubic-bezier(.2,1.6,.4,1); }
+.caixaMenu:hover .caixaBtn img { transform: rotate(-8deg) scale(1.1); }
+.quatroNomes { list-style: none; margin: 8px 0 0; padding: 12px 16px; background: rgba(11,11,11,0.92); border: 1px solid rgba(255,212,0,0.5); display: grid; gap: 6px; text-align: right; opacity: 0; transform: translateY(-8px) scale(0.96); transform-origin: top right; pointer-events: none; transition: opacity 0.18s, transform 0.25s cubic-bezier(.3,1.5,.5,1); }
+.caixaMenu:hover .quatroNomes, .caixaBtn:focus-visible + .quatroNomes { opacity: 1; transform: none; pointer-events: auto; }
+.quatroNomes a { color: #fff; line-height: 1; white-space: nowrap; transition: color 0.15s; }
+.quatroNomes a:hover { color: var(--am); }
+.nome0 a { font-family: "RDCap", sans-serif; font-size: 2rem; letter-spacing: 0.04em; }
+.nome1 a { font-family: "RDHuman", sans-serif; font-size: 1.5rem; }
+.nome2 a { font-family: "RDHelv", sans-serif; font-weight: 800; font-size: 1.35rem; font-style: italic; letter-spacing: -0.02em; text-transform: lowercase; }
+.nome3 a { font-family: "RDSmithy", monospace; font-weight: 700; font-size: 1.55rem; letter-spacing: 0.12em; }
+.topo { display: none; }
+.ouvir { display: flex; flex-wrap: wrap; gap: 8px; }
+.ytBtn { background: #ff0000; color: #fff; border: 0; padding: 12px 18px; font-family: "RDMono", monospace; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.74rem; cursor: pointer; transition: transform 0.15s; font-weight: 700; }
+.ytBtn:hover { transform: translateY(-2px) rotate(1deg); }
+.camFotos figure:nth-child(4) { right: 0; bottom: -2%; width: 50%; transform: translateY(calc((0.5 - var(--t)) * -90px)) rotate(2deg); }
+.camFotos figure { width: 54%; }
+.camFotos figure:nth-child(1) { left: 0; top: 0; }
+.camFotos figure:nth-child(2) { right: 0; top: 6%; }
+.camFotos figure:nth-child(3) { left: 4%; bottom: 4%; }
+@media (max-width: 800px) { .caixaMenu { top: 6px; } .camFotos figure:nth-child(n) { width: 100% !important; } }
+
+/* ===== cabeçalho central, A Caminho sinistro, seguir, fichas ===== */
+.marcaFixa, .caixaMenu { display: none; }
+.centro { position: fixed; top: 8px; left: 50%; transform: translateX(-50%); z-index: 45; display: grid; justify-items: center; gap: 6px; }
+.centroLink { position: relative; display: block; width: clamp(96px, 8vw, 128px); aspect-ratio: 1.6; }
+.centroLink img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity 0.3s ease, transform 0.4s cubic-bezier(.2,1.5,.4,1); }
+.cMontanha { opacity: 1; filter: invert(1) drop-shadow(0 2px 4px rgba(0,0,0,0.6)); mix-blend-mode: normal; }
+.cCaixa { opacity: 0; transform: scale(0.5) rotate(-14deg); filter: drop-shadow(0 6px 10px rgba(0,0,0,0.6)); }
+.centro:hover .cMontanha, .centroAberto .cMontanha { opacity: 0; transform: scale(1.1); }
+.centro:hover .cCaixa, .centroAberto .cCaixa { opacity: 1; transform: none; }
+.centro::after { content: ""; position: absolute; left: -30px; right: -30px; top: 100%; height: 240px; }
+.quatroNomes { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; justify-items: center; pointer-events: none; }
+.quatroNomes li { opacity: 0; transform: translateY(-14px) scale(0.9); transition: opacity 0.2s ease calc(var(--k) * 60ms), transform 0.35s cubic-bezier(.3,1.5,.5,1) calc(var(--k) * 60ms); }
+.centro:hover .quatroNomes, .centroAberto .quatroNomes { pointer-events: auto; }
+.centro:hover .quatroNomes li, .centroAberto .quatroNomes li { opacity: 1; transform: none; }
+.quatroNomes a { display: block; color: #fff; line-height: 1; white-space: nowrap; padding: 3px 12px; background: rgba(11,11,11,0.78); transition: color 0.15s; }
+.quatroNomes a:hover { color: var(--am); }
+.nome0 a { font-family: "RDCap", sans-serif; font-size: 1.9rem; letter-spacing: 0.04em; }
+.nome1 a { font-family: "RDHuman", sans-serif; font-size: 1.45rem; }
+.nome2 a { font-family: "RDHelv", sans-serif; font-weight: 800; font-size: 1.3rem; font-style: italic; letter-spacing: -0.02em; text-transform: lowercase; }
+.nome3 a { font-family: "RDSmithy", monospace; font-weight: 700; font-size: 1.5rem; letter-spacing: 0.12em; }
+
+.seguir { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 3vh; }
+.seguir a { padding: 11px 18px; font-family: "RDMono", monospace; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.74rem; transition: transform 0.15s; }
+.seguir a:hover { transform: translateY(-2px) rotate(-1deg); }
+.segSpotify { background: #1db954; color: #0b0b0b; }
+.segYt { background: #ff0000; color: #fff; }
+.seguirNota { font-size: 0.66rem; opacity: 0.6; margin: 8px 0 0; }
+.hero .vol2Box { margin-top: 3vh; }
+.hero .nota { bottom: auto; top: calc(100% + 14px); transform-origin: top left; }
+
+.caminho { color: #e9efe9; }
+.caminho::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 40%, rgba(40,255,120,0.14), transparent 60%), radial-gradient(ellipse at 10% 90%, rgba(0,0,0,0.6), transparent 60%); pointer-events: none; }
+.caminho h2 { color: #d8ffd0; text-shadow: 3px 0 rgba(255,40,80,0.55), -3px 0 rgba(40,220,255,0.45), 0 0 30px rgba(60,255,120,0.3); }
+.kickEscuro { color: #8dff6a; }
+.tracksCam li { color: #fff; }
+.tracksCam i { color: #8dff6a; }
+.credCam { color: rgba(233,239,233,0.8); }
+.brisa { font-family: "RDHuman", sans-serif; font-size: clamp(1.1rem, 1.7vw, 1.5rem); line-height: 1.25; color: #8dff6a; margin: 0.4vh 0 2vh; font-style: italic; }
+.faixaRua { background: repeating-linear-gradient(90deg, rgba(141,255,106,0.7) 0 44px, transparent 44px 88px); height: 6px; }
+.botoes button { background: #8dff6a; color: #0b0b0b; }
+.camFotos figure:nth-child(2) img { filter: contrast(1.1) saturate(1.15); }
+.camFotos figure:nth-child(3) img { filter: sepia(0.25) contrast(1.1); }
+
+.comandas { grid-template-columns: repeat(3, minmax(0, clamp(250px, 24vw, 350px))); }
+.comandas em { font-style: normal; font-size: 0.66rem; line-height: 1.45; opacity: 0.78; margin-top: 2px; }
+.pedidoCol { max-width: 1240px; }
+.grupo { width: min(78vw, 880px, 60vh * 1.5); }
+@media (max-width: 800px) { .centro { top: 4px; } .comandas { grid-template-columns: 1fr; } }
+.centro .quatroNomes { opacity: 1; transform: none; background: none; border: 0; padding: 0; margin: 4px 0 0; text-align: center; }
+.brisa { font-family: "RDMono", monospace; font-size: clamp(0.9rem, 1.25vw, 1.1rem); line-height: 1.5; }
+
+/* logo branco; o hover só abre em cima do logo (os nomes saem por baixo, fora do alcance) */
+.cMontanha { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.7)); }
+.centro { display: block; }
+.centro::after { content: none; }
+.quatroNomes { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); }
+.quatroNomes li { transition-delay: calc(var(--k) * 50ms); }
+.teaser { margin-top: 2px; }
+.teaser .vol2Box { margin-top: 0; }
+.teaser .nota { bottom: auto; top: auto; bottom: calc(100% + 10px); }
+.comandas { grid-template-columns: repeat(3, minmax(0, clamp(240px, 22vw, 320px))); }
+.pedido h2 { font-size: clamp(2.6rem, 5.4vw, 4.8rem); }
+
+/* motinha: botão voando pra descer pro Cyber */
+.motinha { position: absolute; right: 8%; bottom: 14%; z-index: 4; background: none; border: 0; cursor: pointer; display: grid; justify-items: center; gap: 4px; color: #fff; animation: voa 4.2s ease-in-out infinite; }
+.motinha img { width: clamp(120px, 14vw, 210px); height: auto; display: block; filter: drop-shadow(0 18px 18px rgba(0,0,0,0.6)) drop-shadow(0 0 20px rgba(255,43,179,0.45));
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse at 50% 50%, #000 62%, transparent 100%); transition: transform 0.3s cubic-bezier(.2,1.5,.4,1); }
+.motinha:hover img { transform: scale(1.1) rotate(-3deg); }
+.motinha span { font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; background: rgba(11,11,11,0.7); padding: 3px 8px; }
+@keyframes voa { 0%, 100% { transform: translate(0, 0) rotate(-2deg); } 50% { transform: translate(-14px, -18px) rotate(2deg); } }
+
+/* tipografias por cena */
+.tCyber { font-family: "RDSmithy", sans-serif !important; font-weight: 700; display: inline-block; transform: scaleX(1.32); transform-origin: left; letter-spacing: 0.02em; }
+.tCaminho { font-family: "RDHelv", sans-serif !important; font-weight: 800; font-style: italic; letter-spacing: -0.04em; text-transform: uppercase; font-size: clamp(3rem, 8.4vw, 7.6rem) !important; }
+.tracksCam li:nth-child(1) { font-family: "RDCap", sans-serif; }
+.tracksCam li:nth-child(2) { font-family: "RDSmithy", sans-serif; font-weight: 700; letter-spacing: 0.06em; font-size: clamp(1.7rem, 3.2vw, 2.8rem); }
+.tracksCam li:nth-child(3) { font-family: "RDHuman", sans-serif; font-style: italic; text-transform: lowercase; font-size: clamp(2.2rem, 4vw, 3.6rem); }
+.tPedido { font-family: "RDHuman", sans-serif !important; text-transform: uppercase; letter-spacing: 0.02em; transform: rotate(-1.2deg); transform-origin: left; }
+
+/* os quatro: fitas de fotos passando */
+.fitaQ { position: absolute; left: 0; display: flex; gap: 12px; width: max-content; opacity: 0.4; pointer-events: none; }
+.fitaQ img { height: 24vh; width: auto; filter: saturate(1.15); }
+.fitaQ1 { top: 5vh; animation: passaQ 70s linear infinite; }
+.fitaQ2 { bottom: 4vh; animation: passaQ 55s linear infinite reverse; }
+@keyframes passaQ { to { transform: translateX(-50%); } }
+.quatro > *:not(.fitaQ) { position: relative; z-index: 2; }
+@media (max-width: 800px) { .motinha { right: 4%; bottom: 8%; } .fitaQ img { height: 16vh; } }
+.motinha { right: auto; left: 46%; bottom: 7%; z-index: 6; }
+@media (max-width: 800px) { .motinha { left: auto; right: 4%; bottom: 6%; } }
+
+/* títulos: Cyber com as duas linhas da mesma largura; A Caminho numa linha só; nomes com logos */
+.tCyber { display: block; transform: none; }
+.tCyber .cy1 { display: block; font-size: 1em; line-height: 0.9; letter-spacing: 0.04em; transform: scaleX(1.2); transform-origin: left; width: max-content; }
+.tCyber .cy2 { display: block; font-size: 0.64em; line-height: 1; letter-spacing: 0.04em; transform: scaleX(1.2); transform-origin: left; width: max-content; margin-top: 0.05em; }
+.tCaminho { white-space: nowrap; font-size: clamp(2.6rem, 5.4vw, 5rem) !important; margin-bottom: 1.8vh !important; }
+.brisa { margin-top: 1vh; }
+.nomeLogoSergio { height: 34px; width: auto; display: block; }
+.nomeLogo82 { height: 44px; width: auto; display: block; filter: drop-shadow(0 0 8px rgba(60,140,255,0.7)); }
+.nome1 a, .nome3 a { padding: 3px 14px; }
+.motinha { display: none; }
+.nomeLogoSergio { height: 50px; }
+.nomeLogo82 { height: 68px; mix-blend-mode: screen; filter: none; }
+.nome3 a { background: none; padding: 0 14px; }
+.nomeLogoSergio { height: 92px; margin: -14px 0; }
+.nomeLogo82 { height: 54px; }
+.nomeLogoSergio { height: 66px; margin: -4px 0; }
+.centro .quatroNomes { gap: 6px; }
+.centro .quatroNomes a { display: flex; align-items: center; justify-content: center; height: 54px; padding: 0 14px; }
+.nomeLogoSergio { height: 58px; margin: 0; }
+.nomeLogo82 { height: 42px; }
+.centro .quatroNomes { gap: 0; }
+.centro .quatroNomes a { height: 40px; padding: 0 12px; }
+.nomeLogoSergio { height: 50px; }
+.nomeLogo82 { height: 36px; }
+.centro .nome2 { margin-top: -10px; }
+.centro .nome3 { margin-top: -10px; }
+.centro .nome1 { position: relative; z-index: 3; }
+@font-face { font-family: "RDCreep"; src: url("/fonts/Creepster-Regular.ttf") format("truetype"); font-display: swap; }
+.nome0 a { font-family: "RDCreep", "RDCap", sans-serif; font-size: 1.7rem; letter-spacing: 0.05em; }
+.centro .nome2 { margin-top: -16px; }
+.centro .quatroNomes a { background: none; text-shadow: 0 1px 6px rgba(0,0,0,0.9); }
+.centro .nome2 { position: relative; z-index: 4; }
+.nomeLogo82 { height: 31px; }
+.nomeLogo82 { mix-blend-mode: normal; }
+.nomeLogoSergio, .nomeLogo82 { transition: filter 0.15s, transform 0.2s; }
+.quatroNomes a:hover .nomeLogoSergio, .quatroNomes a:hover .nomeLogo82, .quatroNomes a:focus-visible .nomeLogoSergio, .quatroNomes a:focus-visible .nomeLogo82 { filter: brightness(0) invert(82%) sepia(95%) saturate(1800%) hue-rotate(2deg) brightness(1.05); transform: scale(1.06); }
+.quatroNomes a:hover .nomeLogoSergio, .quatroNomes a:hover .nomeLogo82, .quatroNomes a:focus-visible .nomeLogoSergio, .quatroNomes a:focus-visible .nomeLogo82 { filter: brightness(0) invert(75.7%) sepia(100%) saturate(1800%) hue-rotate(1deg) brightness(1.016); }
+.creditoFotos { flex-basis: 100%; text-align: center; margin: 14px 0 0; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; }
+.creditoFotos a { color: var(--am); }
+.creditoFotos a:hover { text-decoration: underline; }
+.quatro .creditoFotos { margin: -4px 0 0; position: relative; z-index: 3; }
+@media (max-width: 800px) { .comandas { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 14px 10px; } .comandas strong { font-size: 1rem; } }
+@media (max-width: 480px) { .comandas { grid-template-columns: 1fr !important; } }
+
+/* fita de fotos passando no topo: só no mobile (no desktop o palco já faz o papel) */
+.fitaHero { display: none; }
+@media (max-width: 800px) {
+  .fitaHero { display: flex; top: 4vh; opacity: 0.5; animation: passaQ 60s linear infinite; z-index: 0; }
+  .fitaHero img { height: 34vh; filter: saturate(1.1) brightness(0.9); }
+  .hero::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 60vh; background: linear-gradient(180deg, transparent 40%, #0b0b0b 100%); z-index: 1; pointer-events: none; }
+  .caminho { background: #07100b !important; }
+  .caminho::before { z-index: 0; }
+  .cena { z-index: 0; }
+  .cena + .cena::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 8px; background: repeating-linear-gradient(90deg, var(--am) 0 26px, transparent 26px 52px); background-size: 52px 8px; animation: fitaDiv 2.4s linear infinite; opacity: 0.8; z-index: 3; pointer-events: none; }
+  .caminho + .cena::after, .caminho::after { background-image: repeating-linear-gradient(90deg, rgba(141,255,106,0.8) 0 26px, transparent 26px 52px); }
+}
+@keyframes fitaDiv { to { background-position: 52px 0; } }
+@media (max-width: 800px) {
+  .fitaHero { opacity: 0.85; top: 6vh; }
+  .fitaHero img { height: 36vh; filter: saturate(1.1) brightness(1); }
+  .hero::before { height: 56vh; background: linear-gradient(180deg, transparent 55%, #0b0b0b 100%); }
+}
+
+/* ===== refinamentos do mobile ===== */
+@media (max-width: 800px) {
+  /* fita de fotos: abaixo da placa, acima do "super grupo" */
+  .fitaHero { top: 40vh; }
+  .fitaHero img { height: 19vh; }
+  .hero::before { content: none; }
+  .hero .sub { font-size: 0.7rem; letter-spacing: -0.01em; white-space: nowrap; }
+  /* capa do Rimas sem atropelar a ficha */
+  .rimas { gap: 22px; }
+  .rimasCapaBox { transform: none; width: 100%; }
+  .rimasCapa { transform: none; }
+  /* divisória mais sutil e sem ela antes do dia do show */
+  .cena + .cena::after { height: 4px; background-size: 52px 4px; opacity: 0.4; }
+  .dia::after { content: none !important; }
+  /* A Caminho: uma faixa por linha, fotos em carrossel */
+  .tracksCam { flex-direction: column; gap: 6px; }
+  .camFotos { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+  .camFotos figure { flex: 0 0 82%; scroll-snap-align: center; }
+  /* primeiros pedidos: carrossel */
+  .comandas { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding: 6px 4px 18px; margin-left: -4px; }
+  .comandas li { flex: 0 0 74%; scroll-snap-align: center; transform: none !important; }
+  /* os quatro: 2 colunas x 2 linhas */
+  .integrantes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .integrantes a { padding: 10px 8px; text-align: center; }
+}
+@media (max-width: 800px) {
+  .pedido { min-width: 0; }
+  .pedido > * { min-width: 0; max-width: 100%; }
+  .pedido h2 { font-size: clamp(1.7rem, 8vw, 2.4rem) !important; white-space: normal; }
+  .comandas { width: 100%; max-width: 100%; box-sizing: border-box; }
+  .comandas li { flex: 0 0 68%; min-width: 0; }
+  .comandas button { max-width: 100%; }
+}
+
+/* ===== mobile: simplificar ===== */
+.setaRolar { display: none; }
+@media (max-width: 800px) {
+  .rota { display: none; }
+  .cena { min-height: 0; padding: 64px 16px 44px 16px; }
+  .rimasInfo { border-left: 0; padding: 12px 0; background: none; }
+  .cena + .cena::after { opacity: 0.22; }
+  .dia { padding-left: 8px; padding-right: 8px; }
+  .stops img { max-height: none; }
+  .nota { width: min(270px, 74vw); padding: 12px 14px; }
+  .nota h3 { font-size: 1.15rem; }
+  .nota li { font-size: 0.68rem; }
+  .bag { display: none; }
+  .quatro .fitaQ { display: none; }
+  /* carrosséis: sem barra nativa, imagem grande com a próxima aparecendo, seta no canto */
+  .camFotos, .comandas { scrollbar-width: none; }
+  .camFotos::-webkit-scrollbar, .comandas::-webkit-scrollbar { display: none; }
+  .camFotos figure { flex: 0 0 88%; }
+  .comandas li { flex: 0 0 80%; }
+  .setaRolar { display: block; position: sticky; right: 6px; flex: 0 0 0; width: 0; align-self: center; z-index: 5; list-style: none; }
+  .setaRolar { font-size: 0; }
+  .setaRolar::before { content: "›"; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; background: var(--am); color: #111; font-size: 28px; line-height: 36px; text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,0.5); animation: setaPulso 1.6s ease-in-out infinite; }
+}
+@keyframes setaPulso { 0%, 100% { transform: translateY(-50%) translateX(0); } 50% { transform: translateY(-50%) translateX(-5px); } }
+@media (max-width: 800px) {
+  .cena { padding-top: 96px; }
+  .hero { min-height: 100svh; padding-top: 70px; }
+  .hero .placa { top: 12%; }
+  .heroTxt { padding-bottom: 8px; }
+  /* o menu dos quatro nomes cai sobre o conteúdo com fundo, sem encostar no texto */
+  .centro .quatroNomes { padding: 6px 0; background: rgba(11,11,11,0.88); border-radius: 6px; }
+}
+@media (max-width: 800px) {
+  .centro .quatroNomes { background: none; padding: 0; pointer-events: none; }
+  .centro:hover .quatroNomes, .centroAberto .quatroNomes { background: rgba(11,11,11,0.88); padding: 6px 0; pointer-events: auto; }
+}
+
+/* ===== mobile: refino 3 ===== */
+.fitaHeroBox { display: none; }
+.nw { white-space: nowrap; }
+@media (max-width: 800px) {
+  /* nomes: caem pro lado esquerdo, sem fundo chapado (sombra projetada) */
+  .centro .quatroNomes, .centro:hover .quatroNomes, .centroAberto .quatroNomes { background: none !important; padding: 0 !important; left: 4px; transform: none; justify-items: start; text-align: left; }
+  .centro .quatroNomes a { filter: drop-shadow(0 2px 6px rgba(0,0,0,0.95)) drop-shadow(0 0 14px rgba(0,0,0,0.85)); justify-content: flex-start; padding: 0 8px; }
+  /* fita de fotos: quase a altura da seção, com fade nas pontas, atrás da placa */
+  .fitaHeroBox { display: block; position: absolute; left: 0; right: 0; top: 20vh; height: 46vh; overflow: hidden; z-index: 0; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16%, #000 84%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 16%, #000 84%, transparent 100%); }
+  .fitaHeroBox .fitaHero { display: flex; top: 0; height: 100%; opacity: 0.8; position: absolute; }
+  .fitaHeroBox .fitaHero img { height: 100%; }
+  .hero .placa { z-index: 2; }
+  .heroTxt { z-index: 3; }
+  /* respiro: kick e título do Cyber / texto */
+  .cyberTxt .sub { margin-top: 18px; }
+  .cyberTxt h2 { margin-bottom: 4px; }
+  .cyberTxt .kick { margin-bottom: 14px; }
+  .numeros { text-align: center; line-height: 1.9; }
+  .setaRolar { pointer-events: none; }
+  .setaRolar::before { content: none; }
+  .setaBtn { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--am); color: #111; font-size: 28px; line-height: 38px; padding: 0 0 3px; cursor: pointer; pointer-events: auto; box-shadow: 0 4px 14px rgba(0,0,0,0.55); animation: setaPulso 1.6s ease-in-out infinite; }
+}
+@media (max-width: 800px) {
+  .comandas li.setaRolar { flex: 0 0 0 !important; width: 0 !important; min-width: 0; padding: 0; background: none; overflow: visible; }
+}
+@media (max-width: 800px) {
+  .comandas li.setaRolar .setaBtn, .camFotos .setaBtn { width: 40px; height: 40px; display: block; background: var(--am); color: #111; clip-path: none; padding: 0 0 3px; box-shadow: 0 4px 14px rgba(0,0,0,0.55); border-radius: 50%; right: 4px; }
+}
+@media (max-width: 800px) { .comandas li.setaRolar .setaBtn, .camFotos .setaBtn { max-width: none; min-width: 40px; } }
+.creditoCapa { margin: -4px 0 0; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.8; }
+.creditoCapa a { color: var(--am); }
+.creditoCapa a:hover { text-decoration: underline; }
+@media (max-width: 800px) {
+  .setaBtn { display: flex !important; align-items: center; justify-content: center; text-align: center; font-size: 26px; line-height: 1; padding: 0 0 4px !important; font-family: sans-serif; }
+  .comandas li.setaRolar .setaBtn, .camFotos .setaBtn { right: 10px; }
+}
+@media (max-width: 800px) {
+  .camFotos, .comandas { cursor: grab; -webkit-user-select: none; user-select: none; }
+  .camFotos img, .comandas img { -webkit-user-drag: none; pointer-events: none; }
+  .camFotos:global(.arrastando), .comandas:global(.arrastando) { cursor: grabbing; scroll-snap-type: none !important; scroll-behavior: auto; }
+}
+.rimasCapaBox { width: min(108%, 86vh); }
+@media (max-width: 800px) { .rimasCapaBox { width: 100%; } .rimasCapa { width: 108%; max-width: none; margin-left: -4%; } }

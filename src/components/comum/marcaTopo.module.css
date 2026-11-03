@@ -1,0 +1,54 @@
+.topo { --marca-cor: #e9dfc9; position: fixed; top: 0; left: 0; right: 0; z-index: 45; display: flex; justify-content: center; pointer-events: none; }
+.marca { position: relative; margin-top: 8px; display: grid; justify-items: center; gap: 8px; pointer-events: auto; }
+/* ponte para o hover não cair no vão entre o logo e os extras */
+.marca::after { content: ""; position: absolute; left: -24px; right: -24px; top: 100%; height: 60px; }
+.logo { position: relative; display: block; width: clamp(72px, 6vw, 96px); aspect-ratio: 1.6; padding: 0; border: 0; background: none; cursor: pointer; color: var(--marca-cor); }
+.logo i, .logo b { position: absolute; inset: 0; transition: opacity 0.3s ease, transform 0.35s ease; }
+/* marca holográfica: o desenho inverte o que está atrás dele (escuro vira claro, claro vira escuro, cor vira a complementar),
+   trecho por trecho, então o contraste se resolve sozinho em qualquer fundo, mesmo com vários fundos ao mesmo tempo */
+.montanha { background: transparent; -webkit-backdrop-filter: invert(1) contrast(3.2) saturate(2.4) hue-rotate(0deg); backdrop-filter: invert(1) contrast(3.2) saturate(2.4) hue-rotate(0deg); -webkit-mask: url("/jodo-montanha.png") center / contain no-repeat, url("/jodo-montanha.png") center / contain no-repeat, url("/jodo-montanha.png") center / contain no-repeat, url("/jodo-montanha.png") center / contain no-repeat; mask: url("/jodo-montanha.png") center / contain no-repeat, url("/jodo-montanha.png") center / contain no-repeat, url("/jodo-montanha.png") center / contain no-repeat, url("/jodo-montanha.png") center / contain no-repeat; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .montanha { background: var(--marca-cor); animation: none; } }
+/* o nome nasce no centro da marca e abre para os dois lados (antes escorria para a direita) */
+.logo b.nome { inset: auto; left: 50%; top: 50%; width: max-content; max-width: 92vw; display: block; text-align: center; font-weight: 400; font-size: calc(clamp(15px, 1.35vw, 19px) * var(--marca-escala, 1)); line-height: 1; font-family: var(--marca-fonte, Anton, Impact, sans-serif); letter-spacing: 0.18em; text-indent: 0.18em; text-transform: uppercase; white-space: nowrap; color: var(--marca-cor, #fff); background: none; opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+.marca:hover .montanha, .aberta .montanha, .logo:focus-visible .montanha { opacity: 0; transform: scale(1.12); }
+.marca:hover .nome, .aberta .nome, .logo:focus-visible .nome { opacity: 1; transform: translate(-50%, -50%); }
+.extras { display: grid; gap: 6px; justify-items: center; }
+.extra { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; background: var(--marca-cor); color: #0b0a10; font: 700 11px/1 "Space Mono", "Consolas", monospace; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; white-space: nowrap; opacity: 0; transform: translateY(-10px) scale(0.9); pointer-events: none; transition: opacity 0.25s ease 0.05s, transform 0.4s cubic-bezier(0.2, 1.4, 0.4, 1) 0.05s, background 0.2s; }
+.extra i { font-style: normal; transition: transform 0.3s ease; }
+.marca:hover .extra, .aberta .extra { opacity: 1; transform: none; pointer-events: auto; }
+.extra:hover { background: #d2381a; color: #e9dfc9; }
+.extra:hover i { transform: translate(2px, -2px); }
+@media (max-width: 860px) { .logo { width: 70px; } .marca { margin-top: 6px; } .logo b.nome { font-size: calc(14px * var(--marca-escala, 1)); letter-spacing: 0.14em; } }
+
+/* emblema do artista no lugar do nome (logo próprio que se desenha ao passar o mouse) */
+.logo b.emblema { inset: auto; left: 50%; top: 50%; width: clamp(54px, 4.6vw, 70px); aspect-ratio: 200 / 225; display: block; opacity: 0; transform: translate(-50%, -50%) scale(0.8); filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.7)); }
+.marca:hover .emblema, .aberta .emblema, .logo:focus-visible .emblema { opacity: 1; transform: translate(-50%, -50%); }
+.emblema svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.emblema path { fill: none; stroke: #fff; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.marca:hover .emblema path, .aberta .emblema path, .logo:focus-visible .emblema path { animation: tracarEmblema 0.9s cubic-bezier(0.5, 0, 0.2, 1) calc(var(--i, 0) * 0.05s) forwards; }
+@keyframes tracarEmblema { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .emblema path { stroke-dashoffset: 0; animation: none !important; } }
+
+/* emblema vivo: brasa atrás, chama que tremula, olhos que piscam, pupilas que seguem o mouse e faíscas subindo */
+.logo b.emblema::before { content: ""; position: absolute; inset: -30%; z-index: -1; border-radius: 50%; background: radial-gradient(circle, rgba(255, 59, 48, 0.55), transparent 62%); opacity: 0; transition: opacity 0.4s ease; }
+.marca:hover .emblema::before, .aberta .emblema::before { opacity: 1; animation: brasa 1.6s ease-in-out infinite alternate; }
+@keyframes brasa { from { transform: scale(0.85); } to { transform: scale(1.12); } }
+.emblema path[data-g="chama"] { transform-box: fill-box; transform-origin: 50% 100%; }
+.marca:hover .emblema path[data-g="chama"], .aberta .emblema path[data-g="chama"] { animation: tracarEmblema 0.9s cubic-bezier(0.5, 0, 0.2, 1) calc(var(--i, 0) * 0.05s) forwards, tremula 0.55s ease-in-out 1s infinite alternate; stroke: #ffd9d4; }
+@keyframes tremula { from { transform: rotate(-2.4deg) scaleY(0.97); } to { transform: rotate(2.4deg) scaleY(1.05); } }
+.emblema path[data-g="olhos"] { transform-box: fill-box; transform-origin: 50% 50%; }
+.marca:hover .emblema path[data-g="olhos"], .aberta .emblema path[data-g="olhos"] { animation: tracarEmblema 0.9s cubic-bezier(0.5, 0, 0.2, 1) calc(var(--i, 0) * 0.05s) forwards, pisca 3.4s ease-in-out 1.6s infinite; }
+@keyframes pisca { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.08); } }
+.emblema path[data-g="pupilas"] { transform: translate(calc(var(--px, 0) * 4px), calc(var(--py, 0) * 4px)); transition: transform 0.12s linear; }
+.emblema i { position: absolute; top: 4%; left: 55%; width: 4px; height: 4px; border-radius: 50%; background: #ff6a4d; box-shadow: 0 0 6px #ff3b30; opacity: 0; pointer-events: none; }
+.marca:hover .emblema i, .aberta .emblema i { animation: faisca 1.5s ease-out infinite; }
+.emblema i:nth-of-type(2) { left: 66%; animation-delay: 0.5s !important; width: 3px; height: 3px; }
+.emblema i:nth-of-type(3) { left: 46%; animation-delay: 1s !important; }
+@keyframes faisca { 0% { opacity: 0; transform: translate(0, 0) scale(1); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(8px, -34px) scale(0.3); } }
+
+/* emblema plano: só o desenho, sem brasa nem faíscas, e aparece rápido (usado quando o emblema é um logotipo, não um desenho vivo) */
+.plano .logo b, .plano .logo i { transition: opacity 0.1s ease, transform 0.14s cubic-bezier(0.2, 1.3, 0.4, 1); }
+.plano .logo b.emblema { height: 84%; top: 54%; width: auto; aspect-ratio: 818 / 1200; filter: none; transform: translate(-50%, -50%) scale(0.5); }
+.plano .marca:hover .emblema, .plano.aberta .emblema, .marca.plano:hover .emblema, .marca.plano.aberta .emblema, .plano .logo:focus-visible .emblema { transform: translate(-50%, -50%); }
+.plano .logo b.emblema::before, .plano .emblema::before { content: none !important; }
+.plano .emblema i { display: none; }

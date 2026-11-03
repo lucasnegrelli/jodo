@@ -1,0 +1,71 @@
+/* rodapé de contato (junto da atribuição do mapa) e janela de políticas */
+.rodape {
+  position: absolute;
+  z-index: 3;
+  left: clamp(14px, 2vw, 32px);
+  bottom: 30px;
+  display: flex;
+  gap: 14px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+.rodape:hover { opacity: 0.95; }
+.rodape a, .rodape button { background: none; border: 0; padding: 0; color: inherit; font: inherit; cursor: pointer; text-shadow: 0 1px 8px #000; transition: color 0.2s ease; }
+.rodape a:hover, .rodape button:hover { color: var(--acento, #7fcf6a); }
+
+.fundo { position: absolute; inset: 0; z-index: 9; display: grid; place-items: center; padding: 20px; background: rgba(5, 3, 10, 0.55); opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+.fundoAberto { opacity: 1; pointer-events: auto; }
+.folha {
+  position: relative;
+  width: min(620px, 100%);
+  max-height: 84vh;
+  overflow-y: auto;
+  padding: 34px clamp(20px, 3vw, 38px) 30px;
+  background: rgba(11, 8, 18, 0.94);
+  backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, var(--acento, #7fcf6a) 45%, transparent);
+  border-radius: 12px;
+  transform: translateY(14px);
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  cursor: default;
+}
+.fundoAberto .folha { transform: none; }
+.fechar { position: absolute; top: 14px; right: 18px; background: none; border: 0; color: #fff; font: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+.folha h2 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; }
+.folha h3 { margin: 22px 0 6px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acento, #7fcf6a); }
+.folha p { font-size: 0.92rem; line-height: 1.65; opacity: 0.88; }
+.folha a { text-decoration: underline; text-underline-offset: 3px; }
+.folha a:hover { color: var(--acento, #7fcf6a); }
+
+@media (max-width: 760px) {
+  .rodape { right: 10px; bottom: 26px; gap: 10px; font-size: 0.62rem; }
+}
+
+/* ícones de marca */
+.rodape { align-items: center; gap: 16px; }
+.icone { display: inline-flex; line-height: 0; }
+.icone svg { width: 15px; height: 15px; display: block; }
+
+/* no hover, cada ícone troca para a cor da própria marca */
+.rodape .icone svg { transition: transform 0.25s ease; }
+.rodape .icone:hover svg { transform: scale(1.18); }
+.rodape .icone[data-marca="Instagram"]:hover { color: #e4405f; }
+.rodape .icone[data-marca="YouTube"]:hover { color: #ff0033; }
+.rodape .icone[data-marca="Contato"]:hover { color: #ea4335; }
+
+/* o rodapé agrupa a camada de terras (à esquerda) e os links; só os links somem com o zoom */
+.links { display: inline-flex; align-items: center; gap: 16px; max-width: 420px; overflow: hidden; padding: 8px; margin: -8px; white-space: nowrap; transition: max-width 0.5s ease, opacity 0.4s ease; }
+.linksOcultos { max-width: 0; opacity: 0; pointer-events: none; }
+.rodape { opacity: 0.85; justify-content: flex-end; }
+
+@media (max-width: 760px) { .rodape { flex-wrap: wrap; max-width: 62vw; row-gap: 8px; } }
+
+/* "Políticas e termos" mora no canto direito, colado na atribuição do mapa */
+.politicas { position: absolute; z-index: 3; right: clamp(14px, 2vw, 32px); bottom: 58px; text-align: right; background: none; border: 0; padding: 0; color: inherit; font: inherit; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.06em; opacity: 0.5; cursor: pointer; text-shadow: 0 1px 8px #000; transition: opacity 0.3s ease, color 0.2s ease; }
+.politicas:hover { opacity: 0.95; color: var(--acento, #7fcf6a); }
+
+/* mesma régua das duas linhas de crédito logo abaixo (só desktop; no celular fica como estava) */
+@media (min-width: 761px) { .politicas { bottom: 44px; font-size: 10px; line-height: 14px; letter-spacing: 0.02em; opacity: 0.6; } }

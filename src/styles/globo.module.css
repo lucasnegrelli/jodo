@@ -1,0 +1,720 @@
+﻿/* GLOBO: palco em tela cheia com canvas, pinos por cidade e painel lateral. */
+
+.palco {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #05030a;
+  color: #fff;
+  font-family: var(--fonte-principal);
+  user-select: none;
+  touch-action: none;
+  cursor: grab;
+}
+.pronto { opacity: 1; }
+.palco:active { cursor: grabbing; }
+.canvas { position: absolute; inset: 0; display: block; }
+
+/* pinos: posicionados por JS (transform), ancorados no ponto da cidade */
+.pino {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border: 0;
+  background: none;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  will-change: transform;
+}
+.anel {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--acento);
+  border-radius: 50%;
+  animation: pulso 2.4s ease-out infinite;
+}
+.miolo {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--acento);
+  color: #0b0b0b;
+  font-size: 12px;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 18px var(--acento);
+  transition: transform 0.25s ease;
+}
+.cidade {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: clamp(0.65rem, 0.8vw, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px #000;
+}
+.pino[data-lado="dir"] .cidade { top: 50%; left: calc(100% + 4px); transform: translateY(-50%); }
+.pino[data-lado="esq"] .cidade { top: 50%; left: auto; right: calc(100% + 4px); transform: translateY(-50%); }
+.pino:hover .miolo, .pinoAtivo .miolo { transform: scale(1.35); }
+@keyframes pulso {
+  0% { transform: scale(0.55); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* bordas mínimas */
+.titulo {
+  position: absolute;
+  top: clamp(14px, 2.2vh, 28px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(0.8rem, 1vw, 1rem);
+  font-weight: 800;
+  letter-spacing: 0.4em;
+  padding-left: 0.4em;
+  pointer-events: none;
+}
+.bordaEsq, .bordaDir, .explorar, .rodape, .dica {
+  position: absolute;
+  font-size: clamp(0.72rem, 0.9vw, 0.9rem);
+  font-weight: 600;
+}
+.bordaEsq {
+  top: clamp(14px, 2.2vh, 28px);
+  left: clamp(14px, 2vw, 32px);
+  display: flex;
+  gap: clamp(14px, 1.8vw, 28px);
+}
+.bordaDir { top: clamp(14px, 2.2vh, 28px); right: clamp(14px, 2vw, 32px); }
+.explorar {
+  left: clamp(14px, 2vw, 32px);
+  bottom: clamp(14px, 2.2vh, 28px);
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.rodape {
+  bottom: clamp(14px, 2.2vh, 28px);
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.7;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.dica {
+  bottom: clamp(14px, 2.2vh, 28px);
+  right: clamp(14px, 2vw, 32px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.bordaEsq a, .bordaDir a { transition: opacity 0.2s ease; }
+.bordaEsq a:hover, .bordaDir a:hover { opacity: 0.55; }
+
+/* painel da cidade */
+.painel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(420px, 100vw);
+  padding: clamp(72px, 10vh, 110px) clamp(18px, 2vw, 32px) 28px;
+  background: rgba(11, 11, 11, 0.86);
+  backdrop-filter: blur(14px);
+  border-left: 1px solid color-mix(in srgb, var(--acento) 40%, transparent);
+  transform: translateX(100%);
+  transition: transform 0.55s cubic-bezier(0.7, 0, 0.2, 1);
+  overflow-y: auto;
+  cursor: default;
+  z-index: 4;
+}
+.painelAberto { transform: translateX(0); }
+.painelFechar {
+  position: absolute;
+  top: clamp(14px, 2.2vh, 28px);
+  right: clamp(14px, 2vw, 32px);
+  background: none;
+  border: 0;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.painelPais {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acento);
+}
+.painelCidade {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-top: 6px;
+}
+.painelQtd { margin-top: 8px; opacity: 0.6; font-size: 0.9rem; }
+.lista { margin-top: 28px; display: grid; gap: 4px; }
+.item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  transition: background 0.2s ease, padding-left 0.25s ease;
+}
+.item:hover { background: rgba(255, 255, 255, 0.07); padding-left: 18px; }
+.bolinha {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--cor);
+  box-shadow: 0 0 12px var(--cor);
+}
+.itemTexto { display: grid; gap: 2px; }
+.itemTexto strong { font-size: 1.1rem; font-weight: 700; }
+.itemTexto em { font-style: normal; font-size: 0.8rem; opacity: 0.6; }
+
+/* menu */
+.menu {
+  position: absolute;
+  inset: 0;
+  background: #0b0b0b;
+  display: grid;
+  align-content: center;
+  padding: 0 clamp(20px, 6vw, 120px);
+  clip-path: circle(0% at 4% 96%);
+  transition: clip-path 0.7s cubic-bezier(0.7, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 6;
+  cursor: default;
+}
+.menuAberto { clip-path: circle(150% at 4% 96%); pointer-events: auto; }
+.menu ul { display: grid; gap: clamp(2px, 1vh, 12px); }
+.menu a {
+  display: block;
+  font-size: clamp(2rem, 7.5vw, 7rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  transition: color 0.2s ease, transform 0.3s ease;
+}
+.menu a:hover { color: var(--acento); transform: translateX(12px); }
+.fechar {
+  position: absolute;
+  top: clamp(14px, 2.2vh, 28px);
+  right: clamp(14px, 2vw, 32px);
+  background: none;
+  border: 0;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.semLugar { margin-top: 28px; font-size: 0.85rem; opacity: 0.55; max-width: 60ch; }
+
+/* transição de entrada na sala */
+.transicao {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  clip-path: circle(0px at var(--x) var(--y));
+  animation: abre 0.65s cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
+@keyframes abre { to { clip-path: circle(160vmax at var(--x) var(--y)); } }
+
+@media (max-width: 760px) {
+  .bordaEsq { gap: 12px; }
+  .rodape { display: none; }
+  .painel { width: 100vw; border-left: 0; border-top: 1px solid color-mix(in srgb, var(--acento) 40%, transparent); top: auto; height: 62vh; transform: translateY(100%); padding-top: 70px; }
+  .painelAberto { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .anel { animation: none; }
+}
+
+/* ===== modo mapa (MapLibre) ===== */
+.mapa { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, #241240 0%, #0b0618 38%, #05030a 70%); }
+.mapa canvas { outline: none; }
+.palco :global(.maplibregl-ctrl-attrib) {
+  background: rgba(11, 11, 11, 0.6) !important;
+  color: #aaa !important;
+  font-size: 10px;
+}
+.palco :global(.maplibregl-ctrl-attrib a) { color: #ccc !important; }
+
+.pinoMapa {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.pinoArtista {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px 4px 6px;
+  background: rgba(11, 11, 11, 0.82);
+  border: 1px solid var(--cor);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.pinoArtista:hover { transform: scale(1.1); }
+.bolinhaMapa {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--cor);
+  box-shadow: 0 0 10px var(--cor);
+}
+.nomeMapa { letter-spacing: 0.04em; }
+
+.zoomBtns {
+  position: absolute;
+  right: clamp(14px, 2vw, 32px);
+  bottom: 70px;
+  display: grid;
+  gap: 6px;
+  z-index: 3;
+}
+.zoomBtns button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--acento) 60%, transparent);
+  background: rgba(11, 11, 11, 0.7);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+.zoomBtns button:hover { background: var(--acento); color: #0b0b0b; }
+.erroMapa {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #0b0b0b;
+  padding: 14px 20px;
+  border: 1px solid var(--jodo-rosa-neon);
+}
+
+
+
+.pinoMapa .cidade { pointer-events: none; opacity: 0; transition: opacity 0.25s ease; top: calc(100% - 4px); }
+.pinoMapa:hover .cidade,
+.rotuloVisivel .cidade { opacity: 1; }
+
+
+/* marca: a montanhazinha; o nome aparece ao passar o mouse (ou tocar) */
+.marcaHome { position: absolute; top: clamp(10px, 2vh, 22px); left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 10px; z-index: 6; cursor: default; }
+.marcaHome img { width: clamp(78px, 6.8vw, 104px); height: auto; display: block; }
+.marcaHome span { max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; font-weight: 800; letter-spacing: 0.4em; font-size: 0.9rem; transition: max-width 0.35s ease, opacity 0.25s ease; }
+.marcaHome:hover span, .marcaHome:focus-within span { max-width: 8em; opacity: 1; }
+
+
+/* ===== uma tela só: modos (abas), janela lateral e pinos de evento ===== */
+.aba {
+  background: none;
+  border: 0;
+  padding: 0 0 3px;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: opacity 0.2s ease, border-color 0.25s ease;
+}
+.aba:hover { opacity: 0.55; }
+.abaAtiva { border-bottom-color: var(--acento); }
+.semLugarMapa {
+  position: absolute;
+  left: clamp(14px, 2vw, 32px);
+  bottom: clamp(14px, 2.2vh, 28px);
+  max-width: min(46ch, 60vw);
+  font-size: 0.8rem;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* os pinos surgem em fade quando o modo troca */
+.surge { animation: surge 0.7s ease both; }
+@keyframes surge { from { opacity: 0; } to { opacity: 1; } }
+
+.pinoEvento {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px 4px 6px;
+  background: rgba(11, 11, 11, 0.82);
+  border: 1px solid var(--cor);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.pinoEvento b { color: var(--cor); margin-right: 4px; }
+.pinoEvento:hover { transform: scale(1.1); }
+/* já rolou: apagado, sem pulsar */
+.apagado .miolo { background: #6f6f6f; box-shadow: none; }
+.apagado .anel { animation: none; border-color: #6f6f6f; opacity: 0.6; }
+.pinoEvento.apagado { opacity: 0.6; }
+.pinoEvento.apagado .bolinhaMapa { box-shadow: none; }
+
+/* janela: flutua no lado direito; o globo desliza para o outro lado (padding da câmera) */
+.janela {
+  position: absolute;
+  z-index: 4;
+  top: clamp(64px, 9vh, 96px);
+  right: clamp(14px, 2vw, 28px);
+  bottom: clamp(14px, 3vh, 28px);
+  width: min(460px, 50vw);
+  padding: clamp(22px, 3vh, 34px) clamp(18px, 2vw, 28px);
+  overflow-y: auto;
+  background: rgba(11, 8, 18, 0.82);
+  backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, var(--acento) 40%, transparent);
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateX(26px);
+  pointer-events: none;
+  transition: opacity 0.7s ease 0.15s, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s;
+  cursor: default;
+}
+.janelaAberta { opacity: 1; transform: none; pointer-events: auto; }
+.janelaConteudo { animation: surge 0.55s ease both; }
+.janela .painelFechar { top: 14px; right: 18px; }
+.janela .painelPais { padding-right: 70px; }
+.itemBotao { width: 100%; background: none; border: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.12); color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.itemApagado { opacity: 0.55; }
+.cartaz { display: block; width: 100%; max-height: 42vh; object-fit: contain; border-radius: 6px; background: #000; margin-top: 22px; }
+.estadoEv { margin: 16px 0 6px; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cor); }
+.tituloEv { font-size: 1.45rem; line-height: 1.15; font-weight: 800; letter-spacing: -0.02em; }
+.subEv { margin: 4px 0 14px; opacity: 0.75; }
+.localEv { margin: 0 0 18px; font-size: 0.9rem; line-height: 1.5; opacity: 0.9; }
+.localEv small { opacity: 0.55; }
+.botaoEv { display: inline-block; padding: 10px 18px; border: 1px solid var(--acento); border-radius: 4px; font-weight: 700; font-size: 0.85rem; transition: background 0.2s ease, color 0.2s ease; }
+.botaoEv:hover { background: var(--acento); color: #0b0b0b; }
+
+@media (max-width: 760px) {
+  .janela { top: auto; left: 12px; right: 12px; width: auto; height: 50vh; bottom: 12px; transform: translateY(26px); }
+  .janelaAberta { transform: none; }
+  .semLugarMapa { display: none; }
+}
+
+/* ===== acervo: a janela vira sala de cinema ===== */
+.verTudo {
+  position: absolute;
+  left: clamp(14px, 2vw, 32px);
+  bottom: clamp(14px, 2.2vh, 28px);
+  z-index: 3;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+}
+.verTudo:hover { color: var(--acento); }
+.tela { position: relative; margin-top: 18px; aspect-ratio: 16 / 9; background: #000; border-radius: 8px; overflow: hidden; box-shadow: 0 0 0 1px color-mix(in srgb, var(--acento) 35%, transparent), 0 18px 50px rgba(0, 0, 0, 0.6); }
+.tela iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.capa { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: #000; cursor: pointer; }
+.capa img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.85; transition: opacity 0.3s ease, transform 0.6s ease; }
+.capa:hover img { opacity: 1; transform: scale(1.03); }
+.play { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; display: grid; place-items: center; border-radius: 50%; background: rgba(11, 8, 18, 0.7); border: 1.5px solid var(--acento); color: var(--acento); font-size: 22px; padding-left: 4px; }
+.tituloObra { margin-top: 14px; font-size: 1.05rem; font-weight: 700; line-height: 1.25; }
+.metaObra { margin-top: 3px; font-size: 0.78rem; opacity: 0.6; }
+.anos { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 8px; }
+.anos button { background: none; border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 999px; padding: 4px 11px; color: inherit; font: inherit; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+.anos button:hover { border-color: var(--acento); }
+.anos .anoAtivo { background: var(--acento); border-color: var(--acento); color: #0b0b0b; }
+.programacao { display: grid; }
+.obra { width: 100%; display: flex; align-items: center; gap: 12px; padding: 9px 6px; background: none; border: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: inherit; font: inherit; text-align: left; cursor: pointer; transition: background 0.2s ease; }
+.obra:hover { background: rgba(255, 255, 255, 0.07); }
+.obraAtiva { background: color-mix(in srgb, var(--acento) 12%, transparent); }
+.obra img { flex: none; width: 72px; height: 40px; object-fit: cover; border-radius: 3px; background: #1c1233; }
+.obra span { display: grid; gap: 2px; min-width: 0; }
+.obra strong { font-size: 0.85rem; font-weight: 600; line-height: 1.25; }
+.obra em { font-style: normal; font-size: 0.7rem; opacity: 0.55; }
+@media (max-width: 760px) { .verTudo { font-size: 0.72rem; max-width: 70vw; } }
+
+/* ===== textos: a janela vira leitura ===== */
+.itemTexto2 { gap: 12px; }
+.capaTexto { flex: none; width: 64px; height: 64px; object-fit: cover; border-radius: 4px; background: #1c1233; }
+.leitura { margin-top: 26px; }
+.leituraCapa { display: block; width: 100%; max-height: 30vh; object-fit: cover; border-radius: 8px; margin-bottom: 18px; background: #1c1233; }
+.leituraMeta { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acento); }
+.leituraTitulo { margin-top: 8px; font-size: clamp(1.5rem, 2.4vw, 2.1rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; }
+.leituraSub { margin-top: 10px; font-size: 1rem; line-height: 1.5; opacity: 0.7; font-style: italic; }
+.leituraPar { margin-top: 1.1em; font-size: 1rem; line-height: 1.75; max-width: 62ch; opacity: 0.92; }
+
+
+/* frase de rodapé: afirmação curta, com um ponto vivo (a JODO segue no ar) */
+.rodape { display: inline-flex; align-items: center; gap: 10px; font-size: clamp(0.7rem, 0.82vw, 0.82rem); font-weight: 600; letter-spacing: 0.32em; text-transform: lowercase; opacity: 0.78; text-shadow: 0 1px 10px #000; }
+.rodapePonto { width: 7px; height: 7px; border-radius: 50%; background: var(--acento); box-shadow: 0 0 10px var(--acento); animation: viva 2.4s ease-in-out infinite; }
+@keyframes viva { 50% { opacity: 0.25; transform: scale(0.7); } }
+@media (prefers-reduced-motion: reduce) { .rodapePonto { animation: none; } }
+
+
+/* cada modo tem seu tom (paleta verde e roxo da JODO); a troca desliza em vez de pular */
+@property --acento { syntax: "<color>"; inherits: true; initial-value: #7fcf6a; }
+.palco { --acento: #7fcf6a; transition: opacity 0.8s ease, --acento 0.9s ease; }
+.palco[data-modo="eventos"] { --acento: #5aa9ff; }
+.palco[data-modo="acervo"] { --acento: #46d6c0; }
+.palco[data-modo="textos"] { --acento: #ea6fcf; }
+
+/* crédito do desenvolvedor, ao lado da frase do rodapé */
+.rodape { pointer-events: auto; outline: none; cursor: default; }
+.rodapeCredito {
+  position: absolute;
+  left: calc(100% + 18px);
+  top: 50%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  transform: translate(-10px, -50%);
+  text-transform: none;
+  letter-spacing: 0.08em;
+  font-weight: 400;
+  font-size: 0.92em;
+  color: #a98be0;
+  text-shadow: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.rodapeCredito::before { content: ""; width: 14px; height: 1px; background: #8b6cc4; opacity: 0.7; }
+.rodape:hover .rodapeCredito, .rodape:focus-visible .rodapeCredito { opacity: 0.8; transform: translate(0, -50%); }
+@media (max-width: 760px) { .rodapeCredito { display: none; } }
+
+
+/* ===== ficha do artista (quem ainda não tem página completa) ===== */
+.ficha2 { padding-top: 6px; }
+.fichaPapel { margin: 6px 0 0; font-size: 0.95rem; opacity: 0.75; }
+.fichaCapa { position: relative; display: block; margin-top: 18px; border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 0 0 1px color-mix(in srgb, var(--cor) 55%, transparent); }
+.fichaCapa img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; opacity: 0.9; transition: transform 0.5s ease, opacity 0.3s ease; }
+.fichaCapa:hover img { opacity: 1; transform: scale(1.03); }
+.fichaCapa span { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 12px 10px; font-size: 0.78rem; font-weight: 700; background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent); }
+.fichaBio { margin-top: 16px; font-size: 0.98rem; line-height: 1.65; opacity: 0.92; max-width: 60ch; }
+.fichaRedes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.fichaIcone, .fichaLink { display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid rgba(255, 255, 255, 0.4); color: #fff; transition: color 0.2s ease, border-color 0.2s ease, transform 0.25s ease; }
+.fichaIcone { width: 40px; height: 40px; border-radius: 50%; }
+.fichaIcone svg { width: 19px; height: 19px; }
+.fichaLink { padding: 8px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
+.fichaIcone:hover, .fichaLink:hover { color: var(--cor); border-color: var(--cor); transform: translateY(-3px); }
+.fichaSecao { margin-top: 24px; }
+.fichaSecao h3 { margin: 0 0 8px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cor); }
+.fichaSecao ul { display: grid; }
+.fichaSecao a { display: flex; align-items: center; gap: 12px; padding: 8px 4px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); transition: background 0.2s ease; }
+.fichaSecao a:hover { background: rgba(255, 255, 255, 0.07); }
+.fichaSecao img { flex: none; width: 64px; height: 36px; object-fit: cover; border-radius: 3px; background: #1c1233; }
+.fichaSecao span { display: grid; gap: 2px; min-width: 0; }
+.fichaSecao b { font-size: 0.86rem; font-weight: 600; line-height: 1.25; }
+.fichaSecao small { font-size: 0.7rem; opacity: 0.55; }
+.fichaMais { margin: 8px 0 0; font-size: 0.8rem; opacity: 0.6; }
+.fichaAviso { margin-top: 26px; font-size: 0.8rem; opacity: 0.5; font-style: italic; }
+
+
+/* ===== pinos dos artistas: mais leves; longe só o ponto, perto aparece o nome (ou ao passar o mouse) ===== */
+.pinoArtista, .pinoEvento {
+  gap: 7px; padding: 3px 11px 3px 6px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.03em;
+  background: rgba(10, 8, 18, 0.74); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border: 1px solid color-mix(in srgb, var(--cor) 62%, transparent);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.45), 0 0 0 0 var(--cor);
+  transition: transform 0.25s ease, padding 0.3s ease, box-shadow 0.3s ease, background 0.2s ease;
+}
+.pinoArtista:hover, .pinoEvento:hover { z-index: 5; transform: scale(1.07); background: rgba(10, 8, 18, 0.92); box-shadow: 0 4px 22px rgba(0, 0, 0, 0.55), 0 0 18px color-mix(in srgb, var(--cor) 45%, transparent); }
+.bolinhaMapa { position: relative; width: 11px; height: 11px; flex: none; }
+.bolinhaMapa::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 1px solid var(--cor); opacity: 0; animation: ondaPino 2.8s ease-out infinite; }
+@keyframes ondaPino { 0% { transform: scale(0.5); opacity: 0.8; } 100% { transform: scale(1.5); opacity: 0; } }
+.nomeMapa { max-width: 14em; overflow: hidden; white-space: nowrap; transition: max-width 0.35s ease, opacity 0.25s ease; }
+.soPonto { padding-right: 6px; }
+.soPonto .nomeMapa { max-width: 0; opacity: 0; }
+.soPonto:hover { padding-right: 11px; }
+.soPonto:hover .nomeMapa { max-width: 14em; opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .bolinhaMapa::after { animation: none; } }
+
+/* pino estático: sem onda pulsando (a onda dava ideia de "online"), só um brilho suave ao passar o mouse */
+.bolinhaMapa::after { display: none; }
+
+
+/* ===== camada das terras indígenas ===== */
+.camadaTerras {
+  position: absolute; z-index: 3; right: clamp(14px, 2vw, 32px); bottom: 172px; display: inline-flex; align-items: center; gap: 9px;
+  padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(240, 168, 104, 0.55); background: rgba(11, 8, 18, 0.72);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: #fff; font: inherit; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.05em; cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+.camadaTerras i { width: 12px; height: 12px; border-radius: 3px; border: 2px solid #f0a868; background: transparent; transition: background 0.2s ease; }
+.camadaLigada i { background: rgba(224, 136, 74, 0.7); }
+.camadaTerras:not(.camadaLigada) { opacity: 0.65; }
+.camadaTerras:hover { background: rgba(11, 8, 18, 0.92); border-color: #f0a868; }
+.palco :global(.popupTerra .maplibregl-popup-content) { background: rgba(11, 8, 18, 0.94); color: #fff; border: 1px solid rgba(240, 168, 104, 0.6); border-radius: 10px; padding: 12px 14px; font-family: var(--fonte-principal); display: grid; gap: 3px; font-size: 0.8rem; line-height: 1.35; }
+.palco :global(.popupTerra .maplibregl-popup-content strong) { font-size: 0.98rem; color: #f0a868; }
+.palco :global(.popupTerra .maplibregl-popup-content span) { opacity: 0.85; }
+.palco :global(.popupTerra .maplibregl-popup-content em) { font-style: normal; font-size: 0.68rem; opacity: 0.5; margin-top: 4px; }
+.palco :global(.popupTerra .maplibregl-popup-tip) { border-top-color: rgba(11, 8, 18, 0.94); border-bottom-color: rgba(11, 8, 18, 0.94); }
+@media (max-width: 760px) { .camadaTerras { bottom: 150px; font-size: 0.68rem; padding: 7px 11px; } }
+
+
+/* ===== quem já passou pela JODO (colaboradores): pinos pequenos e discretos, lista com divisória ===== */
+.pinoColab { padding: 2px 5px 2px 4px; gap: 5px; opacity: 0.88; box-shadow: none; background: rgba(10, 8, 18, 0.6); border-color: rgba(207, 207, 232, 0.35); }
+.pinoColab .bolinhaMapa { width: 8px; height: 8px; }
+.pinoColab:hover { opacity: 1; }
+.divisorLista { margin: 22px 0 4px; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acento); opacity: 0.85; }
+.itemColab .item { padding-top: 8px; padding-bottom: 8px; }
+.itemColab .itemTexto strong { font-size: 0.98rem; font-weight: 600; }
+.itemColab .bolinha { width: 9px; height: 9px; box-shadow: none; }
+
+/* ===== interface que some quando o mapa está aproximado e volta quando se afasta ===== */
+.interface { position: absolute; inset: 0; z-index: 3; pointer-events: none; transition: opacity 0.5s ease, visibility 0.5s ease; }
+.interface a, .interface button, .interface p, .interface h1 { pointer-events: auto; }
+.interfaceOculta { opacity: 0; visibility: hidden; }
+.interfaceOculta * { pointer-events: none !important; }
+
+/* chip das terras indígenas, agora dentro do rodapé ao lado das redes */
+.camadaTerras { position: static; right: auto; bottom: auto; padding: 4px 10px; font-size: 0.68rem; margin-right: 6px; }
+
+
+/* ===== filtros do modo Artistas: coluna vertical, discreta, à esquerda ===== */
+.filtros {
+  position: absolute;
+  left: clamp(14px, 2vw, 32px);
+  top: calc(clamp(14px, 2.2vh, 28px) + 44px);
+  z-index: 5;
+  font-size: 0.76rem;
+  width: min(330px, 82vw);
+}
+.filtrosBotao {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 999px;
+  padding: 9px 12px 9px 18px; color: inherit; font: inherit; font-size: 0.74rem; font-weight: 500;
+  letter-spacing: 0.26em; text-transform: uppercase; opacity: 1; cursor: pointer; backdrop-filter: blur(12px);
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  animation: filtrarPulso 2.4s ease-out 3 0.8s;
+  transition: background 0.25s ease, border-color 0.25s ease, letter-spacing 0.3s ease;
+}
+.filtrosBotao::before {
+  content: ""; width: 15px; height: 10px; flex: none; opacity: 0.9;
+  background:
+    linear-gradient(currentColor, currentColor) 0 0 / 100% 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) 0 50% / 68% 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) 0 100% / 36% 1.5px no-repeat;
+}
+.filtrosBotao:hover, .filtrosAberto .filtrosBotao { background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08)); border-color: var(--acento, #fff); letter-spacing: 0.3em; animation: none; }
+.filtrosBotao span {
+  margin: 0; padding: 3px 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.16);
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em; opacity: 1; font-variant-numeric: tabular-nums;
+}
+@keyframes filtrarPulso { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.18); } 70% { box-shadow: 0 0 0 14px rgba(255, 255, 255, 0), inset 0 1px 0 rgba(255, 255, 255, 0.18); } 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0), inset 0 1px 0 rgba(255, 255, 255, 0.18); } }
+@media (prefers-reduced-motion: reduce) { .filtrosBotao { animation: none; } }
+/* sem o menu do topo, o filtrar sobe para o lugar dele */
+.filtrosSemMenu { top: clamp(14px, 2.2vh, 28px); }
+.filtrosSemMenu .filtrosCorpo { height: calc(100vh - 168px); }
+@media (max-width: 760px) { .filtrosSemMenu { top: clamp(14px, 2.2vh, 28px); } .filtrosSemMenu .filtrosCorpo { height: calc(100vh - 178px); } }
+/* cantinho direito do rodapé: três linhas alinhadas na mesma margem (políticas, crédito do LandMark, crédito do mapa), mesmo tamanho e tom */
+.palco :global(.maplibregl-ctrl-bottom-right) { bottom: 16px; }
+.creditoTerras {
+  position: absolute; right: 0; bottom: 0; z-index: 3; margin: 0; padding: 2px 6px; font-size: 10px; line-height: 14px;
+  background: rgba(11, 11, 11, 0.6); color: #aaa; pointer-events: auto;
+}
+.creditoTerras a { color: #ccc; }
+@media (min-width: 761px) {
+  .palco :global(.maplibregl-ctrl-bottom-right) { right: clamp(14px, 2vw, 32px); bottom: 28px; }
+  .palco :global(.maplibregl-ctrl-bottom-right .maplibregl-ctrl) { margin: 0 !important; }
+  .palco :global(.maplibregl-ctrl-attrib) { background: none !important; padding: 0 !important; min-height: 0 !important; font-size: 10px; line-height: 14px; }
+  .palco :global(.maplibregl-ctrl-attrib-button) { display: none !important; }
+  .palco :global(.maplibregl-ctrl-attrib-inner) { display: block !important; text-align: right; opacity: 0.6; text-shadow: 0 1px 6px #000; }
+  .palco :global(.maplibregl-ctrl-attrib a) { color: inherit !important; }
+  .creditoTerras { right: clamp(14px, 2vw, 32px); bottom: 12px; background: none; padding: 0; text-align: right; opacity: 0.6; color: inherit; text-shadow: 0 1px 6px #000; pointer-events: auto; }
+  .creditoTerras a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255, 255, 255, 0.3); text-underline-offset: 2px; }
+}
+.filtrosCorpo {
+  margin-top: 10px; display: flex; flex-direction: column;
+  height: calc(100vh - 205px);
+  background: linear-gradient(180deg, rgba(14, 9, 30, 0.72), rgba(10, 6, 22, 0.6)); backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 14px; overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+}
+.filtroTopo { display: flex; gap: 10px; align-items: center; padding: 12px 14px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+.filtroBusca {
+  flex: 1; min-width: 0; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px; padding: 7px 10px; color: inherit; font: inherit; outline: none; transition: border-color 0.2s ease;
+}
+.filtroBusca::placeholder { color: inherit; opacity: 0.4; }
+.filtroBusca:focus { border-color: var(--acento); }
+.filtroLimpar {
+  background: none; border: 0; color: inherit; font: inherit; font-size: 0.7rem; opacity: 0.6; cursor: pointer;
+  white-space: nowrap; border-bottom: 1px solid currentColor; padding: 0;
+}
+.filtroLimpar:hover { opacity: 1; }
+.filtroRolagem { flex: 1; overflow-y: auto; padding: 4px 14px 14px; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
+.filtroSecao { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 0 2px; }
+.filtroSecao + .filtroSecao { border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 8px; }
+.filtroSecao h4 {
+  width: 100%; margin: 0 0 2px; font-weight: 500; opacity: 0.42; letter-spacing: 0.14em;
+  text-transform: uppercase; font-size: 0.6rem;
+}
+.filtroSecao button, .fichaClasse button {
+  background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 999px;
+  padding: 3px 10px; color: inherit; font: inherit; opacity: 0.7; cursor: pointer;
+  transition: opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.filtroSecao button:hover, .fichaClasse button:hover { opacity: 1; background: rgba(255, 255, 255, 0.09); }
+.filtroSecao button.filtroOn, .fichaClasse button.filtroOn { opacity: 1; border-color: var(--acento); background: rgba(255, 255, 255, 0.12); }
+.filtroSecao button i { font-style: normal; opacity: 0.45; margin-left: 6px; font-size: 0.68rem; font-variant-numeric: tabular-nums; }
+.filtroSecao select {
+  width: 100%; margin-top: 4px; background: rgba(255, 255, 255, 0.05); color: inherit; font: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 6px 8px;
+}
+.filtroSecao select option { color: #111; }
+.fichaClasse { display: flex; gap: 8px; margin: 14px 0 0; font-size: 0.78rem; }
+@media (max-width: 760px) {
+  .filtros { top: calc(clamp(14px, 2.2vh, 28px) + 36px); }
+  .filtrosCorpo { height: calc(100vh - 215px); }
+}
+
+.filtroRodape { margin: 0; padding: 9px 14px; font-size: 0.68rem; opacity: 0.5; border-top: 1px solid rgba(255,255,255,0.07); }
+
+.filtroSecao button.filtroMais { background: none; border-color: transparent; opacity: 0.5; text-decoration: underline; text-underline-offset: 3px; padding-left: 4px; }
+
+/* o painel de filtros captura o mouse (senão a rolagem passava direto para o mapa e dava zoom) */
+.interface .filtrosCorpo { pointer-events: auto; }
+.filtroRolagem { overscroll-behavior: contain; }
+
+/* terras indígenas ganha destaque: maior, com brilho laranja, sempre legível */
+.camadaTerras { padding: 8px 16px 8px 13px; font-size: 0.78rem; opacity: 1; box-shadow: 0 0 18px rgba(224, 136, 74, 0.28); }
+.camadaTerras:not(.camadaLigada) { opacity: 0.85; box-shadow: none; }
+.camadaTerras i { width: 15px; height: 15px; }
+
+/* traço entre o chip das terras indígenas e as redes, para não parecer mais uma rede social */
+.camadaTerras { position: relative; margin-right: 20px; }
+.camadaTerras::after { content: ""; position: absolute; right: -17px; top: 50%; width: 1px; height: 16px; background: rgba(255, 255, 255, 0.35); transform: translateY(-50%); }

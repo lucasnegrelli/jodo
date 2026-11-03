@@ -1,0 +1,567 @@
+.raiz {
+  --osso: #e9dfc9;
+  --uru: #d2381a;
+  --jen: #0b0a10;
+  --mono: "Space Mono", "Consolas", monospace;
+  --serif: "Instrument Serif", "Times New Roman", serif;
+  --wide: "Archivo", "Arial Black", Arial, sans-serif;
+  --px: 0;
+  --py: 0;
+  background: var(--jen);
+  color: var(--osso);
+  font-family: var(--wide);
+  position: relative;
+}
+.tela { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; z-index: 0; }
+.palco { position: fixed; inset: 0; z-index: 10; overflow: hidden; pointer-events: none; }
+.trilha { width: 1px; }
+.tag { position: fixed; left: 0; top: 0; z-index: 30; pointer-events: none; opacity: 0; padding: 6px 10px; background: rgba(11, 10, 16, 0.85); border: 1px solid rgba(233, 223, 201, 0.25); font: 400 11px/1.3 var(--mono); letter-spacing: 0.06em; color: rgba(233, 223, 201, 0.85); white-space: nowrap; transition: opacity 0.4s; }
+.tag b { color: var(--uru); font-weight: 700; margin-right: 4px; }
+.anel { position: fixed; left: 0; top: 0; z-index: 40; width: 26px; height: 26px; border: 1.5px solid rgba(233, 223, 201, 0.85); border-radius: 50%; pointer-events: none; opacity: 0; mix-blend-mode: difference; transition: opacity 0.4s; will-change: transform; }
+@media (hover: none) { .anel, .tag { display: none; } }
+.sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* cada tela: título de ponta a ponta no topo e, embaixo, três colunas num eixo central (informação | obra | prévia) */
+.cap { --acc: #d2381a; --luz: #e9dfc9; position: absolute; inset: 0; opacity: 0; visibility: hidden; padding: 7vh 5vw 11vh; display: flex; flex-direction: column; align-items: center; gap: 2.2vh; will-change: opacity; }
+.rv { opacity: 0; transform: translate3d(0, 24px, 0); filter: blur(9px); transition: opacity 1s cubic-bezier(0.2, 0.7, 0.2, 1), transform 1s cubic-bezier(0.2, 0.7, 0.2, 1), filter 1s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: calc(var(--k, 0) * 100ms); }
+.on .rv { opacity: 1; transform: none; filter: none; }
+.on a, .on button { pointer-events: auto; }
+.raiz p, .raiz span { text-shadow: 0 0 18px rgba(11, 10, 16, 0.9), 0 0 40px rgba(11, 10, 16, 0.7); }
+
+.tece { pointer-events: none; }
+.tTit { width: 92vw; flex: none; }
+
+.tres { flex: 1; min-height: 0; width: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 3vw; }
+.inv .tres > :first-child { order: 3; }
+.inv .tres > :last-child { order: 1; }
+.lado { display: grid; gap: 12px; align-content: center; min-width: 0; padding: 10px 6px; max-width: 520px; }
+.ladoD { justify-self: end; justify-items: end; max-width: none; padding: 0; }
+.inv .lado:first-child { justify-self: end; }
+.inv .ladoD { justify-self: start; justify-items: start; }
+
+.rot { display: inline-flex; align-items: center; gap: 12px; font: 700 12px/1 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--osso); }
+.rot::before { content: ""; flex: none; width: 38px; height: 2px; background: var(--acc); }
+.rotTopo { align-self: flex-start; }
+.italico { margin: 0; font: italic 400 clamp(26px, 2.4vw, 42px)/1.02 var(--serif); color: var(--osso); }
+.corpo { margin: 0; font-size: clamp(14px, 1.05vw, 17px); line-height: 1.55; color: rgba(233, 223, 201, 0.9); }
+.corpo mark { background: none; color: var(--osso); font-weight: 800; box-shadow: inset 0 -0.4em 0 rgba(210, 56, 26, 0.55); }
+.epi { margin: 0; font: 700 12px/1.4 var(--mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--acc); }
+.meta { margin: 0; font: 700 12px/1.4 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); }
+.ficha { list-style: none; margin: 2px 0 0; padding: 0; display: grid; gap: 3px; }
+.ficha li { font: 400 11px/1.45 var(--mono); letter-spacing: 0.03em; color: rgba(233, 223, 201, 0.62); text-shadow: 0 0 14px rgba(11, 10, 16, 0.9); }
+.ficha li::before { content: "· "; color: var(--acc); }
+
+/* links: texto sublinhado, sem caixa. O primeiro é o principal */
+.links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin: 0; }
+.linksC { justify-content: center; }
+.links a { font: 700 12px/1.2 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--osso); text-decoration: none; border-bottom: 1px solid rgba(233, 223, 201, 0.4); padding-bottom: 3px; text-shadow: none; transition: 0.2s; }
+.links a:hover { color: var(--acc); border-color: var(--acc); }
+.links .principal { border-bottom: 2px solid var(--acc); }
+
+/* ---------- capa ---------- */
+.capa .tTit { margin-top: 1vh; }
+/* a foto sobe e cobre a base das letras do título: camadas, não colunas */
+.tresCapa { margin-top: -5.5vh; }
+.moldura { padding: 12px; background: rgba(11, 10, 16, 0.92); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(233, 223, 201, 0.3); }
+.molduraCapa { z-index: 2; }
+.foto { position: relative; height: min(50vh, 34vw); aspect-ratio: 4 / 5; overflow: hidden; background: #000; }
+.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- molduras: cada tela usa uma ---------- */
+.fr0 { box-shadow: 0 28px 70px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(233, 223, 201, 0.22); }
+.fr1 { box-shadow: 14px 14px 0 var(--acc), 0 30px 70px rgba(0, 0, 0, 0.6); }
+.fr2 { box-shadow: 0 0 0 10px rgba(11, 10, 16, 0.92), 0 0 0 11px var(--luz), 0 34px 80px rgba(0, 0, 0, 0.7); }
+.vf0 { box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(233, 223, 201, 0.2); }
+.vf1 { box-shadow: -12px 12px 0 var(--acc), 0 24px 60px rgba(0, 0, 0, 0.6); }
+.vf2 { box-shadow: 0 0 0 8px rgba(11, 10, 16, 0.92), 0 0 0 9px var(--luz), 0 30px 70px rgba(0, 0, 0, 0.7); }
+
+/* ---------- a obra ---------- */
+.capaFr { position: relative; background: #000; }
+.capaCentro { width: min(26vw, 54vh); }
+.tilt { display: block; transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); transform-style: preserve-3d; will-change: transform; }
+.tilt img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
+.vid { position: relative; background: #000; overflow: hidden; }
+.vid video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.vidLado { width: min(31vw, 56vh); aspect-ratio: 16 / 9; margin-left: -4vw; }
+.inv .vidLado { margin-left: 0; margin-right: -4vw; }
+.vidCentro { width: min(38vw, 72vh); aspect-ratio: 16 / 9; }
+.rotulo { position: absolute; left: 10px; top: 10px; padding: 4px 8px; background: rgba(11, 10, 16, 0.78); font: 700 10px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--osso); text-shadow: none; }
+.duo { display: flex; gap: 2.4vw; align-items: flex-start; }
+.duo .capaFr { width: min(12vw, 22vh); }
+.legTile { display: grid; gap: 4px; padding: 8px 4px 2px; text-shadow: none !important; }
+.legTile b { font: 700 13px/1.15 var(--wide); }
+.legTile em { font: 400 10px/1.3 var(--mono); font-style: normal; color: rgba(233, 223, 201, 0.55); }
+.legTile small { font-size: inherit; }
+.legTile .links a { font-size: 10px; }
+
+/* ---------- o resto: uma linha, no eixo ---------- */
+.outros .tTit { margin-top: 1vh; }
+.grade { flex: 1; display: flex; gap: 2.4vw; align-items: center; justify-content: center; width: 100%; overflow-x: auto; padding: 6px 4px 14px; scroll-snap-type: x proximity; }
+.tile { flex: 0 0 min(17.5vw, 27vh); background: #0b0a10; padding: 9px 9px 11px; box-shadow: 0 0 0 1px rgba(233, 223, 201, 0.14), 0 20px 50px rgba(0, 0, 0, 0.55); scroll-snap-align: center; }
+
+/* ---------- ouvir ---------- */
+.ouvir .tTit { margin-top: 1vh; }
+.ouvirCorpo { flex: 1; display: grid; gap: 16px; align-content: center; justify-items: center; text-align: center; }
+.fonte { margin: 0; font: 400 11px/1.5 var(--mono); letter-spacing: 0.04em; color: rgba(233, 223, 201, 0.6); max-width: 620px; }
+.fonte i { font-style: normal; color: rgba(233, 223, 201, 0.85); }
+
+/* ---------- legenda: uma linha fina no rodapé ---------- */
+.legenda { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; padding: 8px 5vw 9px; background: rgba(11, 10, 16, 0.9); border-top: 1px solid var(--acc); }
+.legenda span { font: 700 10px/1.2 var(--mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--acc); text-shadow: none; }
+.legenda b { font: 400 17px/1.05 var(--serif); font-style: italic; color: var(--osso); }
+.legenda i { font: 400 11px/1.3 var(--mono); letter-spacing: 0.1em; color: rgba(233, 223, 201, 0.85); font-style: normal; }
+.legenda em { font: 400 11px/1.4 var(--mono); font-style: normal; color: rgba(233, 223, 201, 0.55); }
+
+@media (max-width: 860px) {
+  .cap { padding: 6vh 18px 9vh; gap: 1.6vh; }
+  .tTit { width: 92vw; }
+  .tres { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 1.4vh; justify-items: center; align-content: start; overflow: hidden; }
+  .inv .tres > :first-child, .inv .tres > :last-child { order: 0; }
+  .lado, .ladoD, .inv .lado:first-child, .inv .ladoD { justify-self: center; justify-items: start; max-width: 100%; }
+  .tresCapa { margin-top: -2vh; }
+  .foto { height: 28vh; }
+  .capaCentro { width: 34vh; }
+  .vidLado, .inv .vidLado { width: 70vw; margin: 0; }
+  .vidCentro { width: 80vw; }
+  .duo .capaFr { width: 28vw; }
+  .corpo { font-size: 13.5px; line-height: 1.4; }
+  .ficha { display: none; }
+  .tile { flex-basis: 34vw; }
+  .grade { justify-content: flex-start; }
+  .legenda em { display: none; }
+}
+
+/* ---------- as letras dele: outra mão, escrita a caneta ---------- */
+.letra { margin: 4px 0 2px; padding: 0 0 0 14px; border-left: 3px solid var(--acc); display: grid; gap: 0; }
+.letra span { font: 400 clamp(26px, 2.35vw, 40px)/1.02 "Reenie Beanie", "Segoe Script", cursive; color: var(--luz); text-shadow: 0 0 16px rgba(11, 10, 16, 0.95); transform: rotate(-1.2deg); transform-origin: left center; }
+.letra span:nth-child(2) { transform: rotate(0.6deg) translateX(10px); }
+.letra span:nth-child(3) { transform: rotate(-0.8deg) translateX(4px); }
+.letra cite { margin-top: 6px; font: 400 10px/1.3 var(--mono); font-style: normal; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(233, 223, 201, 0.55); }
+
+/* ---------- fotos da capa: passam pelo scroll ---------- */
+.foto img { opacity: 0; transform: scale(1.05); transition: opacity 1.1s ease, transform 4s ease-out; }
+.foto img.ativa { opacity: 1; transform: scale(1); }
+.ticks { position: absolute; left: 10px; right: 10px; bottom: 10px; display: flex; gap: 6px; z-index: 3; }
+.ticks i { flex: 1; height: 3px; background: rgba(233, 223, 201, 0.28); transition: background 0.4s; }
+.ticks i.tkOn { background: var(--osso); }
+
+/* ---------- o fio: navegação pelo tear ---------- */
+.fio { position: fixed; left: 14px; top: 50%; transform: translateY(-50%); z-index: 25; display: flex; flex-direction: column; gap: 0; }
+.fioLinha { position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px; background: rgba(233, 223, 201, 0.18); }
+.fioLinha b { position: absolute; left: 0; top: 0; width: 100%; background: var(--uru); height: 0; transition: height 0.2s linear; }
+.fio button { position: relative; display: block; width: 20px; height: 26px; padding: 0; border: 0; background: none; cursor: pointer; pointer-events: auto; }
+.fio button::before { content: ""; position: absolute; left: 5px; top: 8px; width: 10px; height: 10px; background: #0b0a10; border: 1.5px solid rgba(233, 223, 201, 0.6); transform: rotate(45deg); transition: 0.25s; }
+.fio button span { position: absolute; left: 28px; top: 7px; font: 700 10px/1 var(--mono); letter-spacing: 0.1em; color: var(--osso); opacity: 0; transition: opacity 0.2s; white-space: nowrap; text-shadow: 0 0 10px #0b0a10; }
+.fio button:hover span { opacity: 1; }
+.fio button:hover::after { content: attr(data-n); position: absolute; left: 52px; top: 7px; font: 400 10px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(233, 223, 201, 0.75); white-space: nowrap; background: rgba(11, 10, 16, 0.85); padding: 4px 8px; }
+.fio button.fioOn::before { background: var(--uru); border-color: var(--uru); transform: rotate(45deg) scale(1.25); }
+@media (max-width: 860px) { .fio { display: none; } }
+
+/* ---------- ouvir: as redes ---------- */
+.redes { flex: 1; width: min(1100px, 100%); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 22px; align-content: center; }
+.rede { position: relative; display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 2px 12px; padding: 14px 18px 13px; background: rgba(11, 10, 16, 0.78); border-left: 3px solid var(--acc); text-decoration: none; color: var(--osso); transition: background 0.25s, transform 0.25s; text-shadow: none !important; }
+.rede b { font: 400 clamp(26px, 2.5vw, 40px)/1 Anton, Impact, sans-serif; letter-spacing: 0.02em; text-transform: uppercase; }
+.rede small { grid-column: 1; font: 400 11px/1.3 var(--mono); letter-spacing: 0.08em; color: rgba(233, 223, 201, 0.6); }
+.rede i { grid-column: 2; grid-row: 1 / span 2; align-self: center; font: 700 22px/1 var(--mono); font-style: normal; color: var(--acc); transition: transform 0.25s; }
+.on .rede:hover { background: rgba(30, 24, 30, 0.92); transform: translateX(6px); }
+.on .rede:hover i { transform: translate(4px, -4px); }
+@media (max-width: 860px) { .redes { grid-template-columns: 1fr; gap: 8px; } .rede b { font-size: 24px; } }
+
+/* fotos da capa: ocupam a moldura inteira; a troca é uma tecelagem de talas verticais, uma desce, a outra sobe */
+.foto img { height: 100% !important; aspect-ratio: auto !important; }
+.tira { position: absolute; top: 0; bottom: 0; overflow: hidden; z-index: 2; clip-path: inset(0 0 100% 0); pointer-events: none; }
+.tira:nth-child(even) { clip-path: inset(100% 0 0 0); }
+.tira img { position: absolute; top: 0; height: 100%; max-width: none; object-fit: cover; opacity: 1 !important; transform: none !important; transition: none !important; }
+.tira.vai { clip-path: inset(0 0 0 0) !important; transition: clip-path 0.7s cubic-bezier(0.6, 0.05, 0.2, 1); transition-delay: calc(var(--d) * 70ms); }
+.ticks { display: none; }
+.rede { padding: 9px 16px 8px; }
+.redes { gap: 8px 22px; }
+
+/* ouvir: ícones; no hover cada um ganha a cor da marca */
+.icones { flex: 1; display: flex; gap: 2.4vw; align-items: center; justify-content: center; width: 100%; }
+.icone { display: grid; justify-items: center; gap: 10px; width: min(16vw, 190px); padding: 28px 12px 22px; background: rgba(11, 10, 16, 0.72); border: 1px solid rgba(233, 223, 201, 0.16); color: var(--osso); text-decoration: none; text-shadow: none !important; transition: color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s, background 0.3s; }
+.icone svg { transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.icone b { font: 400 22px/1 Anton, Impact, sans-serif; letter-spacing: 0.04em; text-transform: uppercase; }
+.icone small { font: 400 10px/1.3 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(233, 223, 201, 0.55); transition: color 0.3s; }
+.on .icone:hover { color: var(--cor); border-color: var(--cor); background: rgba(11, 10, 16, 0.92); box-shadow: 0 0 44px -6px var(--cor), inset 0 0 24px -12px var(--cor); transform: translateY(-6px); }
+.on .icone:hover svg { transform: scale(1.14) rotate(-4deg); }
+.on .icone:hover small { color: var(--cor); }
+@media (max-width: 860px) { .icones { flex-wrap: wrap; gap: 10px; } .icone { width: 40vw; padding: 18px 8px; } }
+
+/* a troca da foto é só a tecelagem das talas: a imagem de baixo muda seca, sem fade nem zoom por cima */
+.foto img { transition: none !important; transform: none !important; }
+/* ícones das redes, menores */
+.icones { gap: 1.6vw; }
+.icone { width: min(10vw, 124px); padding: 16px 8px 13px; gap: 7px; }
+.icone svg { width: 34px; height: 34px; }
+.icone b { font-size: 15px; }
+.icone small { font-size: 9px; }
+
+/* quebras de linha: equilibradas, sem sobra de palavra sozinha */
+.corpo, .letra span, .ficha li, .meta, .fonte, .italico, .legenda em { text-wrap: balance; }
+.corpo { text-wrap: pretty; }
+.fonte { display: grid; gap: 2px; max-width: none; text-align: center; text-wrap: balance; }
+.fonte span { display: block; }
+.ouvir .fonte { margin-bottom: 1vh; }
+.ficha li { text-wrap: pretty; }
+
+/* voltar ao topo */
+.topo { position: fixed; right: 22px; bottom: 58px; z-index: 26; display: grid; justify-items: center; gap: 4px; width: 46px; padding: 8px 0 7px; background: rgba(11, 10, 16, 0.85); border: 1px solid rgba(233, 223, 201, 0.35); color: var(--osso); cursor: pointer; opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity 0.35s, transform 0.35s, border-color 0.25s, color 0.25s; }
+.topo span { font: 700 20px/1 var(--mono); }
+.topo small { font: 400 8px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.7; }
+.topo.topoOn { opacity: 1; transform: none; pointer-events: auto; }
+.topo:hover { border-color: var(--uru); color: var(--uru); }
+
+/* a prévia não invade a informação */
+.vidLado, .inv .vidLado { margin-left: 0; margin-right: 0; }
+.vidLink { position: relative; display: block; width: 100%; height: 100%; color: var(--osso); text-decoration: none; }
+.chip { position: absolute; left: 10px; bottom: 10px; z-index: 3; padding: 6px 10px; background: rgba(11, 10, 16, 0.82); border-left: 2px solid var(--acc); font: 700 10px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--osso); text-shadow: none; transition: background 0.25s, color 0.25s, transform 0.25s; pointer-events: none; }
+.capaCentro .tilt, .vidLink { cursor: pointer; }
+.on a:hover .chip { background: var(--acc); color: #0b0a10; transform: translateY(-2px); }
+.vid video { transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.on .vidLink:hover video { transform: scale(1.04); }
+.lado { max-width: 470px; }
+.ladoD { max-width: none; }
+
+/* o @ numa fonte que tem @ de verdade, sem caixa alta */
+.links a.handle { text-transform: none; font-family: var(--wide); font-weight: 700; font-size: 14px; letter-spacing: 0.02em; }
+.iconeH small { text-transform: none; font-family: var(--wide); font-size: 11px; letter-spacing: 0.02em; }
+
+/* tiras da troca de foto (agora feitas em React): cada tala mostra a fatia correspondente da foto nova */
+.tira img { width: auto; }
+
+
+
+/* ================= responsivo: celular (até 860px) =================
+   Mesma ideia da tela larga, em uma coluna: título em linhas, informação curta, e a capa ao lado da prévia. */
+.tMob { display: none; }
+@media (max-width: 860px) {
+  .tDesk { display: none; }
+  .tMob { display: block; width: 92vw; }
+  .cap { padding: 6vh 16px 9vh; gap: 1vh; align-items: stretch; }
+  .tTit { align-self: center; }
+  .tres { grid-template-columns: 38vw minmax(0, 1fr); grid-template-areas: "info info" "cover vid"; gap: 1.4vh 12px; align-content: start; align-items: center; overflow: visible; justify-items: stretch; }
+  .tres > :nth-child(1) { grid-area: info; }
+  .tres > :nth-child(2) { grid-area: cover; justify-self: start; }
+  .tres > :nth-child(3) { grid-area: vid; justify-self: stretch; }
+  .inv .tres > :first-child, .inv .tres > :last-child { order: 0; }
+  .lado, .ladoD, .inv .lado:first-child, .inv .ladoD { justify-self: stretch; justify-items: start; max-width: none; padding: 4px 2px; gap: 8px; }
+  .obra .corpo { font-size: 13px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  .letra span { font-size: 24px; }
+  .letra cite { font-size: 9px; }
+  .ficha { display: none; }
+  .meta { font-size: 11px; }
+  .capaCentro { width: 38vw; }
+  .vidLado, .inv .vidLado { width: 100%; margin: 0; }
+  .vid .rotulo { display: none; }
+  .chip { font-size: 9px; padding: 5px 7px; left: 6px; bottom: 6px; }
+  .tresPar { grid-template-columns: 1fr 1fr; grid-template-areas: "info info" "clip clip" "duo duo"; }
+  .tresPar > :nth-child(2) { grid-area: clip; justify-self: stretch; }
+  .tresPar > :nth-child(3) { grid-area: duo; }
+  .vidCentro { width: 100%; }
+  .duo { justify-content: flex-start; gap: 14px; }
+  .duo .capaFr { width: 30vw; }
+  /* capa: coluna única */
+  .tresCapa { grid-template-columns: 1fr; grid-template-areas: none; margin-top: -1vh; justify-items: center; }
+  .tresCapa > * { grid-area: auto !important; justify-self: center !important; }
+  .tresCapa .lado, .tresCapa .ladoD { justify-self: stretch !important; }
+  .tresCapa .corpo { display: block; -webkit-line-clamp: unset; }
+  .foto { height: 26vh; }
+  /* e mais / ouvir */
+  .tile { flex-basis: 40vw; }
+  .grade { justify-content: flex-start; }
+  .icones { flex-wrap: wrap; gap: 10px; align-content: center; }
+  .icone { width: 42vw; padding: 16px 8px 13px; }
+  .legenda { padding: 6px 16px 7px; }
+  .legenda em { display: none; }
+}
+
+@media (max-width: 860px) {
+  .tres { flex: none; }
+  .tresCapa .italico { font-size: 24px; }
+  .tresCapa .corpo { font-size: 12.5px; line-height: 1.38; }
+  .tresCapa .ladoD .corpo { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  .foto { height: 21vh; }
+  .tresCapa { gap: 0.8vh; }
+}
+@media (max-width: 860px) {
+  .tresPar .letra { display: none; }
+  .tresPar .corpo { -webkit-line-clamp: 3; }
+  .tresPar > :nth-child(2) { width: 78%; justify-self: center; }
+  .duo .capaFr { width: 27vw; }
+  .duo .legTile b { font-size: 11px; }
+  .duo .legTile .links a { font-size: 9px; }
+}
+/* telas médias (tablet deitado, notebook pequeno): menos texto para não apertar a coluna */
+@media (min-width: 861px) and (max-width: 1180px) {
+  .ficha { display: none; }
+  .letra span { font-size: clamp(22px, 2.6vw, 30px); }
+  .lado { max-width: 360px; }
+}
+
+/* o título começa abaixo do logo da JODO, sem grudar nele */
+.cap { padding-top: 9.5vh; }
+@media (max-width: 860px) { .cap { padding-top: 9vh; } }
+
+/* celular, trabalhos com pouca informação: o clipe é o centro, grande; a capinha sobrepõe um pouco o canto de baixo */
+@media (max-width: 860px) {
+  .tres:not(.tresPar):not(.tresCapa) { grid-template-columns: 1fr; grid-template-areas: "info" "vid" "cover"; gap: 1.2vh 0; }
+  .tres:not(.tresPar):not(.tresCapa) > :nth-child(3) { grid-area: vid; justify-self: stretch; }
+  .tres:not(.tresPar):not(.tresCapa) > :nth-child(2) { grid-area: cover; justify-self: start; margin: -11vw 0 0 4vw; position: relative; z-index: 3; }
+  .tres:not(.tresPar):not(.tresCapa) .capaCentro { width: 33vw; }
+  .tres:not(.tresPar):not(.tresCapa) .vidLado, .tres:not(.tresPar):not(.tresCapa) .inv .vidLado { width: 100%; }
+  .tres:not(.tresPar):not(.tresCapa) .chip { font-size: 8px; padding: 4px 6px; left: 5px; bottom: 5px; }
+}
+/* celular baixo (até ~760px de altura): corta o que é secundário para o clipe e a capa caberem */
+@media (max-width: 860px) and (max-height: 760px) {
+  .obra .letra { display: none; }
+  .obra .corpo { -webkit-line-clamp: 2; }
+  .tres:not(.tresPar):not(.tresCapa) .capaCentro { width: 28vw; }
+  .tres:not(.tresPar):not(.tresCapa) > :nth-child(2) { margin-top: -9vw; }
+}
+
+/* celular: a capa precisa caber inteira acima da faixa do rodapé */
+@media (max-width: 860px) {
+  .capa { padding-bottom: 12vh; }
+  .rotTopo { font-size: 10px; letter-spacing: 0.12em; white-space: nowrap; }
+  .tresCapa .ladoD .corpo { -webkit-line-clamp: 3; font-size: 12px; }
+  .tresCapa .italico { font-size: 21px; }
+  .tresCapa .epi { font-size: 10px; letter-spacing: 0.14em; }
+  .foto { height: 19vh; }
+}
+@media (max-width: 860px) and (max-height: 760px) {
+  .foto { height: 15vh; }
+  .moldura { padding: 8px; }
+  .tresCapa .corpo { font-size: 11.5px; line-height: 1.32; }
+}
+/* celular: na capa o nome fica numa linha só, menor */
+@media (max-width: 860px) {
+  .capa .tDesk { display: block !important; height: min(8.5vh, 12.5vw) !important; }
+  .capa .tMob { display: none !important; }
+}
+/* celular: a foto volta ao tamanho de antes (o espaço veio do nome em uma linha só) */
+@media (max-width: 860px) { .foto { height: 26vh; } .moldura { padding: 12px; } }
+@media (max-width: 860px) and (max-height: 760px) { .foto { height: 23vh; } }
+/* celular: usa o espaço que sobrou na capa (foto maior e respiro entre os blocos de texto) */
+@media (max-width: 860px) {
+  .foto { height: 31vh; }
+  .capa .tDesk { height: min(9.5vh, 13.5vw) !important; }
+  .capa { gap: 1.6vh; }
+  .tresCapa { gap: 1.8vh; margin-top: 0.6vh; }
+  .tresCapa .lado { gap: 10px; }
+  .tresCapa .italico { margin-top: 0.4vh; }
+  .tresCapa .epi { margin-top: 0.6vh; }
+}
+@media (max-width: 860px) and (max-height: 760px) { .foto { height: 28vh; } }
+
+/* o selo da prévia vai para o canto direito: a capinha sobrepõe o canto esquerdo no celular */
+.vid .chip { left: auto; right: 10px; }
+
+/* "e mais": sem barra de rolagem */
+.grade { scrollbar-width: none; -ms-overflow-style: none; }
+.grade::-webkit-scrollbar { display: none; }
+
+/* o botão de topo não atravessa o crédito da última tela */
+.ouvir .fonte { max-width: min(620px, calc(100% - 150px)); }
+
+@media (max-width: 860px) {
+  .vid .chip { right: 6px; }
+  /* e mais: grade 2x2 no lugar da rolagem lateral */
+  .outros .grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 12px; overflow: visible; align-content: center; justify-content: stretch; padding: 4px 0; flex: 1; }
+  .outros .tile { flex: none; width: auto; padding: 6px 6px 8px; }
+  .outros .legTile em { display: none; }
+  .outros .legTile b { font-size: 12px; }
+  /* última tela: crédito à esquerda, longe do botão de topo */
+  .ouvir .fonte { align-self: flex-start; text-align: left; max-width: calc(100% - 64px); margin-left: 2px; }
+}
+/* celular alto: sobra espaço, então a capa cresce e as fichas aparecem */
+@media (max-width: 860px) and (min-height: 761px) {
+  .obra .ficha { display: grid; }
+  .tres:not(.tresPar):not(.tresCapa) .capaCentro { width: 40vw; }
+  .tres:not(.tresPar):not(.tresCapa) > :nth-child(2) { margin-top: -12vw; }
+}
+
+/* ===== ajustes finos do celular ===== */
+@media (max-width: 860px) {
+  /* selo da prévia no canto direito (a capinha ocupa o esquerdo) */
+  .tres:not(.tresPar):not(.tresCapa) .vid .chip { left: auto; right: 6px; }
+  /* sobra de altura: o conteúdo se distribui em vez de deixar vazio embaixo */
+  .tres:not(.tresPar):not(.tresCapa) { flex: 1; min-height: 0; align-content: space-evenly; }
+  /* e mais: grade 2x2 que cabe, sem rolagem */
+  .outros .tTit { height: 11vh !important; }
+  .outros .grade { grid-template-columns: repeat(2, 38vw); justify-content: center; align-content: start; gap: 10px 12px; }
+  .outros .tile { padding: 5px 5px 7px; }
+  .outros .legTile .links { gap: 2px 8px; }
+}
+@media (max-width: 860px) and (max-height: 760px) {
+  /* canal Falha: o clipe e as capas cabem acima do rodapé */
+  .tresPar .corpo { display: none; }
+  .tresPar > :nth-child(2) { width: 64%; }
+  .duo .capaFr { width: 25vw; }
+  .duo { gap: 12px; }
+}
+@media (max-width: 860px) {
+  .outros .tTit { height: 9.5vh !important; }
+  .outros .grade { grid-template-columns: repeat(2, 35vw); gap: 8px 12px; }
+}
+
+/* capa: no celular, Spotify e Instagram viram ícones com a marca, ao lado da foto */
+.fotoBloco { display: contents; }
+.redesFoto { display: none; }
+@media (max-width: 860px) {
+  .fotoBloco { display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .redesFoto { display: flex; flex-direction: column; gap: 12px; }
+  .redeIc { display: grid; place-items: center; width: 50px; height: 50px; background: rgba(11, 10, 16, 0.8); border: 1.5px solid var(--cor); color: var(--cor); box-shadow: 0 0 18px -6px var(--cor); text-decoration: none; transition: transform 0.25s, background 0.25s; }
+  .redeIc svg { width: 28px; height: 28px; }
+  .on .redeIc:active, .on .redeIc:hover { background: var(--cor); color: #0b0a10; transform: scale(1.06); }
+  .tresCapa .ladoD .links { display: none; }
+  /* os textos crescem com o espaço liberado */
+  .tresCapa .italico { font-size: 27px; }
+  .tresCapa .corpo { font-size: 14px; line-height: 1.42; }
+  .tresCapa .ladoD .corpo { -webkit-line-clamp: 5; }
+  .tresCapa .epi { font-size: 11px; }
+}
+@media (max-width: 860px) and (max-height: 760px) {
+  .tresCapa .italico { font-size: 23px; }
+  .tresCapa .corpo { font-size: 12.5px; line-height: 1.36; }
+  .tresCapa .ladoD .corpo { -webkit-line-clamp: 4; }
+}
+
+/* ícones das redes na capa do celular: pequenos, redondos e discretos */
+@media (max-width: 860px) {
+  .redesFoto { gap: 10px; }
+  .redeIc { width: 36px; height: 36px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--cor) 55%, transparent); background: rgba(11, 10, 16, 0.55); box-shadow: none; }
+  .redeIc svg { width: 18px; height: 18px; }
+  .fotoBloco { gap: 12px; }
+}
+
+/* sem a bolinha do cursor */
+.anel { display: none !important; }
+/* capa no celular: ícones mínimos e sem efeito de hover; foto maior, usando a margem de baixo */
+@media (max-width: 860px) {
+  .redeIc { width: 28px; height: 28px; transition: none; }
+  .redeIc svg { width: 14px; height: 14px; }
+  .on .redeIc:active, .on .redeIc:hover { background: rgba(11, 10, 16, 0.55); color: var(--cor); transform: none; }
+  .redesFoto { gap: 8px; }
+  .foto { height: 36vh; }
+  .capa { padding-bottom: 10vh; }
+}
+@media (max-width: 860px) and (max-height: 760px) { .foto { height: 33vh; } }
+
+/* ícones das redes (celular): cheios, sem transparência, na cor da marca */
+@media (max-width: 860px) {
+  .redeIc, .on .redeIc:active, .on .redeIc:hover { background: var(--cor); border: 0; color: #0b0a10; opacity: 1; }
+  .redeIc svg { opacity: 1; }
+}
+
+/* só o logo de cada rede, sem caixa, borda ou fundo */
+@media (max-width: 860px) {
+  .redeIc, .on .redeIc:active, .on .redeIc:hover { width: 30px; height: 30px; background: none !important; border: 0 !important; box-shadow: none !important; padding: 0; border-radius: 0; transform: none; }
+  .redeIc svg { width: 30px; height: 30px; }
+  .redesFoto { gap: 12px; }
+}
+
+/* logos das redes na capa do celular: ainda menores */
+@media (max-width: 860px) {
+  .redeIc, .on .redeIc:active, .on .redeIc:hover { width: 20px; height: 20px; }
+  .redeIc svg { width: 20px; height: 20px; }
+  .redesFoto { gap: 10px; }
+  .fotoBloco { gap: 10px; }
+}
+
+/* ===== celular: frases ao lado da capinha; canal Falha com clipe maior e capas escalonadas ===== */
+.letraLado { display: none; }
+@media (max-width: 860px) {
+  .tres:not(.tresPar):not(.tresCapa) { grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "info info" "vid vid" "cover quote"; }
+  .letraTopo { display: none; }
+  .tres:not(.tresPar):not(.tresCapa) > :nth-child(4) { display: grid; grid-area: quote; align-self: center; margin: 0 0 0 12px; padding: 0 0 0 12px; }
+  .letraLado span { font-size: 22px; line-height: 1.02; }
+  .letraLado cite { font-size: 8px; letter-spacing: 0.1em; }
+  /* Falha: o clipe ocupa quase toda a largura; Capital Crime vem para o meio e Free$tyle desce */
+  .tresPar > :nth-child(2) { width: 96%; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: start; }
+  .duo > :nth-child(1) { justify-self: end; margin-right: 4vw; margin-top: -2vw; }
+  .duo > :nth-child(2) { justify-self: start; margin-left: 4vw; margin-top: 7vw; }
+  .duo .capaFr { width: 29vw; }
+}
+@media (max-width: 860px) and (max-height: 760px) {
+  .tresPar > :nth-child(2) { width: 96%; }
+  .duo .capaFr { width: 25vw; }
+  .duo > :nth-child(2) { margin-top: 5vw; }
+  .letraLado span { font-size: 20px; }
+}
+@media (max-width: 860px) and (min-height: 761px) {
+  .tresPar .letra { display: grid; }
+}
+
+/* celular baixo: compacta para a capinha, a frase e as capas caberem acima do rodapé */
+@media (max-width: 860px) and (max-height: 760px) {
+  .obra .tMob { height: 9vh !important; }
+  .letraLado cite { display: none; }
+  .letraLado span { font-size: 18px; }
+  .tres:not(.tresPar):not(.tresCapa) .vidLado { width: 94%; justify-self: center; }
+  .tresPar > :nth-child(2) { width: 90%; }
+  .duo .capaFr { width: 23vw; }
+  .duo > :nth-child(2) { margin-top: 3vw; }
+}
+
+/* celular: onde não há frase, os créditos ocupam o lado da capinha */
+.fichaLado { display: none; }
+@media (max-width: 860px) {
+  .fichaTopo { display: none !important; }
+  .tres:not(.tresPar):not(.tresCapa) > .fichaLado { display: grid; margin: 0 0 0 12px; padding: 0; gap: 4px; }
+  .fichaLado li { font-size: 11px; line-height: 1.4; color: rgba(233, 223, 201, 0.8); }
+}
+
+/* celular: a sombra da capinha não invade a frase ao lado */
+@media (max-width: 860px) {
+  .tres:not(.tresPar):not(.tresCapa) .capaCentro { box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55) !important; }
+  .tres:not(.tresPar):not(.tresCapa) > :nth-child(4) { margin-left: 18px; }
+}
+
+/* capa que vira contracapa (Ruído das Águas): giro 3D no hover do desktop; no celular a contracapa já fica à mostra */
+.flip { position: relative; display: block; transform-style: preserve-3d; transition: transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.flipFrente, .flipVerso { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; backface-visibility: hidden; }
+.flipVerso { position: absolute; inset: 0; height: 100%; transform: rotateY(180deg); }
+@media (hover: hover) and (min-width: 861px) { .on .capaFr:hover .flip { transform: rotateY(180deg); } }
+@media (max-width: 860px) { .flip { transform: rotateY(180deg); transition: none; } }
+/* sem o arquivo da contracapa, tudo fica como antes (só a capa) */
+.flip[data-sem] { transform: none !important; }
+.flip[data-sem] .flipVerso { display: none; }
+
+
+/* capa -> contracapa: troca por fusão, sem girar (o giro deixava um quadrado preto no meio) */
+.flip, .on .capaFr:hover .flip { transform: none !important; transition: none; transform-style: flat; }
+.flipFrente, .flipVerso { backface-visibility: visible; }
+.flipVerso { position: absolute; inset: 0; transform: none; opacity: 0; transition: opacity 0.55s ease; }
+.flipFrente { transition: opacity 0.55s ease; }
+@media (hover: hover) and (min-width: 861px) {
+  .on .capaFr:hover .flipVerso { opacity: 1; }
+  .on .capaFr:hover .flipFrente { opacity: 0; }
+}
+@media (max-width: 860px) {
+  .flip { transform: none !important; }
+  .flipVerso { opacity: 1; }
+  .flipFrente { opacity: 0; }
+}
+.flip[data-sem] .flipVerso { display: none; }
+.flip[data-sem] .flipFrente { opacity: 1 !important; }
+
+/* o selo do Spotify muda de lado quando a contracapa aparece, para não cobrir a arte */
+@media (hover: hover) and (min-width: 861px) {
+  .on .capaFr:hover .flip ~ .chip { left: auto; right: 10px; }
+}
+@media (max-width: 860px) {
+  .flip ~ .chip, .tres:not(.tresPar):not(.tresCapa) .flip ~ .chip { left: auto !important; right: 5px !important; }
+}
+
+/* Ruído das Águas (desktop): o selo do Spotify fica logo abaixo da capa, fora da arte (a frente tem o nome do Prisma no canto) */
+@media (min-width: 861px) {
+  .capaFr .flip ~ .chip, .on .capaFr:hover .flip ~ .chip { left: 0; right: auto; bottom: -34px; }
+}
+
+/* capas com o selo "Parental Advisory" no canto de baixo à esquerda: o selo do Spotify vai para o canto direito */
+.chipDir { left: auto !important; right: 10px !important; }
+@media (max-width: 860px) { .chipDir { right: 5px !important; } }
+/* celular: a capinha é pequena, então o selo vai para o canto de cima e deixa o "Parental Advisory" livre */
+@media (max-width: 860px) { .chipDir, .tres:not(.tresPar):not(.tresCapa) .chipDir { top: 5px !important; bottom: auto !important; right: 5px !important; left: auto !important; } }

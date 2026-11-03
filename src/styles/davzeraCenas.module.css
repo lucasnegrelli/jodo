@@ -1,0 +1,263 @@
+/* cenas do Davzera: cada lançamento ocupa a tela inteira, com a própria estética; --u (0..1) é o progresso da cena */
+.trilha { pointer-events: none; position: relative; color: #fff; }
+.palco { pointer-events: none; position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.cena { pointer-events: auto; position: absolute; inset: 0; overflow: hidden; will-change: opacity, clip-path; }
+.c3d { position: absolute; inset: 0; z-index: 1; }
+.cena h2 { margin: 0; text-wrap: balance; }
+.cena button, .cena a { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: inherit; text-decoration: none; }
+.cena img { display: block; max-width: 100%; }
+.rot { font-family: ui-monospace, "DM Mono", monospace; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: .75; margin: 0 0 12px; }
+.meta { margin: 10px 0 0; font-size: 15px; line-height: 1.45; max-width: 34ch; opacity: .9; text-wrap: balance; }
+.meta b { display: block; font-weight: 500; opacity: .65; }
+.acoes { display: flex; gap: 12px; flex-wrap: wrap; margin: 22px 0 0; }
+.acoes button, .acoes a { background: #fff; color: #111; padding: 12px 22px; border-radius: 999px; font: 600 14px/1 system-ui, sans-serif; transition: transform .2s; }
+.acoes .vazio { background: transparent; color: inherit; border: 1px solid currentColor; }
+.acoes button:hover, .acoes a:hover { transform: translateY(-2px); }
+
+.faixas { list-style: none; margin: 18px 0 0; padding: 0; font-family: ui-monospace, "DM Mono", monospace; font-size: 13px; }
+.faixas button { display: flex; gap: 10px; align-items: baseline; width: 100%; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, .18); transition: padding .2s, color .2s; }
+.faixas button:hover { padding-left: 8px; }
+.faixas i { font-style: normal; opacity: .5; }
+.faixas b { font-weight: 500; }
+.faixas span { opacity: .55; font-size: 11px; }
+.faixas u { text-decoration: none; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid currentColor; padding: 1px 5px; border-radius: 3px; opacity: .8; }
+.faixas em { font-style: normal; margin-left: auto; opacity: .5; }
+
+/* índice lateral */
+.indice { pointer-events: auto; opacity: var(--ent, 0); position: absolute; right: 14px; top: 50%; transform: translateY(-50%); z-index: 20; display: grid; gap: 4px; mix-blend-mode: difference; color: #fff; }
+.indice button { display: flex; justify-content: flex-end; align-items: center; gap: 8px; padding: 4px 0; background: none; border: 0; cursor: pointer; color: inherit; }
+.indice button::after { content: ""; width: 10px; height: 2px; background: currentColor; opacity: .5; transition: width .25s, opacity .25s; }
+.indice span { font: 500 10px/1 ui-monospace, monospace; letter-spacing: .1em; text-transform: uppercase; opacity: 0; transition: opacity .2s; white-space: nowrap; }
+.indice button:hover span, .indiceOn span { opacity: 1; }
+.indice button:hover::after, .indiceOn::after { width: 26px; opacity: 1; }
+
+/* 0 · Pacífico: a capa tem 640 px, então ela aparece nítida no tamanho dela e o resto é a mesma imagem desfocada */
+.pac { background: #03121a; }
+.pacFundo { position: absolute; inset: -12%; background-size: cover; background-position: 50% 40%; filter: blur(34px) brightness(.62) saturate(1.25); transform: translate3d(0, calc(var(--u, 0) * -7vh), 0) scale(calc(1.05 + var(--u, 0) * .1)); }
+.pacRaios { position: absolute; inset: -30%; background: conic-gradient(from 200deg at 78% 12%, transparent 0 8%, rgba(255, 244, 205, .16) 10%, transparent 13% 22%, rgba(255, 244, 205, .12) 24%, transparent 27% 40%, rgba(255, 244, 205, .1) 43%, transparent 46%); mix-blend-mode: screen; transform: rotate(calc(var(--u, 0) * 14deg)); }
+.pacFoto { position: absolute; right: clamp(20px, 9vw, 160px); top: 50%; width: min(84vh, 46vw, 700px); aspect-ratio: 1; transform: translateY(-50%) translate3d(0, calc(var(--u, 0) * -9vh), 0) rotate(calc(2deg - var(--u, 0) * 3deg)); box-shadow: 0 40px 120px rgba(0, 0, 0, .55); }
+.pacFoto img { width: 100%; height: 100%; object-fit: cover; }
+.pacGrao { position: absolute; inset: 0; opacity: .16; mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>"); pointer-events: none; }
+.pacTxt { text-shadow: 0 1px 18px rgba(0, 0, 0, .6); position: absolute; left: clamp(22px, 6vw, 100px); bottom: clamp(40px, 9vh, 110px); z-index: 2; max-width: 620px; transform: translateY(calc(var(--u, 0) * -5vh)); }
+.pacTxt h2 { font-weight: 300; font-style: italic; font-size: clamp(76px, 14vw, 240px); line-height: .85; letter-spacing: calc(-.04em + var(--u, 0) * .06em); }
+
+/* 3 · Robô de Roleta 50-50 */
+.rob { background: #04120a; }
+.robFundo { position: absolute; inset: -6%; background-size: cover; background-position: center; filter: blur(14px) brightness(.38) saturate(1.3); transform: scale(calc(1 + var(--u, 0) * .15)); }
+.robJp { position: absolute; z-index: 2; right: clamp(110px, 21vw, 380px); top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; font-size: clamp(14px, 1.6vw, 24px); letter-spacing: .3em; color: #d9ff3d; opacity: .8; margin: 0; }
+.robTxt { position: absolute; z-index: 3; left: clamp(22px, 5vw, 80px); top: 50%; transform: translateY(-50%); max-width: 460px; }
+.robTxt h2 { font-size: clamp(46px, 7vw, 112px); line-height: .92; text-transform: uppercase; letter-spacing: -.02em; }
+.robTxt h2 b { font-weight: 400; color: #d9ff3d; text-shadow: 0 0 22px rgba(217, 255, 61, .55); }
+.robLista button:hover { color: #d9ff3d; }
+
+/* 4 · Cozinha Marginal */
+.coz { background: #06140a; }
+.cozFundo { position: absolute; inset: -6%; background-size: cover; background-position: 50% 60%; filter: brightness(.5) saturate(1.2); transform: translate3d(0, calc(var(--u, 0) * -6vh), 0) scale(1.08); }
+.cozTxt { position: absolute; z-index: 3; left: clamp(22px, 6vw, 100px); top: 12vh; max-width: 520px; }
+.cozTxt h2 { font-size: clamp(44px, 7vw, 118px); line-height: .98; letter-spacing: .01em; color: #eaff6b; transform: rotate(-3deg); transform-origin: left; text-shadow: 4px 5px 0 #0d3a16, 9px 11px 0 rgba(0, 0, 0, .4); }
+.cozLista { font-size: 12px; }
+.cozLista button:hover { color: #b8ff6e; }
+
+/* 5 · Low Carb */
+.low { background: radial-gradient(ellipse at 38% 50%, #2a1e0c, #0a0704 72%); }
+.lowTxt { position: absolute; z-index: 3; right: clamp(22px, 6vw, 100px); top: 50%; transform: translateY(-50%); width: min(430px, 44vw); }
+.lowTxt h2 { font-weight: 800; font-size: clamp(64px, 9vw, 150px); line-height: .88; background: linear-gradient(100deg, #f4d58a, #b8862e 48%, #f8e3a6 70%, #a97a28); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lowTxt h2 em { font-weight: 400; }
+.lowLista button { border-color: rgba(244, 213, 138, .25); }
+.lowLista button:hover { color: #f4d58a; }
+
+/* 6 · Vale do Silício: o clipe rodando mudo, cobrindo a tela */
+.val { background: #0b0610; }
+.valFundo { position: absolute; inset: -12%; background-size: cover; background-position: center; filter: blur(30px) brightness(.6) saturate(1.5); transform: translate3d(0, calc(var(--u, 0) * -6vh), 0) scale(calc(1.05 + var(--u, 0) * .08)); }
+.valFoto { right: clamp(22px, 8vw, 140px); top: 50%; width: min(80vh, 44vw, 700px); aspect-ratio: 1; transform: translateY(-50%) translate3d(0, calc(var(--u, 0) * -8vh), 0) rotate(calc(2deg - var(--u, 0) * 3deg)); box-shadow: 0 40px 120px rgba(0, 0, 0, .55); }
+.valTxt { position: absolute; z-index: 3; left: clamp(22px, 6vw, 100px); bottom: clamp(40px, 10vh, 110px); }
+.valTxt h2 { font-weight: 700; font-size: clamp(54px, 9vw, 150px); line-height: .92; letter-spacing: -.04em; text-transform: uppercase; }
+
+/* 7 · Nauzeainc, Vol. 0: só o calçamento */
+.vol { background: #0a1a1c; }
+.volFull { position: absolute; inset: 0; background: url(/dz/vol0.jpg) center / cover no-repeat; cursor: pointer; transform: scale(calc(1.02 + var(--u, 0) * .06)); }
+
+/* 8 · vídeos */
+.vid { background: #000; }
+.vidFundo { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; filter: grayscale(1) contrast(1.15) brightness(.5); transform: scale(1.06); transition: opacity .45s, transform 1.2s; }
+.vidFundo.vidOn { opacity: 1; transform: scale(1); }
+.vid::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, .18) 0 1px, transparent 1px 3px); pointer-events: none; }
+.vidTxt { position: absolute; z-index: 3; left: clamp(22px, 5vw, 80px); right: clamp(22px, 5vw, 80px); top: 50%; transform: translateY(-50%); }
+.vidTxt ul { list-style: none; margin: 0; padding: 0; }
+.vidTxt button { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; width: 100%; padding: clamp(4px, 1.2vh, 14px) 0; opacity: .45; transition: opacity .25s, padding .3s; }
+.vidTxt .vidOn button { opacity: 1; padding-left: 2vw; }
+.vidTxt b { font: 800 clamp(32px, 5.6vw, 96px)/.95 Inter, system-ui, sans-serif; letter-spacing: -.05em; text-transform: uppercase; }
+.vidCanal { margin: 22px 0 0; } .vidCanal a { font: 500 13px ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; border-bottom: 1px solid currentColor; }
+.vidTxt i { font: 400 12px ui-monospace, monospace; font-style: normal; text-align: right; }
+
+/* 9 · Nauzeainc */
+.nau { background: #5a0f22; color: #d9ff3d; }
+.nauTitVelho { position: absolute; left: 1vw; top: 33%; font-family: "Nanum Pen Script", cursive; font-size: clamp(130px, 24vw, 420px); line-height: .8; z-index: 3; pointer-events: none; transform: translateY(-50%) rotate(-5deg); color: #d9ff3d; text-shadow: 10px 12px 0 #2c0711; white-space: nowrap; opacity: .95; }
+.nau img { position: absolute; z-index: 2; box-shadow: 14px 18px 0 rgba(0, 0, 0, .35); background: #fff; object-fit: cover; }
+.nauTxt { position: absolute; z-index: 4; left: clamp(22px, 6vw, 100px); bottom: clamp(30px, 8vh, 90px); max-width: 420px; color: #fff4e8; }
+.nauTxt h3 { margin: 0 0 8px; font: 800 clamp(30px, 4vw, 56px)/1 Inter, system-ui, sans-serif; text-transform: uppercase; letter-spacing: -.03em; color: #d9ff3d; }
+.nauTxt p { line-height: 1.5; margin: 0 0 10px; }
+.nau .acoes a { background: #d9ff3d; color: #5a0f22; }
+
+/* fim: nomes que passam, links grandes, as bolinhas da capa voltando */
+.fim { background: #fff; color: #0b2a55; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; gap: clamp(22px, 5vh, 56px); padding: 10vh 0 6vh; }
+.fimCreditos { position: relative; z-index: 2; }
+.fimCreditos .rot { padding-left: clamp(22px, 5vw, 80px); }
+.corre { overflow: hidden; white-space: nowrap; }
+.corre > div { display: inline-flex; animation: corre 60s linear infinite; }
+.corre span { display: inline-flex; flex: none; }
+.corre b, .corre a { font: 800 clamp(48px, 8.4vw, 150px)/1.05 Montserrat, system-ui, sans-serif; text-transform: uppercase; letter-spacing: -.045em; margin-right: .5em; font-weight: 800; }
+.corre a { color: #0aa9b6; }
+.correB > div { animation-direction: reverse; animation-duration: 75s; }
+.correB b { color: transparent; -webkit-text-stroke: 2px #10e0ee; }
+@keyframes corre { to { transform: translateX(-50%); } }
+.fimLinks { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; padding: 0 clamp(22px, 5vw, 80px); }
+.fimLinks a { display: grid; gap: 4px; padding: 18px 16px 18px 0; border-top: 2px solid #0b2a55; transition: padding .25s, color .25s, border-color .25s; }
+.fimLinks a b { font: 800 clamp(22px, 2.6vw, 40px)/1 Montserrat, system-ui, sans-serif; text-transform: uppercase; letter-spacing: -.03em; }
+.fimLinks a span { font: 12px ui-monospace, monospace; opacity: .7; }
+.fimLinks a:hover { color: #0aa9b6; border-color: #10e0ee; padding-top: 28px; padding-bottom: 8px; }
+.fimSingle { position: relative; z-index: 2; margin: 0; padding: 0 clamp(22px, 5vw, 80px); font-size: 14px; opacity: .8; }
+.fimSingle button { font: inherit; color: #0aa9b6; background: none; border: 0; border-bottom: 1px solid currentColor; padding: 0; cursor: pointer; }
+.bolaA, .bolaB, .bolaC { position: absolute; border-radius: 50%; z-index: 1; animation: flutua 7s ease-in-out infinite; }
+.bolaA { width: 22vmin; height: 22vmin; right: 8vw; top: 8vh; background: radial-gradient(circle at 35% 30%, #fff 0 6%, #7aece3 12%, #24c3ad 55%, #0b6a6a); box-shadow: 1.6vmin 2.2vmin 0 rgba(40, 200, 215, .27); }
+.bolaB { width: 12vmin; height: 12vmin; left: 4vw; bottom: 9vh; background: radial-gradient(circle at 35% 30%, #fff 0 6%, #4fb3d2 14%, #1e79b4 55%, #052e4d); box-shadow: 1vmin 1.4vmin 0 rgba(40, 200, 215, .27); animation-delay: -3s; }
+.bolaC { width: 8vmin; height: 8vmin; right: 30vw; bottom: 5vh; background: radial-gradient(circle at 35% 30%, #fff 0 6%, #5ee2d6 14%, #19cabf 55%, #0a7a76); box-shadow: .8vmin 1vmin 0 rgba(40, 200, 215, .27); animation-delay: -5s; }
+@keyframes flutua { 50% { transform: translateY(-2.4vmin); } }
+
+@media (max-width: 900px), (max-aspect-ratio: 1/1) {
+  .indice { display: none; }
+  .faixas { font-size: 12px; }
+  .faixas span { display: none; }
+  .robTxt { top: 11vh; transform: none; max-width: calc(100% - 44px); }
+  .robTxt h2 { font-size: 15vw; }
+  .robJp { display: none; }
+  .cozTxt { top: 9vh; max-width: calc(100% - 44px); }
+  .lowTxt { right: 22px; left: 22px; top: auto; bottom: 5vh; transform: none; width: auto; }
+  .lowTxt h2 { font-size: 24vw; }
+  .vidTxt b { font-size: 15vw; }
+  .vidTxt i { display: none; }
+      .nauTxt { max-width: calc(100% - 44px); }
+  .fimLinks { grid-template-columns: 1fr 1fr; }
+  .pacFoto { right: 6vw; top: 14vh; transform: none; width: 64vw; }
+  .valFoto { right: 8vw; top: 12vh; transform: none; width: 60vw; }
+  .volFoto { left: 8vw; top: 12vh; transform: none; width: 60vw; }
+  .volTxt { right: auto; left: 22px; top: auto; bottom: 6vh; transform: none; max-width: calc(100% - 44px); }
+}
+@media (prefers-reduced-motion: reduce) { .mal h2 { animation: none; } .valTxt h2::before, .valTxt h2::after { animation: none; } }
+
+.fimSingle { grid-column: 1 / -1; margin: 0; font-size: 14px; opacity: .8; }
+.fimSingle button { border-bottom: 1px solid currentColor; font: inherit; color: #0aa9b6; background: none; border-top: 0; border-inline: 0; padding: 0; cursor: pointer; }
+.fimSingle { order: 1; }
+.fas { order: 2; }
+
+/* botão de capa com play */
+.capaBt { position: absolute; z-index: 4; cursor: pointer; padding: 0; border: 0; background: #000; box-shadow: 12px 16px 0 rgba(0, 0, 0, .35); transition: transform .3s, box-shadow .3s; }
+.capaBt img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cozCapa, .valCapa, .volCapa { right: clamp(22px, 6vw, 100px); top: clamp(80px, 14vh, 150px); width: clamp(110px, 13vw, 210px); aspect-ratio: 1; }
+.cozCapa { transform: rotate(3deg); } .valCapa { transform: rotate(-3deg); } .volCapa { transform: rotate(2deg); }
+.cozCapa:hover, .valCapa:hover, .volCapa:hover { transform: rotate(0) scale(1.04); }
+.pacFoto { cursor: pointer; }
+
+/* Vale: dica da lente */
+.valDica { margin: 14px 0 0; font: 12px ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+
+/* Nauzeainc: a logo vetorizada da própria camiseta */
+.nauLogo { position: absolute; z-index: 3; left: 3vw; top: 7vh; width: min(64vw, 112vh); aspect-ratio: 726 / 379; background: #d9ff3d; -webkit-mask: url(/dz/nauzea-logo.svg) center / contain no-repeat; mask: url(/dz/nauzea-logo.svg) center / contain no-repeat; filter: drop-shadow(9px 11px 0 #2c0711); transform: translateY(calc((var(--u, 0) - .5) * -4vh)); pointer-events: none; }
+
+.coz::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(90deg, rgba(2, 12, 5, .82), rgba(2, 12, 5, .4) 42%, transparent 68%); pointer-events: none; }
+
+/* dissolução: o texto da cena de cima some antes do fundo virar o da de baixo; o da nova entra depois do fundo */
+.sai { opacity: min(1, max(0, calc((var(--r, 1) - .45) * 2.4))); }
+
+/* Vale: o papel de flores e a tira branca que se rasgam por cima da capa */
+.valFoto { overflow: hidden; }
+.volFull { filter: grayscale(1); }
+.vol .pacGrao { z-index: 2; }
+
+/* vídeos: o trecho rodando ao fundo e a lista das faixas do PROFUNDHI */
+.vidPrev { position: absolute; left: 50%; top: 50%; width: max(100vw, 177.78vh); height: max(56.25vw, 100vh); transform: translate(-50%, -50%); border: 0; pointer-events: none; opacity: .55; filter: grayscale(.4) contrast(1.05); z-index: 1; }
+.vid .vidTxt { display: grid; grid-template-columns: 1fr minmax(180px, 22vw); gap: clamp(20px, 4vw, 70px); align-items: center; z-index: 3; }
+.vidVis ol { list-style: none; margin: 0; padding: 0; font: 12px/1.3 ui-monospace, monospace; }
+.vidVis button { display: flex; gap: 8px; width: 100%; padding: 4px 0; opacity: .5; border-bottom: 1px solid rgba(255, 255, 255, .15); transition: opacity .2s, padding .2s; }
+.vidVis .vidOn button, .vidVis button:hover { opacity: 1; padding-left: 6px; }
+.vidVis i { font-style: normal; opacity: .6; }
+@media (max-width: 900px), (max-aspect-ratio: 1/1) { .vid .vidTxt { grid-template-columns: 1fr; } .vidVis { display: none; } }
+.vid .vidTxt { padding-right: 70px; }
+@media (max-width: 900px), (max-aspect-ratio: 1/1) { .vid .vidTxt { padding-right: 0; } }
+
+/* vídeos: títulos menores, sem estourar a coluna; a lista das faixas fica estreita e rola se precisar */
+.vid .vidTxt { grid-template-columns: minmax(0, 1fr) minmax(170px, 20vw); max-height: 86vh; }
+.vid .vidTxt ul, .vid .vidTxt li, .vid .vidTxt button { min-width: 0; }
+.vid .vidTxt li button { overflow: hidden; }
+.vid .vidTxt li b { overflow: hidden; text-overflow: clip; white-space: nowrap; }
+.vidVis ol { max-height: 70vh; overflow: hidden; }
+.vidVis button { font-size: 11px; padding: 3px 0; }
+
+/* vídeos: uma coluna só */
+.vid .vidTxt { display: block; padding-right: 70px; max-height: none; }
+@media (max-width: 900px), (max-aspect-ratio: 1/1) { .vid .vidTxt { padding-right: 0; } }
+
+/* Vale: a lista das faixas, no mesmo estilo das outras */
+.valLista { max-width: 420px; }
+.valLista button:hover { color: #ff9cc4; }
+
+/* Vol. 0: faixas discretas, só depois de rolar */
+.volFaixas { position: absolute; z-index: 3; left: 50%; bottom: clamp(18px, 4vh, 40px); transform: translateX(-50%); margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 20px; width: min(92vw, 1100px); font: 12px ui-monospace, monospace; letter-spacing: .04em; color: #fff; text-shadow: 0 1px 8px rgba(0, 0, 0, .8); opacity: clamp(0, calc((var(--u, 0) - .4) * 4), 1); }
+.volFaixas button { padding: 4px 0; border-bottom: 1px solid transparent; transition: border-color .2s; }
+.volFaixas button:hover { border-color: currentColor; }
+.volFaixas i { font-style: normal; opacity: .55; margin-right: 6px; }
+
+/* Nauzeainc: o carrossel das camisas passando */
+.nauCarrossel { position: absolute; z-index: 2; left: 26vw; right: 0; top: 50%; height: min(66vh, 52vw); transform: translateY(-50%); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.nauTrilha { display: flex; gap: 2.4vw; height: 100%; width: max-content; animation: nauPassa 46s linear infinite; padding: 0 2vw; }
+.nauCarrossel:hover .nauTrilha { animation-play-state: paused; }
+.nauTrilha img { position: static; z-index: auto; object-fit: contain; height: 100%; width: auto; background: #fff; box-shadow: 12px 16px 0 rgba(0, 0, 0, .3); }
+@keyframes nauPassa { to { transform: translateX(-50%); } }
+@media (max-width: 900px), (max-aspect-ratio: 1/1) { .nauCarrossel { left: 0; top: 14vh; transform: none; height: 40vh; } .volFaixas { font-size: 11px; } }
+@media (prefers-reduced-motion: reduce) { .nauTrilha { animation: none; } }
+
+/* Nauzeainc: um quadro parado, as fotos trocando como num GIF */
+.nauQuadro { position: absolute; z-index: 2; right: clamp(22px, 7vw, 120px); top: 50%; height: min(72vh, 58vw); aspect-ratio: 4 / 5; transform: translateY(-50%) rotate(2deg); background: #fff; box-shadow: 14px 18px 0 rgba(0, 0, 0, .3); cursor: pointer; padding: 0; border: 0; overflow: hidden; }
+.nauQuadro img { box-shadow: none; z-index: auto; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #fff; opacity: 0; transition: opacity .18s steps(2); }
+.nauQuadro img.nauOn { opacity: 1; }
+@media (max-width: 900px), (max-aspect-ratio: 1/1) { .nauQuadro { right: 6vw; top: 12vh; height: 42vh; transform: rotate(2deg); } }
+
+.vid video.vidPrev { left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; transform: none; opacity: .72; animation: vidEntra .5s ease both; }
+@keyframes vidEntra { from { opacity: 0; } }
+
+/* vídeos: a última letra não pode ser cortada pelo espaçamento negativo */
+.vid .vidTxt li button { overflow: visible; }
+.vid .vidTxt li b { overflow: visible; padding-right: .14em; }
+
+/* participações: o nome é botão e abre a faixa; a faixa vai pequena embaixo */
+.corre button { display: inline-flex; flex-direction: column; align-items: flex-start; margin-right: clamp(26px, 3.4vw, 60px); text-align: left; cursor: pointer; }
+.corre button b { margin-right: 0; }
+.corre button small { font: 12px/1.2 ui-monospace, monospace; letter-spacing: .06em; text-transform: none; color: #0aa9b6; margin-top: .3em; }
+.corre button:hover b { color: #0aa9b6; }
+.corre:hover > div { animation-play-state: paused; }
+
+/* celular: cada cena reorganizada para caber em uma tela */
+@media (max-width: 900px), (max-aspect-ratio: 1/1) {
+  .rob .c3d { inset: 44% 0 0 0; }
+  .robTxt { top: 9vh; }
+  .robTxt h2 { font-size: 12vw; }
+  .robTxt .faixas { margin-top: 10px; }
+  .cozCapa { top: auto; bottom: 5vh; right: 18px; width: 42vw; }
+  .low .c3d { inset: 0 0 50% 0; }
+  .lowTxt { bottom: 3vh; }
+  .lowTxt h2 { font-size: 15vw; }
+  .lowTxt .faixas { margin-top: 8px; }
+  .valFoto { width: 50vw; top: 9vh; }
+  .vidTxt b { font-size: 10.5vw; }
+  .nauLogo { width: 88vw; top: 5vh; left: 4vw; }
+  .nauQuadro { top: 27vh; right: 6vw; height: 36vh; }
+  .nauTxt { bottom: 3vh; }
+  .nauTxt p { font-size: 14px; }
+  .fimLinks a b { font-size: 20px; }
+}
+
+
+/* voltar ao topo: um botão no fim da página, no fluxo, sem cobrir nada */
+.cena .fimTopo { position: relative; z-index: 2; justify-self: start; margin: 0 clamp(22px, 5vw, 80px); display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border: 1.5px solid #0b2a55 !important; border-radius: 999px; color: #0b2a55; font: 600 14px/1 system-ui, sans-serif; cursor: pointer; transition: background .2s, color .2s; }
+.cena .fimTopo span { font-size: 17px; line-height: 1; }
+.cena .fimTopo:hover { background: #0b2a55; color: #fff; }

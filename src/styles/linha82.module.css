@@ -1,0 +1,160 @@
+/* 82: xerox / zine / sticker. Concreto cru, marcador preto, colagem torta, sombra dura. */
+
+.pagina {
+  --papel: #f9f5ee;
+  --tinta: #121212;
+  --marca: #e9dfc8;
+  --vermelho: #b8132b;
+  background: var(--papel);
+  background-image:
+    radial-gradient(rgba(0,0,0,0.07) 1px, transparent 1px),
+    radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 7px 7px, 13px 13px;
+  background-position: 0 0, 3px 5px;
+  color: var(--tinta);
+  min-height: 100vh;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px clamp(14px, 4vw, 40px);
+  border-bottom: 3px solid var(--tinta);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+.topo a:hover { background: var(--tinta); color: var(--papel); }
+
+.miolo { max-width: 960px; margin: 0 auto; padding: 0 clamp(14px, 4vw, 32px) 90px; }
+
+.abre { padding: 36px 0 20px; }
+.tag {
+  display: inline-block;
+  font-family: var(--fonte-principal);
+  font-weight: 800;
+  font-size: clamp(3.4rem, 10vw, 5.6rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  background: var(--tinta);
+  color: var(--marca);
+  padding: 0 14px 4px;
+  transform: rotate(-2deg);
+  box-shadow: 5px 5px 0 var(--vermelho);
+}
+.nomesLinha { margin-top: 18px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; }
+.nomeChip small { font-weight: 400; opacity: 0.6; }
+.nomeChip i { font-style: normal; opacity: 0.5; }
+.intro { margin-top: 10px; max-width: 62ch; }
+
+.filtros { display: flex; gap: 6px; margin-top: 16px; flex-wrap: wrap; }
+.filtros button {
+  font: inherit;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.75rem;
+  background: var(--papel);
+  color: var(--tinta);
+  border: 2px solid var(--tinta);
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.filtros button:hover { background: var(--marca); }
+.filtroAtivo { background: var(--tinta) !important; color: var(--papel) !important; }
+
+.linha { margin-top: 10px; }
+.ano { display: grid; grid-template-columns: 96px 1fr; gap: 14px; padding: 22px 0; border-top: 3px solid var(--tinta); }
+.ano h2 { position: sticky; top: 10px; align-self: start; }
+.ano h2 span {
+  display: inline-block;
+  font-family: var(--fonte-principal);
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: var(--marca);
+  padding: 0 8px;
+  border: 2px solid var(--tinta);
+  transform: rotate(-3deg);
+  box-shadow: 3px 3px 0 var(--tinta);
+}
+
+.lista { display: grid; gap: 14px; }
+
+.marco {
+  padding: 8px 12px;
+  background: var(--tinta);
+  color: var(--papel);
+  transform: rotate(-0.6deg);
+  font-size: 0.85rem;
+}
+.marco strong { background: var(--marca); color: var(--tinta); padding: 0 6px; margin-right: 6px; text-transform: uppercase; }
+
+.item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 14px;
+  text-align: left;
+  background: #efece2;
+  border: 2px solid var(--tinta);
+  box-shadow: 5px 5px 0 var(--tinta);
+  padding: 8px;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transform: rotate(var(--giro, 0deg));
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.item:hover:not(:disabled) { transform: rotate(0deg) translate(-2px, -2px); box-shadow: 8px 8px 0 var(--vermelho); }
+.item:disabled { cursor: default; opacity: 0.75; }
+.item img { width: 160px; height: 90px; object-fit: cover; display: block; background: #bbb; border: 2px solid var(--tinta); filter: contrast(1.05) saturate(0.85); }
+.itemArquivo img { height: 120px; filter: grayscale(0.15) contrast(1.1); }
+.pixel { image-rendering: pixelated; }
+.recorte {
+  width: 160px;
+  min-height: 90px;
+  padding: 8px;
+  background: #fff;
+  border: 2px dashed var(--tinta);
+  white-space: pre-wrap;
+  font-size: 0.7rem;
+  line-height: 1.25;
+  overflow: hidden;
+  max-height: 120px;
+}
+.semImg { width: 160px; height: 90px; display: grid; place-items: center; background: #ccc; font-size: 0.75rem; }
+
+.txt { display: grid; gap: 3px; align-content: center; min-width: 0; }
+.txt strong { font-family: var(--fonte-principal); font-size: 1.05rem; font-weight: 800; letter-spacing: -0.02em; }
+.txt > span { font-size: 0.85rem; }
+.txt small { font-size: 0.72rem; opacity: 0.8; }
+.nota { background: var(--marca); display: inline-block; padding: 0 5px; width: fit-content; opacity: 1 !important; font-weight: 700; }
+.tag_som { background: var(--tinta); color: var(--marca); padding: 0 5px; }
+.tag_visual { background: var(--vermelho); color: #fff; padding: 0 5px; }
+.tag_arquivo { background: var(--marca); color: var(--tinta); padding: 0 5px; border: 1px solid var(--tinta); }
+
+.fora { margin-top: 30px; padding-top: 22px; border-top: 3px solid var(--tinta); }
+.fora h2 span { background: var(--tinta); color: var(--marca); padding: 2px 10px; font-family: var(--fonte-principal); transform: rotate(-1.5deg); display: inline-block; }
+.fora ul { margin-top: 14px; }
+.fora li { margin-bottom: 14px; }
+.fora li > span { opacity: 0.7; }
+.fora li p { max-width: 66ch; }
+.fora a:hover { background: var(--marca); }
+
+.modal { position: fixed; inset: 0; z-index: 50; background: rgba(18,18,18,0.92); display: grid; place-items: center; padding: 18px; overflow: auto; }
+.caixa { width: min(960px, 100%); }
+.fechar { display: block; margin: 0 0 8px auto; background: var(--marca); color: var(--tinta); border: 2px solid var(--tinta); font: inherit; font-weight: 700; padding: 2px 10px; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; }
+.player { aspect-ratio: 16 / 9; background: #000; border: 3px solid var(--marca); }
+.player iframe { width: 100%; height: 100%; border: 0; display: block; }
+.imgGrande { display: block; max-width: 100%; max-height: 78vh; margin: 0 auto; border: 3px solid var(--marca); background: #fff; }
+.texto { background: #efece2; color: var(--tinta); padding: 22px; font-size: 1rem; white-space: pre-wrap; border: 3px solid var(--marca); }
+.legenda { margin-top: 10px; color: #ddd; font-size: 0.85rem; }
+
+@media (max-width: 640px) {
+  .ano { grid-template-columns: 1fr; gap: 8px; }
+  .ano h2 { position: static; }
+  .item { grid-template-columns: 110px 1fr; }
+  .item img, .semImg, .recorte { width: 110px; }
+}

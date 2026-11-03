@@ -1,0 +1,107 @@
+{
+ "duracao": 180.8,
+ "fps": 24,
+ "capitulos": [
+  {
+   "ano": "2026",
+   "t": "só rimas | abençoado",
+   "de": 0.0,
+   "ate": 22.0,
+   "pasta": "c00",
+   "n": 264
+  },
+  {
+   "ano": "2026",
+   "t": "intravenal",
+   "de": 22.0,
+   "ate": 43.0,
+   "pasta": "c01",
+   "n": 252
+  },
+  {
+   "ano": "2026",
+   "t": "intravenoso",
+   "de": 43.0,
+   "ate": 58.0,
+   "pasta": "c02",
+   "n": 180
+  },
+  {
+   "ano": "2025",
+   "t": "relicário",
+   "de": 58.0,
+   "ate": 75.0,
+   "pasta": "c03",
+   "n": 204
+  },
+  {
+   "ano": "2025",
+   "t": "sonhos de ícaro",
+   "de": 75.0,
+   "ate": 85.0,
+   "pasta": "c04",
+   "n": 120
+  },
+  {
+   "ano": "2025",
+   "t": "jardim",
+   "de": 85.0,
+   "ate": 100.0,
+   "pasta": "c05",
+   "n": 180
+  },
+  {
+   "ano": "2024",
+   "t": "estrada",
+   "de": 100.0,
+   "ate": 115.0,
+   "pasta": "c06",
+   "n": 180
+  },
+  {
+   "ano": "2024",
+   "t": "fisica",
+   "de": 115.0,
+   "ate": 130.0,
+   "pasta": "c07",
+   "n": 180
+  },
+  {
+   "ano": "2023",
+   "t": "só mais um...",
+   "de": 130.0,
+   "ate": 142.0,
+   "pasta": "c08",
+   "n": 144
+  },
+  {
+   "ano": "2020",
+   "t": "atemporal",
+   "de": 142.0,
+   "ate": 152.0,
+   "pasta": "c09",
+   "n": 120
+  },
+  {
+   "ano": "2019",
+   "t": "o começo",
+   "de": 152.0,
+   "ate": 168.0,
+   "pasta": "c10",
+   "n": 192
+  },
+  {
+   "ano": "2018",
+   "t": "não me importo com as cinzas",
+   "de": 168.0,
+   "ate": 180.8,
+   "pasta": "c11",
+   "n": 154
+  }
+ ],
+ "quadros": {
+  "fps": 12,
+  "largura": 800,
+  "total": 2170
+ }
+}

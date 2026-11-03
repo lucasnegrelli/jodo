@@ -1,0 +1,105 @@
+.contentCardHigh {
+    display: inline-block;
+    width: 269px;
+    height: 345px;
+    animation: myAnim .5s ease 0s 1 normal forwards;
+    color:#000;
+    margin: 1.2%;
+}
+.imgThumb {
+    margin-right: 20px;
+}
+.imgThumb img{
+    object-fit: cover;
+    width:311px;
+    height:155px
+}
+
+.cardHighInfos {
+    flex-direction: column;
+    justify-content: space-between;
+    display: flex;
+}
+
+.cardHighTitle:hover {
+    text-decoration: underline;
+}
+
+.cardHighfooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+}
+
+.cardHighfooter span {
+    font-weight: 600;
+}
+
+.cardHighTitle {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    font-family: var(--serif);
+    min-height: 60px;
+    overflow: hidden;
+}
+
+.cardLowDescription {
+    line-height: 27px;
+}
+.contentCardData p {
+    font-size: 13px;
+    font-style: italic;
+}
+.archiveTag {
+    display: inline-block;
+    margin: 5px 3px;
+    font-size: 14px;
+}
+.cardTags {
+    display: inline-block;
+}
+.archiveTag:hover {
+    text-decoration: underline;
+}
+
+@keyframes myAnim {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 650px) {
+    .contentCardHigh {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        padding: 0 10px;
+        margin-bottom: 40px;
+    }
+    .imgThumb {
+        margin: 0 auto;
+    }
+    .imgThumb img {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .cardHighInfos {
+        display: block;
+        width: 100%;
+    }
+    .contentCardData {
+        margin: 20px 0;
+        display: block;
+    }
+    .cardLowDescription {
+        margin-bottom: 20px;
+    }
+  }

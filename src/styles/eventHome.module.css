@@ -1,0 +1,4 @@
+.centerEventsHome {
+    max-width: var(--contentCenter);
+    margin: 0 auto;
+}

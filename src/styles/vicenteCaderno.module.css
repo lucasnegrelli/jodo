@@ -1,0 +1,86 @@
+.raiz {
+  --osso: #ece4d3;
+  --sangue: #e8352a;
+  --uru: #ff5a2a;
+  --mono: "Space Mono", "Consolas", monospace;
+  --marca: "Permanent Marker", "Rock Salt", cursive;
+  --mao: "Reenie Beanie", "Permanent Marker", cursive;
+  --datil: "Special Elite", "Courier New", monospace;
+  position: relative;
+  background: #04070a;
+  color: var(--osso);
+}
+.folha { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 5; pointer-events: none; display: block; }
+.palco { position: fixed; inset: 0; z-index: 10; overflow: hidden; pointer-events: none; }
+.trilha { width: 1px; }
+
+.cap { position: absolute; inset: 0; opacity: 0; visibility: hidden; padding: 12vh 6vw 9vh; display: flex; flex-direction: column; will-change: opacity; }
+.rv { opacity: 0; transform: translate3d(0, 22px, 0) rotate(var(--rot, 0deg)); filter: blur(8px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.9s ease; transition-delay: calc(var(--k, 0) * 110ms); }
+.on .rv { opacity: 1; transform: rotate(var(--rot, 0deg)); filter: none; }
+.on a, .on button { pointer-events: auto; }
+
+.digital { margin: 0; font: 400 12px/1.5 var(--datil); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(236, 228, 211, 0.7); }
+.mao { margin: 0; font-family: var(--mao); font-size: clamp(30px, 3.2vw, 56px); line-height: 1; color: var(--sangue); letter-spacing: 0.01em; }
+.mao b { font-weight: 400; color: var(--osso); }
+.mao u { text-decoration-color: var(--sangue); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+.datilo { margin: 0 0 18px; font-family: var(--datil); font-size: clamp(15px, 1.25vw, 20px); line-height: 1.6; color: rgba(236, 228, 211, 0.86); }
+.datilo mark { background: rgba(232, 53, 42, 0.78); color: #fff; padding: 0 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.anotacao { margin: 8px 0 0; font-family: var(--mao); font-size: clamp(24px, 2.2vw, 38px); color: var(--osso); transform-origin: left; --rot: -4deg; }
+
+/* ---------- capa ---------- */
+.capa { justify-content: flex-start; gap: 3vh; }
+.tituloBox { position: relative; width: fit-content; margin-top: 4vh; }
+.raiz h1.nome { margin: 0; font-family: var(--marca); font-weight: 400; font-size: clamp(70px, 12.5vw, 230px); line-height: 0.86; letter-spacing: -0.01em; color: var(--osso); text-transform: none; --rot: -3deg; text-shadow: 5px 5px 0 var(--sangue), 0 0 40px rgba(0, 0, 0, 0.7); }
+.nome span { display: block; }
+.nome span:last-child { margin-left: 0.9em; }
+.rabisco { position: absolute; left: 0; right: 0; bottom: -0.2em; height: 0.18em; --rot: -2deg; }
+.rabisco svg { width: 100%; height: 100%; display: block; }
+.carimbo { position: absolute; right: 8vw; top: 24vh; border: 4px solid var(--sangue); padding: 12px 20px; font-family: var(--datil); font-size: clamp(18px, 2vw, 34px); line-height: 1.05; letter-spacing: 0.12em; text-transform: uppercase; text-align: center; color: var(--sangue); --rot: 7deg; mix-blend-mode: screen; opacity: 0.95; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: auto; }
+.btn, .btn2 { display: inline-block; padding: 14px 22px; font: 700 12px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; transition: 0.2s; }
+.btn { background: var(--osso); color: #04070a; border: 1px solid var(--osso); }
+.btn:hover { background: transparent; color: var(--osso); }
+.btn2 { color: var(--osso); border: 1px solid rgba(236, 228, 211, 0.3); background: rgba(4, 7, 10, 0.5); }
+.btn2:hover { border-color: var(--sangue); color: var(--sangue); }
+.virar { position: absolute; right: 6vw; bottom: 9vh; margin: 0; font-family: var(--mao); font-size: 30px; color: var(--osso); --rot: -3deg; }
+
+/* ---------- quem é ---------- */
+.quem { flex-direction: row; align-items: center; gap: 5vw; }
+.quemEsq { flex: 1 1 52%; display: grid; gap: 14px; align-content: center; }
+.quemDir { flex: 1 1 42%; max-width: 560px; padding: 24px 26px; background: rgba(4, 7, 10, 0.55); border-left: 3px solid var(--sangue); }
+.raiz h2.manchete { margin: 0; font-family: var(--marca); font-weight: 400; font-size: clamp(60px, 9.5vw, 170px); line-height: 0.9; text-transform: none; letter-spacing: -0.01em; color: var(--osso); --rot: -2deg; text-shadow: 4px 4px 0 var(--sangue); }
+.manchete span { display: block; }
+.manchete span:last-child { margin-left: 0.5em; }
+
+@media (max-width: 860px) {
+  .cap { padding: 11vh 18px 7vh; }
+  .raiz h1.nome { font-size: clamp(60px, 22vw, 120px); }
+  .carimbo { right: 4vw; top: auto; bottom: 22vh; font-size: 16px; }
+  .quem { flex-direction: column; align-items: stretch; gap: 14px; }
+  .raiz h2.manchete { font-size: clamp(48px, 17vw, 96px); }
+  .quemDir { padding: 14px 16px; }
+  .datilo { font-size: 13.5px; margin-bottom: 10px; }
+  .virar { display: none; }
+}
+
+/* ---------- amazônia pega fogo: desenho a carvão em papel claro ---------- */
+.fogo { padding: 0; color: #16130f; }
+.carvao { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.fogoTxt { position: absolute; left: 6vw; top: 12vh; width: min(500px, 34vw); display: grid; gap: 16px; align-content: start; }
+.digitalEscuro { margin: 0; font: 400 12px/1.5 var(--datil); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(22, 19, 15, 0.7); }
+.raiz h2.fogoTit { margin: 0; font-family: var(--marca); font-weight: 400; font-size: clamp(44px, 5.4vw, 100px); line-height: 0.9; text-transform: none; color: #16130f; --rot: -2deg; text-shadow: 4px 4px 0 var(--sangue); white-space: nowrap; }
+.fogoTit span { display: block; }
+.fogoTit span:last-child { margin-left: 0.4em; }
+.maoEscura { margin: 0; font-family: var(--mao); font-size: clamp(32px, 3.2vw, 56px); line-height: 1; color: var(--sangue); --rot: -2deg; }
+.datiloEscuro { margin: 0; font-family: var(--datil); font-size: clamp(14px, 1.15vw, 18px); line-height: 1.6; color: rgba(22, 19, 15, 0.88); }
+.datiloEscuro mark { background: rgba(232, 53, 42, 0.8); color: #fff; padding: 0 4px; }
+.contador { margin: 0; display: grid; gap: 2px; }
+.contador b { font-family: var(--marca); font-weight: 400; font-size: clamp(54px, 6vw, 110px); line-height: 1; color: var(--sangue); font-variant-numeric: tabular-nums; }
+.contador span { font: 400 11px/1.4 var(--datil); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(22, 19, 15, 0.7); }
+.link { width: fit-content; font: 700 12px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; color: #16130f; border-bottom: 2px solid var(--sangue); padding-bottom: 4px; }
+@media (max-width: 860px) {
+  .fogoTxt { left: 18px; width: calc(100vw - 36px); top: 11vh; gap: 10px; }
+  .raiz h2.fogoTit { font-size: clamp(44px, 14vw, 80px); }
+  .datiloEscuro { font-size: 13px; line-height: 1.45; }
+  .contador b { font-size: 44px; }
+}

@@ -1,0 +1,50 @@
+﻿/*
+  Tokens da marca JODO (brandbook "Diretrizes da Marca V.01" + docs/12-identidade-visual.md)
+  Decisão: cores SUAVES como base, NEON como destaque/energia.
+*/
+:root {
+  /* base (suave) */
+  --jodo-verde: #6bb254;
+  --jodo-roxo: #764295;
+  --jodo-amarelo: #dbe03e;
+  --jodo-rosa: #c04a96;
+  --jodo-laranja: #d7692c;
+  --jodo-azul: #a2d1d9;
+
+  /* destaque (neon) */
+  --jodo-verde-neon: #7fcf6a;
+  --jodo-amarelo-neon: #eeff01;
+  --jodo-rosa-neon: #ea27c3;
+  --jodo-laranja-neon: #ef6a01;
+  --jodo-azul-neon: #89d2da;
+
+  /* neutros */
+  --jodo-tinta: #0b0b0b;
+  --jodo-papel: #ffffff;
+  --jodo-cinza: #6f6f6f;
+  --jodo-linha: rgba(11, 11, 11, 0.14);
+
+  /* tipografia (escala web) */
+  --fonte-principal: 'HelveticaNowDisplay', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --fonte-complementar: 'Montserrat', 'HelveticaNowDisplay', sans-serif;
+  --t-xs: 0.75rem;
+  --t-sm: 0.875rem;
+  --t-md: 1rem;
+  --t-lg: 1.25rem;
+  --t-xl: clamp(1.5rem, 2.4vw, 2rem);
+  --t-2xl: clamp(2.2rem, 5vw, 4rem);
+  --t-3xl: clamp(3rem, 9vw, 7.5rem);
+
+  /* espaçamento */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 16px;
+  --s-4: 24px;
+  --s-5: 40px;
+  --s-6: 72px;
+  --s-7: 120px;
+
+  --raio: 6px;
+  --largura: 1240px;
+}
+

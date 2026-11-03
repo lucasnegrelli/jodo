@@ -1,0 +1,245 @@
+/* MUNDO: palco em tela cheia. Cena 16:9 que cobre a janela e se ancora no centro. */
+
+.palco {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #07030f;
+  color: #fff;
+  font-family: var(--fonte-principal);
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.cena {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100vw, calc(100vh * 16 / 9));
+  height: max(100vh, calc(100vw * 9 / 16));
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.pronto .cena {
+  opacity: 1;
+}
+
+.svg {
+  position: absolute;
+  inset: -3%;
+  width: 106%;
+  height: 106%;
+  display: block;
+}
+.svg g {
+  will-change: transform;
+}
+
+.estrela {
+  animation: cintila 3.6s ease-in-out infinite;
+}
+@keyframes cintila {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+.contorno {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: desenha 2.2s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+@keyframes desenha {
+  to { stroke-dashoffset: 0; }
+}
+
+/* pontos ancorados em coordenadas da cena */
+.pontos {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.ponto {
+  position: absolute;
+  width: clamp(44px, 4.2vw, 76px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  outline: none;
+}
+.anel {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--cor);
+  border-radius: 50%;
+  animation: pulso 2.4s ease-out infinite;
+}
+.miolo {
+  width: 28%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--cor);
+  box-shadow: 0 0 18px var(--cor);
+  transition: transform 0.25s ease;
+}
+.rotulo {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: clamp(0.62rem, 0.8vw, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+  opacity: 0.8;
+  transition: opacity 0.2s ease, letter-spacing 0.3s ease;
+}
+.ponto:hover .miolo,
+.ponto:focus-visible .miolo {
+  transform: scale(1.8);
+}
+.ponto:hover .rotulo,
+.ponto:focus-visible .rotulo {
+  opacity: 1;
+  letter-spacing: 0.22em;
+}
+@keyframes pulso {
+  0% { transform: scale(0.55); opacity: 1; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+/* bordas: tipografia mínima, como numa vitrine */
+.titulo {
+  position: absolute;
+  top: clamp(14px, 2.2vh, 28px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(0.8rem, 1vw, 1rem);
+  font-weight: 800;
+  letter-spacing: 0.4em;
+  padding-left: 0.4em;
+}
+.bordaEsq,
+.bordaDir,
+.explorar,
+.rodape,
+.dica {
+  position: absolute;
+  font-size: clamp(0.72rem, 0.9vw, 0.9rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.bordaEsq {
+  top: clamp(14px, 2.2vh, 28px);
+  left: clamp(14px, 2vw, 32px);
+  display: flex;
+  gap: clamp(14px, 1.8vw, 28px);
+}
+.bordaDir {
+  top: clamp(14px, 2.2vh, 28px);
+  right: clamp(14px, 2vw, 32px);
+}
+.explorar {
+  left: clamp(14px, 2vw, 32px);
+  bottom: clamp(14px, 2.2vh, 28px);
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.rodape {
+  bottom: clamp(14px, 2.2vh, 28px);
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.dica {
+  bottom: clamp(14px, 2.2vh, 28px);
+  right: clamp(14px, 2vw, 32px);
+  opacity: 0.55;
+  display: none;
+}
+.bordaEsq a,
+.bordaDir a {
+  transition: opacity 0.2s ease;
+}
+.bordaEsq a:hover,
+.bordaDir a:hover {
+  opacity: 0.55;
+}
+
+/* menu Explorar */
+.menu {
+  position: absolute;
+  inset: 0;
+  background: #0b0b0b;
+  display: grid;
+  align-content: center;
+  padding: 0 clamp(20px, 6vw, 120px);
+  clip-path: circle(0% at 4% 96%);
+  transition: clip-path 0.7s cubic-bezier(0.7, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 5;
+}
+.menuAberto {
+  clip-path: circle(150% at 4% 96%);
+  pointer-events: auto;
+}
+.menu ul {
+  display: grid;
+  gap: clamp(2px, 1vh, 12px);
+}
+.menu a {
+  display: block;
+  font-size: clamp(2rem, 7.5vw, 7rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  transition: color 0.2s ease, transform 0.3s ease;
+}
+.menu a:hover {
+  color: var(--jodo-verde-neon);
+  transform: translateX(12px);
+}
+.fechar {
+  position: absolute;
+  top: clamp(14px, 2.2vh, 28px);
+  right: clamp(14px, 2vw, 32px);
+  background: none;
+  border: 0;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* transição de entrada na sala */
+.transicao {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  clip-path: circle(0px at var(--x) var(--y));
+  animation: abre 0.65s cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
+@keyframes abre {
+  to { clip-path: circle(160vmax at var(--x) var(--y)); }
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .dica { display: block; }
+  .rodape { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .estrela, .anel { animation: none; }
+  .contorno { animation-duration: 0.01s; animation-delay: 0s !important; }
+  .cena { transition: none; }
+}

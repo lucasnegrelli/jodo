@@ -1,0 +1,12 @@
+
+.contentCatBar nav li {
+    margin:20px;
+    font-weight: 600;
+    display: inline-block;
+    color: #000;
+    font-size: 18px;
+}
+
+.contentCatBar nav li:hover {
+    opacity: 0.5;
+}

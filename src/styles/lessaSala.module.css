@@ -1,0 +1,43 @@
+.raiz { --px: 0; --py: 0; position: fixed; inset: 0; overflow: hidden; background: #e9e7e1; color: #15151a; font-family: var(--ls-sans), "Helvetica Neue", Arial, sans-serif; letter-spacing: -.01em; }
+/* a parede: reboco com grão fino e luz que cai de cima */
+.raiz::before { content: ""; position: absolute; inset: 0; opacity: .5; mix-blend-mode: multiply; pointer-events: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .43  0 0 0 0 .4  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.luz { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 70% at 55% -10%, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 60%), radial-gradient(90% 90% at 50% 50%, rgba(0, 0, 0, 0) 55%, rgba(30, 28, 24, .22) 100%); }
+.cab { position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; padding: 22px 32px; font-size: 12px; font-weight: 400; text-transform: lowercase; z-index: 5; }
+.cab a { color: inherit; text-decoration: none; }
+.cab > * { opacity: .8; }
+.vinil { position: absolute; left: 4.2vw; top: 22vh; z-index: 3; transform: translate(calc(var(--px) * -3px), calc(var(--py) * -2px)); }
+.vinil h1 { margin: 0; font-weight: 400; font-size: clamp(44px, 6.4vw, 108px); line-height: .9; letter-spacing: -.045em; }
+.vinil p { margin: 26px 0 0; font-size: 13px; line-height: 1.5; font-weight: 400; opacity: .72; }
+.piso { position: absolute; left: 0; right: 0; bottom: 0; height: 15vh; background: linear-gradient(180deg, #c9c6bd 0, #bab7ad 6%, #aeaba1 100%); box-shadow: 0 -1px 0 rgba(0, 0, 0, .25), 0 -10px 24px rgba(0, 0, 0, .08); pointer-events: none; }
+.obra { position: absolute; margin: 0; z-index: 2; transform: translate(calc(var(--px) * var(--d, 6) * 1px), calc(var(--py) * var(--d, 6) * .6px)); transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
+.a { left: 33vw; top: 14vh; width: min(15vw, 27vh); --d: 4; }
+.b { left: 50vw; top: 27vh; width: min(21vw, 38vh); --d: 9; }
+.c { left: 76vw; top: 12vh; width: min(14vw, 25vh); --d: 6; }
+.foco { position: absolute; left: -45%; right: -45%; top: -26%; height: 150%; z-index: -1; background: radial-gradient(60% 55% at 50% 38%, rgba(255, 253, 244, .8), rgba(255, 253, 244, 0) 70%); pointer-events: none; }
+.quadro { position: relative; aspect-ratio: 1; box-shadow: 0 1px 0 rgba(0, 0, 0, .25), 0 14px 18px -10px rgba(40, 36, 28, .55), 0 40px 50px -30px rgba(40, 36, 28, .4); background: #111; }
+.quadro img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.quadro i { position: absolute; top: -3px; width: 5px; height: 5px; border-radius: 50%; background: #8c8a82; box-shadow: 0 1px 1px rgba(0, 0, 0, .4); }
+.quadro i:first-of-type { left: 8px; }
+.quadro i:last-of-type { right: 8px; }
+/* a etiqueta de roupa: tecido preto, costura vermelha, vira para o verso */
+.tag { position: relative; margin: 22px 0 0 auto; width: 76%; min-width: 150px; aspect-ratio: 1.9; perspective: 700px; outline: none; cursor: default; }
+.giro { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .9s cubic-bezier(.2, .8, .2, 1); }
+.tag:hover .giro, .tag:focus-visible .giro { transform: rotateY(180deg); }
+.face { position: absolute; inset: 0; padding: 12px 14px; backface-visibility: hidden; color: #f2efe8; display: flex; flex-direction: column; gap: 3px; font-size: 11px; line-height: 1.35; text-transform: lowercase; background: #111114; box-shadow: 0 6px 12px -6px rgba(0, 0, 0, .55); }
+.face::after { content: ""; position: absolute; inset: 5px; border: 1px dashed rgba(214, 41, 33, .85); pointer-events: none; }
+.frente b { font-weight: 500; font-size: 13px; letter-spacing: -.01em; margin-bottom: auto; padding-right: 4px; }
+.frente span, .verso span { opacity: .66; }
+.verso { transform: rotateY(180deg); }
+.verso ol { margin: 0; padding: 0; list-style: none; counter-reset: f; display: grid; gap: 1px; }
+.verso li { counter-increment: f; display: flex; gap: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.verso li::before { content: counter(f, decimal-leading-zero); opacity: .45; font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) {
+  .vinil { top: 10vh; left: 6vw; }
+  .vinil h1 { font-size: 15vw; }
+  .a { left: 8vw; top: 44vh; width: 30vw; }
+  .b { left: 40vw; top: 38vh; width: 44vw; }
+  .c { left: 62vw; top: 8vh; width: 28vw; }
+  .tag { min-width: 120px; width: 100%; }
+  .face { font-size: 9px; padding: 8px 9px; }
+  .frente b { font-size: 10px; }
+}

@@ -1,0 +1,244 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Pirata+One&family=Space+Mono:wght@400;700&display=swap");
+
+/* 82: portfólio-mundo. Hub de portais e um ambiente para cada trabalho, com os assets dele. */
+
+.raiz {
+  --creme: #f9f5ee;
+  --tinta: #1d1d1d;
+  --verm: #b8132b;
+  background: var(--creme);
+  color: var(--tinta);
+  font-family: var(--fonte-principal);
+  min-height: 100vh;
+}
+.pixel { image-rendering: pixelated; }
+
+/* ================= HUB ================= */
+.hub { overflow-x: hidden; }
+.topo {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+  display: flex; justify-content: space-between;
+  padding: 14px clamp(16px, 3vw, 40px);
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  mix-blend-mode: difference; color: #fff;
+}
+.topo a:hover { opacity: 0.6; }
+
+.hero { position: relative; min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
+.palco { position: relative; width: min(84vh, 90vw); aspect-ratio: 1; }
+.palco img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; will-change: transform; pointer-events: none; }
+.heroTexto {
+  position: absolute; left: clamp(18px, 3vw, 48px); right: clamp(18px, 3vw, 48px); bottom: clamp(14px, 3vh, 36px);
+  display: flex; justify-content: space-between; align-items: flex-end; pointer-events: none;
+}
+.linhagem { display: grid; gap: 3px; }
+.linhagem li { display: flex; gap: 10px; align-items: baseline; font-size: 0.8rem; }
+.linhagem span { font-family: "Space Mono", monospace; opacity: 0.55; width: 2.8em; }
+.linhagem strong { font-family: "Anton", var(--fonte-principal); font-weight: 400; letter-spacing: 0.03em; font-size: 1rem; }
+.heroDir { text-align: right; }
+.heroDir h1 { font-family: "Anton", var(--fonte-principal); font-weight: 400; font-size: clamp(3.4rem, 9vw, 7.6rem); line-height: 0.9; }
+.heroDir p { font-size: 0.8rem; opacity: 0.7; margin-top: 4px; }
+.rolar { position: absolute; top: 50%; right: clamp(10px, 1.6vw, 24px); writing-mode: vertical-rl; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.55; }
+
+/* portais */
+.portais { background: #0c0c0c; color: #f3efe6; padding: 12vh clamp(14px, 3vw, 48px) 14vh; }
+.portais h2 { font-family: "Anton", var(--fonte-principal); font-weight: 400; font-size: clamp(2rem, 6vw, 5rem); letter-spacing: 0.01em; margin-bottom: 5vh; text-transform: uppercase; }
+.portaisGrade {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(10px, 1.2vw, 18px);
+  max-width: 1400px; margin: 0 auto;
+}
+.portal {
+  position: relative; display: grid; align-content: end; gap: 4px; text-align: left;
+  min-height: clamp(220px, 28vw, 380px); padding: 16px; border: 1px solid rgba(255,255,255,0.2);
+  color: inherit; font: inherit; cursor: pointer; overflow: hidden; background: #000;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease;
+}
+.portal:nth-child(1) { grid-column: span 3; grid-row: span 2; min-height: clamp(360px, 46vw, 640px); }
+.portal:nth-child(2) { grid-column: span 3; }
+.portal:nth-child(3) { grid-column: span 2; }
+.portal:nth-child(4) { grid-column: span 1; }
+.portal:nth-child(5) { grid-column: span 2; }
+.portal:nth-child(6) { grid-column: span 2; }
+.portal:nth-child(7) { grid-column: span 2; }
+.portal:hover { transform: translateY(-6px) rotate(-0.4deg); border-color: #fff; }
+.pImg { position: absolute; inset: 0; display: block; }
+.pImg img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.8; transition: transform 0.6s ease, opacity 0.3s ease; }
+.portal:hover .pImg img { transform: scale(1.06); opacity: 1; }
+.portal::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 35%, rgba(0,0,0,0.82)); pointer-events: none; }
+.portal > *:not(.pImg) { position: relative; z-index: 1; }
+.pAno { font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.12em; opacity: 0.85; }
+.portal strong { font-size: clamp(1.4rem, 2.6vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.portal small { font-size: 0.8rem; opacity: 0.8; }
+.pKos strong { font-family: "Space Mono", monospace; letter-spacing: 0.1em; text-transform: uppercase; text-shadow: 2px 0 #f33, -2px 0 #3cf; }
+.pIntra strong { font-weight: 300; letter-spacing: 0.34em; text-transform: uppercase; font-size: clamp(1.1rem, 2vw, 1.8rem); }
+.pHaxan strong { font-family: "Pirata One", serif; font-weight: 400; color: #d12a3e; font-size: clamp(2rem, 3.4vw, 3.2rem); }
+.pReal strong { background: linear-gradient(90deg, #4af, #c4f, #f48); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: "Pirata One", serif; font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.8rem); }
+.pClip, .pDisc, .pArq { background: #14110a; }
+.pDisc .pImg img, .pArq .pImg img { filter: grayscale(0.4) contrast(1.1); }
+.pArq .pImg img { image-rendering: pixelated; }
+
+.fora { background: var(--creme); padding: 10vh clamp(16px, 5vw, 80px) 12vh; }
+.fora h2 { font-family: "Anton", var(--fonte-principal); font-weight: 400; font-size: 1.6rem; text-transform: uppercase; margin-bottom: 14px; }
+.fora li { margin-bottom: 16px; max-width: 70ch; }
+.fora li > span { opacity: 0.6; }
+.fora a:hover { color: var(--verm); }
+
+/* ================= MUNDOS ================= */
+.mundo {
+  position: fixed; inset: 0; z-index: 40; overflow-y: auto; overflow-x: hidden;
+  animation: entraMundo 0.5s ease both;
+}
+@keyframes entraMundo { from { opacity: 0; } to { opacity: 1; } }
+.voltarHub {
+  position: fixed; top: 14px; left: clamp(14px, 2.4vw, 36px); z-index: 50;
+  background: none; border: 0; font: inherit; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.06em;
+  text-transform: uppercase; cursor: pointer; mix-blend-mode: difference; color: #fff;
+}
+.m_kos { background: #000; color: #fff; }
+.m_intravenal { background: #050505; color: #e8e8e8; }
+.m_haxan { background: #f9f5ee; color: #1d1d1d; }
+.m_realeza { background: #0a0720; color: #f0e9ff; }
+.m_clipes { background: #f4efe3; color: #1d1d1d; }
+.m_discos { background: #e9e1cc; color: #1d1d1d; }
+.m_arquivo { background: #c9c4b4; color: #151515; }
+
+/* faixa genérica */
+.faixa {
+  width: 100%; display: grid; grid-template-columns: 1fr auto auto auto; gap: 14px; align-items: baseline;
+  background: none; border: 0; border-bottom: 1px solid currentColor; padding: 14px 6px;
+  color: inherit; font: inherit; text-align: left; cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, padding-left 0.22s ease;
+}
+.faixa small { opacity: 0.6; font-family: "Space Mono", monospace; font-size: 0.72rem; }
+.tagClipe { font-style: normal; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid currentColor; padding: 1px 6px; }
+.fPlay { font-size: 0.8rem; }
+
+/* ----- K-OS ----- */
+.kosAbre { min-height: 100vh; display: grid; place-items: center; align-content: center; gap: 10px; padding: 90px 20px 40px; text-align: center; }
+.kosFace { position: relative; width: min(130vw, 1100px); aspect-ratio: 720 / 900; margin-top: -14vh; margin-bottom: -22vh; }
+.kosFace img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: screen; will-change: transform; }
+.rgbR { filter: saturate(1.6); } .rgbG { filter: saturate(1.6); } .rgbB { filter: saturate(1.6); }
+.kosTitulo {
+  font-family: "Anton", var(--fonte-principal); font-weight: 400; font-size: clamp(5rem, 22vw, 17rem); line-height: 0.85;
+  letter-spacing: 0.04em; text-shadow: 4px 0 rgba(255, 40, 60, 0.8), -4px 0 rgba(40, 200, 255, 0.8); margin-top: -4vh;
+}
+.kosSub { font-family: "Space Mono", monospace; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.75; }
+.kosOuvir { margin-top: 12px; border: 1px solid #fff; padding: 10px 22px; font-family: "Space Mono", monospace; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8rem; transition: background 0.2s, color 0.2s; }
+.kosOuvir:hover { background: #fff; color: #000; }
+.kosCorpo { padding: 10vh clamp(14px, 4vw, 60px) 14vh; max-width: 1100px; margin: 0 auto; }
+.kosRecortes { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(8px, 1.6vw, 24px); margin-bottom: 10vh; }
+.kosRecortes img { width: 100%; height: auto; display: block; will-change: transform; mix-blend-mode: screen; }
+.kosRecortes img:nth-child(3n+2) { margin-top: 12vh; }
+.kosFaixas { margin-bottom: 8vh; }
+.fKos { font-family: "Space Mono", monospace; text-transform: uppercase; letter-spacing: 0.12em; font-size: 1.1rem; border-color: #333; }
+.fKos:hover { background: #fff; color: #000; padding-left: 16px; }
+.spotify { width: min(560px, 100%); height: 352px; border: 0; display: block; margin: 0 auto 10vh; border-radius: 12px; }
+.kosLogo { display: block; width: min(520px, 80%); margin: 0 auto; mix-blend-mode: screen; }
+
+/* ----- INTRAVENAL ----- */
+.intraFundo { position: absolute; top: 0; left: 0; right: 0; height: 130vh; overflow: hidden; opacity: 0.35; pointer-events: none; }
+.intraFundo img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+.intra { position: relative; }
+.intraAbre { position: relative; min-height: 100vh; display: grid; place-items: center; align-content: center; gap: 28px; padding: 90px 20px 40px; }
+.intraKicker { font-weight: 300; letter-spacing: 0.5em; text-transform: uppercase; font-size: 0.75rem; opacity: 0.8; }
+.intraLetras { display: flex; align-items: center; justify-content: center; width: min(94vw, 960px); }
+.intraLetras img { width: 33.3%; height: auto; display: block; will-change: transform; mix-blend-mode: lighten; }
+.intraCorpo { position: relative; padding: 8vh clamp(14px, 4vw, 60px) 14vh; max-width: 1200px; margin: 0 auto; }
+.intraFaixas { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-bottom: 12vh; }
+.intraFaixas button { width: 100%; display: grid; gap: 10px; background: none; border: 0; color: inherit; cursor: pointer; text-align: left; font: inherit; }
+.intraFaixas img { width: 100%; max-width: 320px; height: auto; display: block; filter: grayscale(0.4) contrast(1.05); transition: filter 0.3s ease, transform 0.4s ease; }
+.intraFaixas button:hover img { filter: none; transform: translateY(-4px); }
+.intraFaixas span { font-weight: 300; letter-spacing: 0.4em; text-transform: uppercase; font-size: 0.95rem; }
+.intraFaixas small { display: block; letter-spacing: 0.2em; opacity: 0.5; font-size: 0.7rem; margin-bottom: 4px; }
+.intraDossie { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 2vw, 28px); margin-bottom: 14vh; }
+.intraDossie img { width: 100%; height: auto; display: block; will-change: transform; }
+.intraFotos { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(8px, 1.6vw, 22px); align-items: start; }
+.intraFotos img { width: 100%; height: auto; display: block; will-change: transform; filter: saturate(0.85); }
+.intraFotos img:nth-child(3n+2) { margin-top: 10vh; }
+
+/* ----- HÄXAN ----- */
+.haxanAbre { min-height: 100vh; display: grid; place-items: center; position: relative; overflow: hidden; }
+.haxanPalco { position: relative; width: min(84vh, 90vw); aspect-ratio: 1; }
+.haxanPalco img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; will-change: transform; }
+.haxanMeta { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; font-family: "Space Mono", monospace; font-size: 0.75rem; letter-spacing: 0.2em; opacity: 0.7; }
+.haxanEscuro { position: relative; min-height: 120vh; background: #0d0d0d; color: #e9e1d4; overflow: hidden; display: grid; place-items: center; padding: 14vh clamp(16px, 4vw, 60px); }
+.haxanCartaz { position: absolute; inset: -12% 0; opacity: 0.5; overflow: hidden; }
+.haxanCartaz img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+.haxanMiolo { position: relative; z-index: 2; width: min(640px, 100%); text-align: center; }
+.haxanTitulo { width: min(560px, 90%); height: auto; display: block; margin: 0 auto 16px; }
+.haxanNota { font-family: "Space Mono", monospace; font-size: 0.72rem; letter-spacing: 0.1em; opacity: 0.7; margin-bottom: 20px; }
+.fHaxan { font-family: "Pirata One", serif; font-size: clamp(1.4rem, 3vw, 2rem); border-color: rgba(233, 225, 212, 0.2); }
+.fHaxan:hover { background: rgba(157, 20, 36, 0.25); padding-left: 16px; }
+.fHaxan small { font-family: "Space Mono", monospace; }
+
+/* ----- REALEZA ----- */
+.realAbre { padding: 14vh 20px 8vh; text-align: center; display: grid; gap: 14px; justify-items: center; }
+.realKicker { font-family: "Space Mono", monospace; letter-spacing: 0.24em; text-transform: uppercase; font-size: 0.75rem; opacity: 0.8; }
+.realAbre h2 { font-family: "Pirata One", serif; font-weight: 400; font-size: clamp(4rem, 14vw, 10rem); line-height: 0.9; background: linear-gradient(90deg, #4af, #c4f, #f48); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.realPlayer { width: min(920px, 100%); aspect-ratio: 16 / 9; background: #000; border: 1px solid rgba(255,255,255,0.25); }
+.realPlayer iframe { width: 100%; height: 100%; border: 0; display: block; }
+.realNota { opacity: 0.7; font-size: 0.85rem; }
+.realGrade { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(8px, 1.4vw, 22px); align-items: start; max-width: 1200px; margin: 0 auto; padding: 4vh clamp(14px, 3vw, 48px) 16vh; }
+.realCol { display: grid; gap: clamp(8px, 1.4vw, 22px); }
+.realCol:nth-child(even) { margin-top: 10vh; }
+.realCol img { width: 100%; height: auto; display: block; will-change: transform; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5); }
+
+/* ----- páginas de lista (clipes, discos, arquivo) ----- */
+.clipTopo { padding: 12vh clamp(16px, 5vw, 80px) 4vh; max-width: 1200px; margin: 0 auto; }
+.clipTopo h2 { font-family: "Anton", var(--fonte-principal); font-weight: 400; font-size: clamp(2.4rem, 7vw, 5.4rem); text-transform: uppercase; line-height: 0.95; }
+.clipTopo p { margin-top: 8px; max-width: 60ch; opacity: 0.75; }
+.clipCorpo { display: grid; grid-template-columns: 280px 1fr; gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 80px) 12vh; }
+.clipArtistas { position: sticky; top: 70px; align-self: start; max-height: calc(100vh - 100px); overflow-y: auto; border-top: 2px solid #1d1d1d; }
+.clipArtistas button { width: 100%; display: flex; justify-content: space-between; gap: 10px; background: none; border: 0; border-bottom: 1px solid rgba(0,0,0,0.2); padding: 9px 4px; font: inherit; cursor: pointer; text-align: left; transition: background 0.15s, padding-left 0.2s; }
+.clipArtistas button:hover { background: rgba(0,0,0,0.06); padding-left: 10px; }
+.clipArtistas span { font-family: "Space Mono", monospace; font-size: 0.78rem; opacity: 0.6; }
+.clipAtivo { background: #1d1d1d !important; color: #f4efe3; }
+.clipLista h3 { font-family: "Anton", var(--fonte-principal); font-weight: 400; font-size: 1.8rem; margin-bottom: 12px; text-transform: uppercase; }
+.clipLista ul, .discBloco ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 8px; }
+.clipLista button, .discBloco button { width: 100%; display: grid; grid-template-columns: 160px 1fr; gap: 12px; text-align: left; background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.15); padding: 6px; font: inherit; color: inherit; cursor: pointer; transition: background 0.15s, transform 0.2s; }
+.clipLista button:hover, .discBloco button:hover { background: #fff; transform: translateY(-2px); }
+.clipLista img, .discBloco img { width: 160px; height: 90px; object-fit: cover; display: block; }
+.clipLista span, .discBloco span { display: grid; gap: 3px; align-content: center; min-width: 0; }
+.clipLista small, .discBloco small { opacity: 0.65; font-size: 0.75rem; }
+.discBloco { max-width: 1200px; margin: 0 auto; padding: 4vh clamp(16px, 5vw, 80px) 6vh; border-top: 2px solid #1d1d1d; }
+.discAnos { font-family: "Space Mono", monospace; font-size: 0.8rem; letter-spacing: 0.14em; }
+.discBloco h3 { font-family: "Anton", var(--fonte-principal); font-weight: 400; font-size: clamp(1.8rem, 4vw, 3rem); text-transform: uppercase; margin: 4px 0 8px; }
+.discTexto { max-width: 64ch; opacity: 0.8; margin-bottom: 16px; }
+.discBloco em { font-style: normal; background: #1d1d1d; color: #e9e1cc; padding: 0 6px; width: fit-content; font-size: 0.72rem; }
+
+.arqGrade { columns: 3 260px; column-gap: 22px; max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 80px) 14vh; }
+.arqGrade figure { break-inside: avoid; margin-bottom: 26px; background: #efece2; padding: 10px 10px 14px; box-shadow: 6px 8px 0 rgba(0,0,0,0.25); transform: rotate(var(--g)); }
+.arqGrade img { width: 100%; height: auto; display: block; }
+.arqGrade pre { white-space: pre-wrap; font-family: "Space Mono", monospace; font-size: 0.8rem; padding: 10px; }
+.arqGrade figcaption { margin-top: 8px; font-family: "Space Mono", monospace; font-size: 0.72rem; }
+.arqGrade em { font-style: normal; opacity: 0.7; }
+
+/* transição entre hub e mundo */
+.transicao { position: fixed; inset: 0; z-index: 60; clip-path: circle(0px at var(--x) var(--y)); animation: abre 0.52s cubic-bezier(0.7, 0, 0.2, 1) forwards; pointer-events: none; }
+.t_pKos { background: #000; } .t_pIntra { background: #050505; } .t_pHaxan { background: #9d1424; }
+.t_pReal { background: #5b2bd0; } .t_pClip { background: #f4efe3; } .t_pDisc { background: #d9c43a; } .t_pArq { background: #c9c4b4; }
+@keyframes abre { to { clip-path: circle(160vmax at var(--x) var(--y)); } }
+
+/* player */
+.modal { position: fixed; inset: 0; z-index: 70; background: rgba(5, 5, 5, 0.93); display: grid; place-items: center; padding: 20px; }
+.caixa { width: min(1000px, 100%); }
+.fechar { display: block; margin: 0 0 8px auto; background: none; border: 0; color: #fff; font: inherit; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; }
+.player { aspect-ratio: 16/9; background: #000; border: 1px solid rgba(255,255,255,0.25); }
+.player iframe { width: 100%; height: 100%; border: 0; display: block; }
+.legenda { margin-top: 10px; color: #ccc; font-size: 0.9rem; }
+
+@media (max-width: 900px) {
+  .portaisGrade { grid-template-columns: repeat(2, 1fr); }
+  .portal:nth-child(n) { grid-column: span 1; grid-row: auto; min-height: 220px; }
+  .portal:nth-child(1) { grid-column: span 2; min-height: 300px; }
+  .clipCorpo { grid-template-columns: 1fr; }
+  .clipArtistas { position: static; max-height: 40vh; }
+  .realGrade, .intraFotos, .kosRecortes { grid-template-columns: repeat(2, 1fr); }
+  .intraDossie { grid-template-columns: 1fr; }
+  .heroTexto { flex-direction: column-reverse; align-items: flex-start; gap: 8px; }
+  .heroDir { text-align: left; }
+  .rolar { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .palco img, .haxanPalco img, .kosFace img, .intraLetras img, .realCol img, .intraFotos img, .kosRecortes img { transform: none !important; }
+}
