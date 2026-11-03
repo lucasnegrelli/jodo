@@ -1,36 +1,20 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JODO
 
-## Getting Started
+Plataforma de artistas da JODO: um mapa-globo interativo, uma página própria por artista e um acervo de trabalhos.
 
-First, run the development server:
+- **Stack:** Next.js 14 (App Router), React 18, MapLibre, Three.js, GSAP, Lenis.
+- **Dados:** por enquanto locais, em `src/data/` (`mapa.js` com artistas e lugares, `acervo.js`, `eventos.js`, `textos.js`). Banco e login (Supabase) entram em seguida.
+- **Páginas de artista:** `src/app/artistas/<artista>/page.js`, uma feita à mão por artista. Estilos em `src/styles/`.
+
+## Rodar
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Copie `.env.example` para `.env.local` quando houver variáveis a preencher.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Vercel, ligada a este repositório (branch `main`). O workflow `supabase-keepalive` mantém o projeto Supabase do plano grátis acordado.
