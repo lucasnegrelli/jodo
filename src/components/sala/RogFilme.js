@@ -216,30 +216,6 @@ export default function RogFilme() {
         </div>
       </section>
 
-      {/* 3 todos os trabalhos */}
-      <section className={styles.todos}>
-        <h2>Todos os <em>trabalhos</em></h2>
-        {TIPOS.map((t) => (
-          <div key={t.id} className={styles.grupo}>
-            <h3>{t.nome}</h3>
-            <ul>
-              {t.itens.map((it) => (
-                <li key={it.id}>
-                  <button onClick={() => setAberto(it)} onMouseEnter={() => setPrevia(it)} onMouseLeave={() => setPrevia(null)} onFocus={() => setPrevia(it)} onBlur={() => setPrevia(null)}>
-                    <b>{pad(todos.findIndex((x) => x.id === it.id && x.tipo === t.nome) + 1)}</b>
-                    <span>{it.t}</span>
-                    <i>{[it.ano, it.d].filter(Boolean).join(" · ")}</i>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-        <div ref={prevEl} className={`${styles.previa} ${previa ? styles.previaOn : ""}`} aria-hidden="true">
-          {previa && <img src={previa.img} alt="" onError={semFaixa} />}
-        </div>
-      </section>
-
       {/* 4 design */}
       <section id="design" ref={desg} className={styles.desg} style={{ height: "300svh" }}>
         <div ref={desgPalco} className={styles.palcoDesg} style={{ background: CORES[0] }}>
@@ -267,6 +243,30 @@ export default function RogFilme() {
           <span>também pinta ↘</span>
           {TELAS.map((i) => <img key={i} src={P(i)} alt="" loading="lazy" />)}
           <a href={LINKS.pinturas} target="_blank" rel="noopener noreferrer">@nogoddogon ↗</a>
+        </div>
+      </section>
+
+      {/* 6 todos os trabalhos (listas, no fim: pedido do Rog, quebram a estética) */}
+      <section className={styles.todos}>
+        <h2>Todos os <em>trabalhos</em></h2>
+        {TIPOS.map((t) => (
+          <div key={t.id} className={styles.grupo}>
+            <h3>{t.nome}</h3>
+            <ul>
+              {t.itens.map((it) => (
+                <li key={it.id}>
+                  <button onClick={() => setAberto(it)} onMouseEnter={() => setPrevia(it)} onMouseLeave={() => setPrevia(null)} onFocus={() => setPrevia(it)} onBlur={() => setPrevia(null)}>
+                    <b>{pad(todos.findIndex((x) => x.id === it.id && x.tipo === t.nome) + 1)}</b>
+                    <span>{it.t}</span>
+                    <i>{[it.ano, it.d].filter(Boolean).join(" · ")}</i>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        <div ref={prevEl} className={`${styles.previa} ${previa ? styles.previaOn : ""}`} aria-hidden="true">
+          {previa && <img src={previa.img} alt="" onError={semFaixa} />}
         </div>
       </section>
 
