@@ -19,6 +19,8 @@ const display = Fraunces({ subsets: ["latin"], weight: ["300", "400"], style: ["
 const mono = DM_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--rf-mono", display: "swap" });
 
 // os 8 selecionados (escolha pela qualidade de imagem e por serem recentes; o Rog pode trocar)
+// quadros da abertura: miniaturas do Vimeo em 1920x1080 (public/rg/hero), só os mais nítidos e sem logo de marca
+const HERO_IDS = ["1167917096", "533302315", "530125211", "844972951", "962599086"];
 const SEL_IDS = ["367927913", "1167905827", "1167917096", "533302315", "530125211", "844972951", "408975542", "962599086"];
 const PER = 0.9; // viewports de rolagem por sessão
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -49,6 +51,7 @@ export default function RogFilme() {
   const [aberto, setAberto] = useState(null);
   const [previa, setPrevia] = useState(null);
   const [quadro0, setQuadro0] = useState(0);
+  const nHero = HERO_IDS.length;
   const [pronto, setPronto] = useState({});
   const alvo = useRef({ x: 0, y: 0 }), pos = useRef({ x: 0, y: 0 }), prevEl = useRef(null);
 
@@ -59,9 +62,9 @@ export default function RogFilme() {
 
   // abertura: troca de frame a cada 4 s
   useEffect(() => {
-    const t = setInterval(() => setQuadro0((q) => (q + 1) % n), 4000);
+    const t = setInterval(() => setQuadro0((q) => (q + 1) % nHero), 4000);
     return () => clearInterval(t);
-  }, [n]);
+  }, [nHero]);
 
   useEffect(() => {
     // o layout global usa overflow-x: hidden em html e body, o que quebra o sticky; aqui vira clip
@@ -160,8 +163,8 @@ export default function RogFilme() {
 
       {/* 1 abertura */}
       <section className={styles.abertura}>
-        {sel.map((it, k) => (
-          <img key={it.id} className={`${styles.frame} ${k === quadro0 ? styles.frameOn : ""}`} src={it.img} alt="" />
+        {HERO_IDS.map((id, k) => (
+          <img key={id} className={`${styles.frame} ${k === quadro0 ? styles.frameOn : ""}`} src={`/rg/hero/${id}.webp`} alt="" width="1920" height="1080" />
         ))}
         <div className={styles.veu} />
         <h1 className={styles.nome}><span>Rogério</span><span><em>Soares</em></span></h1>
