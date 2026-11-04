@@ -28,11 +28,13 @@ const VIDEOS = [
   { k: "posse", ano: "2017", data: "27.09.2017", t: "Ao vivo no Posse Cutz, Belo Horizonte", yt: "VtHcmaF11r8", views: "6 mil", nota: "Com Lessa Gustavo." },
 ];
 const DISCOS = LANCAMENTOS.filter((l) => l.faixas.length > 0);
-const SEL = { deezer: "https://www.deezer.com/artist/10709967", soundcloud: "https://soundcloud.com/saintmakalister", youtube: "https://www.youtube.com/@AlmanakOficial", instagram: "https://www.instagram.com/makalister.oszimaka/", linktree: "https://linktr.ee/makalister" };
+const SEL = { spotify: "https://open.spotify.com/intl-pt/artist/1RoerHIsbQo1h0V8KpznKV", apple: "https://music.apple.com/br/artist/makalister/1135060296", deezer: "https://www.deezer.com/artist/10709967", soundcloud: "https://soundcloud.com/saintmakalister", youtube: "https://www.youtube.com/@AlmanakOficial", instagram: "https://www.instagram.com/makalister.oszimaka/", linktree: "https://linktr.ee/makalister" };
+
+const PLAT = [["Spotify", SEL.spotify], ["Apple Music", SEL.apple], ["Deezer", SEL.deezer], ["SoundCloud", SEL.soundcloud], ["YouTube", SEL.youtube]];
 
 export default function MakalisterCru() {
   const raiz = useRef(null), vids = useRef([]), ass = useRef(null), anterior = useRef(-1), trava = useRef(false);
-  const [view, setView] = useState("videos"), [idx, setIdx] = useState(1), [som, setSom] = useState(false);
+  const [view, setView] = useState("videos"), [idx, setIdx] = useState(1), [som, setSom] = useState(false), [ouvir, setOuvir] = useState(false);
   const v = VIDEOS[idx];
 
   const vai = useCallback((d) => { if (trava.current) return; trava.current = true; setIdx((i) => Math.max(0, Math.min(VIDEOS.length - 1, i + d))); setTimeout(() => { trava.current = false; }, 520); }, []);
@@ -46,12 +48,19 @@ export default function MakalisterCru() {
     anterior.current = view === "videos" ? idx : -1;
   }, [idx, view, som]);
 
+  // a linha fina de progresso do clipe que está tocando
+  useEffect(() => {
+    if (view !== "videos") return; let raf = 0;
+    const f = () => { raf = requestAnimationFrame(f); const el = vids.current[idx]; if (el && el.duration && raiz.current) raiz.current.style.setProperty("--p", (el.currentTime / el.duration).toFixed(4)); };
+    f(); return () => cancelAnimationFrame(raf);
+  }, [idx, view]);
+
   // roda do mouse, dedo e teclas trocam de vídeo
   useEffect(() => {
     if (view !== "videos") return;
     gsap.registerPlugin(Observer);
     const ob = Observer.create({ type: "wheel,touch", wheelSpeed: -1, tolerance: 24, preventDefault: true, onUp: () => vai(1), onDown: () => vai(-1) });
-    const k = (e) => { if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown") vai(1); else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") vai(-1); else if (e.key === "m" || e.key === "M") setSom((x) => !x); };
+    const k = (e) => { if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown") vai(1); else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") vai(-1); else if (e.key === "m" || e.key === "M") setSom((x) => !x); else if (e.key === "Escape") setOuvir(false); };
     window.addEventListener("keydown", k);
     return () => { ob.kill(); window.removeEventListener("keydown", k); };
   }, [view, vai]);
@@ -59,8 +68,9 @@ export default function MakalisterCru() {
   // abertura: a assinatura aparece escrita no meio e vai para o canto
   useEffect(() => {
     const el = ass.current; if (!el) return;
-    const reduz = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduz) { gsap.set(el, { clipPath: "inset(0 0 0 0)", left: "auto", right: 28, top: 18, xPercent: 0, yPercent: 0, width: 150 }); return; }
+    const reduz = window.matchMedia("(prefers-reduced-motion: reduce)").matches || sessionStorage.getItem("mk-intro") === "1";
+    sessionStorage.setItem("mk-intro", "1");
+    if (reduz) { gsap.set(el, { clipPath: "inset(0 0 0 0)", left: window.innerWidth - 28, right: "auto", top: 18, xPercent: -100, yPercent: 0, width: 150 }); return; }
     gsap.set(el, { clipPath: "inset(0 100% 0 0)", left: "50%", top: "50%", right: "auto", xPercent: -50, yPercent: -50, width: Math.min(window.innerWidth * 0.6, 760) });
     const tl = gsap.timeline({ delay: 0.3 });
     tl.to(el, { clipPath: "inset(0 0% 0 0)", duration: 1.5, ease: "power2.inOut" })
@@ -97,7 +107,8 @@ export default function MakalisterCru() {
               <p>{v.data} · {v.views} views</p>
               <p>{v.nota}</p>
             </div>
-            <p className={s.conta}>{String(idx + 1).padStart(2, "0")} / {VIDEOS.length}</p>
+            <p className={s.conta}>{String(idx + 1).padStart(2, "0")} / {VIDEOS.length}<span>↑ ↓ trocar · M som</span></p>
+            <div className={s.progresso} aria-hidden="true"><i /></div>
           </>
         ) : null}
 
@@ -109,6 +120,7 @@ export default function MakalisterCru() {
               ))}
             </ul>
             <ol className={s.tabela}>
+              <li className={s.plat}><span>ouvir em</span>{PLAT.map(([n, u]) => <a key={n} href={u} target="_blank" rel="noopener noreferrer">{n}</a>)}</li>
               {DISCOS.map((l) => (
                 <li key={l.id}><a href={`https://www.deezer.com/album/${l.id}`} target="_blank" rel="noopener noreferrer"><i>{l.d.slice(0, 4)}</i><b>{l.t}</b><span>{l.tipo} · {l.faixas.length} faixas{l.label ? ` · ${l.label}` : ""}</span></a></li>
               ))}
@@ -123,7 +135,7 @@ export default function MakalisterCru() {
               <p>Rapper e produtor de São José, na Grande Florianópolis. Rima desde 2008 e faz os próprios beats. Divide o mesmo terreno, na Serraria, com o Beli Remour, com quem tem mais de 50 músicas.</p>
               <p>Desde 2013 são {DISCOS.length} discos e EPs e dezenas de singles, lançados pelos selos Almanak, Polvo Roxo, Mondé e Loopicotado. O mais recente, DSQVDVQE, saiu em fevereiro de 2026.</p>
             </section>
-            <section><h2>ouvir</h2><ul><li><a href={SEL.deezer} target="_blank" rel="noopener noreferrer">Deezer</a></li><li><a href={SEL.soundcloud} target="_blank" rel="noopener noreferrer">SoundCloud</a></li></ul></section>
+            <section><h2>ouvir</h2><ul>{PLAT.filter(([n]) => n !== "YouTube").map(([n, u]) => <li key={n}><a href={u} target="_blank" rel="noopener noreferrer">{n}</a></li>)}</ul></section>
             <section><h2>ver</h2><ul><li><a href={SEL.youtube} target="_blank" rel="noopener noreferrer">YouTube, canal Almanak</a></li><li><a href={SEL.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href={SEL.linktree} target="_blank" rel="noopener noreferrer">Linktree</a></li></ul></section>
             <section><h2>shows</h2><ul><li><a href="mailto:contatoalmanak@gmail.com">contatoalmanak@gmail.com</a></li></ul></section>
             <img className={s.assGrande} src="/mk/assinatura.png" alt="" width="900" height="168" />
@@ -133,8 +145,15 @@ export default function MakalisterCru() {
 
       <nav className={s.pilula} aria-label="Seções">
         {[["videos", "vídeos"], ["discos", "discos"], ["sobre", "sobre"]].map(([k, r]) => <button key={k} type="button" className={view === k ? s.ativo : ""} onClick={() => setView(k)}>{r}</button>)}
+        <button type="button" className={`${s.ouvirBtn} ${ouvir ? s.ativo : ""}`} onClick={() => setOuvir((x) => !x)} aria-expanded={ouvir}>ouvir</button>
         <button type="button" className={`${s.somBtn} ${som ? s.ativo : ""}`} onClick={() => setSom((x) => !x)} aria-pressed={som}>som {som ? "ligado" : "desligado"}</button>
       </nav>
+      {ouvir ? (
+        <div className={s.painelOuvir} role="dialog" aria-label="Onde ouvir">
+          <p>ouvir em</p>
+          <ul>{PLAT.map(([n, u]) => <li key={n}><a href={u} target="_blank" rel="noopener noreferrer">{n} <i>↗</i></a></li>)}</ul>
+        </div>
+      ) : null}
     </main>
   );
 }
