@@ -48,6 +48,7 @@ export const LUGARES = {
   pinda: { cidade: 'Pindamonhangaba', pais: 'Brasil', lat: -22.9239, lon: -45.4617 },
   vinhedo: { cidade: 'Vinhedo', pais: 'Brasil', lat: -23.0297, lon: -46.9753 },
   braga: { cidade: 'Braga', pais: 'Portugal', lat: 41.5454, lon: -8.4265 },
+  mangaratiba: { cidade: 'Mangaratiba (RJ)', pais: 'Brasil', lat: -22.9589, lon: -44.0411 },
   roraima: { cidade: 'Monte Roraima', pais: 'Brasil', lat: 5.1436, lon: -60.7619 },
 };
 
@@ -164,8 +165,8 @@ const artistas = [
     }),
 
   a('phineas', 'akaphineas', 'Multi-artista e produtor cultural',
-    'Canções, produções e registros. Estrada, Jardim EP (com Karmo), Antares e o short film Relicário. Agora no Rio.',
-    roxo, 'rj', {
+    'Canções, produções e registros. Estrada, Jardim EP (com Karmo), Antares e o short film Relicário. Agora em Mangaratiba (RJ).',
+    roxo, 'mangaratiba', {
       redes: [
         { rotulo: 'Spotify', url: 'https://open.spotify.com/intl-pt/artist/4O9G2L1B557p5lkZBoayK6' },
         { rotulo: 'SoundCloud', url: 'https://soundcloud.com/phineas-867227871/sets/estrada' },
