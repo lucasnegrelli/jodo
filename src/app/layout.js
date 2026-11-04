@@ -3,6 +3,7 @@ import "@/styles/tokens.css";
 import "@/styles/globals.css";
 import Script from 'next/script'
 import TransicaoGlobal from "@/components/comum/TransicaoGlobal";
+import VoltaParaRaiz from "@/components/comum/VoltaParaRaiz";
 export const metadata = {
   title: "JODO",
   description: "Porque ainda estamos aqui ?",
@@ -43,6 +44,7 @@ export default function RootLayout({ children }) {
         height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe></noscript>
         {children}
         <TransicaoGlobal />
+        <VoltaParaRaiz />
       </body>
     </html>
   );
