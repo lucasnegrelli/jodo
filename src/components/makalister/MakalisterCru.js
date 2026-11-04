@@ -32,9 +32,19 @@ const SEL = { spotify: "https://open.spotify.com/intl-pt/artist/1RoerHIsbQo1h0V8
 
 const PLAT = [["Spotify", SEL.spotify], ["Apple Music", SEL.apple], ["Deezer", SEL.deezer], ["SoundCloud", SEL.soundcloud], ["YouTube", SEL.youtube]];
 
+// logos discretos (um traço só, na cor do texto); o desenho interno usa a cor do fundo
+function Logo({ n }) {
+  const d = "#0a0a0a";
+  if (n === "Spotify") return (<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11.5" fill="currentColor" /><path d="M5.2 8.7c4.3-1.3 9.5-1 13.4 1.3" fill="none" stroke={d} strokeWidth="1.9" strokeLinecap="round" /><path d="M5.9 12.2c3.6-1 7.7-.7 10.8 1.1" fill="none" stroke={d} strokeWidth="1.6" strokeLinecap="round" /><path d="M6.7 15.4c2.9-.7 5.9-.5 8.4.9" fill="none" stroke={d} strokeWidth="1.3" strokeLinecap="round" /></svg>);
+  if (n === "Apple Music") return (<svg viewBox="0 0 24 24" aria-hidden="true"><rect x=".5" y=".5" width="23" height="23" rx="5.5" fill="currentColor" /><path d="M16.2 5.6v9.5a2.3 2.3 0 1 1-1.3-2.1V8.9l-5.1 1.2v6.3a2.3 2.3 0 1 1-1.3-2.1V7.8z" fill={d} /></svg>);
+  if (n === "Deezer") return (<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><rect x="1" y="17" width="3.6" height="5" /><rect x="5.5" y="13" width="3.6" height="9" /><rect x="10" y="9" width="3.6" height="13" /><rect x="14.5" y="5" width="3.6" height="17" /><rect x="19" y="1.5" width="3.6" height="20.5" /></svg>);
+  if (n === "SoundCloud") return (<svg viewBox="0 0 24 24" aria-hidden="true"><rect x=".5" y=".5" width="23" height="23" rx="5.5" fill="currentColor" /><path d="M4 15.5v-3M6.2 16v-5M8.4 16v-6.2M10.6 16V9.2M12 16h6.2a2.4 2.4 0 0 0 .3-4.8 4.1 4.1 0 0 0-6.5-1.5" fill="none" stroke={d} strokeWidth="1.5" strokeLinecap="round" /></svg>);
+  return (<svg viewBox="0 0 24 24" aria-hidden="true"><rect x=".5" y="4" width="23" height="16" rx="4.5" fill="currentColor" /><path d="M9.7 8.6v6.8l5.9-3.4z" fill={d} /></svg>);
+}
+
 export default function MakalisterCru() {
   const raiz = useRef(null), vids = useRef([]), ass = useRef(null), anterior = useRef(-1), trava = useRef(false);
-  const [view, setView] = useState("videos"), [idx, setIdx] = useState(1), [som, setSom] = useState(false), [ouvir, setOuvir] = useState(false);
+  const [view, setView] = useState("videos"), [idx, setIdx] = useState(1), [som, setSom] = useState(false);
   const v = VIDEOS[idx];
 
   const vai = useCallback((d) => { if (trava.current) return; trava.current = true; setIdx((i) => Math.max(0, Math.min(VIDEOS.length - 1, i + d))); setTimeout(() => { trava.current = false; }, 520); }, []);
@@ -60,7 +70,7 @@ export default function MakalisterCru() {
     if (view !== "videos") return;
     gsap.registerPlugin(Observer);
     const ob = Observer.create({ type: "wheel,touch", wheelSpeed: -1, tolerance: 24, preventDefault: true, onUp: () => vai(1), onDown: () => vai(-1) });
-    const k = (e) => { if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown") vai(1); else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") vai(-1); else if (e.key === "m" || e.key === "M") setSom((x) => !x); else if (e.key === "Escape") setOuvir(false); };
+    const k = (e) => { if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown") vai(1); else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") vai(-1); else if (e.key === "m" || e.key === "M") setSom((x) => !x); };
     window.addEventListener("keydown", k);
     return () => { ob.kill(); window.removeEventListener("keydown", k); };
   }, [view, vai]);
@@ -120,7 +130,6 @@ export default function MakalisterCru() {
               ))}
             </ul>
             <ol className={s.tabela}>
-              <li className={s.plat}><span>ouvir em</span>{PLAT.map(([n, u]) => <a key={n} href={u} target="_blank" rel="noopener noreferrer">{n}</a>)}</li>
               {DISCOS.map((l) => (
                 <li key={l.id}><a href={`https://www.deezer.com/album/${l.id}`} target="_blank" rel="noopener noreferrer"><i>{l.d.slice(0, 4)}</i><b>{l.t}</b><span>{l.tipo} · {l.faixas.length} faixas{l.label ? ` · ${l.label}` : ""}</span></a></li>
               ))}
@@ -145,15 +154,11 @@ export default function MakalisterCru() {
 
       <nav className={s.pilula} aria-label="Seções">
         {[["videos", "vídeos"], ["discos", "discos"], ["sobre", "sobre"]].map(([k, r]) => <button key={k} type="button" className={view === k ? s.ativo : ""} onClick={() => setView(k)}>{r}</button>)}
-        <button type="button" className={`${s.ouvirBtn} ${ouvir ? s.ativo : ""}`} onClick={() => setOuvir((x) => !x)} aria-expanded={ouvir}>ouvir</button>
         <button type="button" className={`${s.somBtn} ${som ? s.ativo : ""}`} onClick={() => setSom((x) => !x)} aria-pressed={som}>som {som ? "ligado" : "desligado"}</button>
       </nav>
-      {ouvir ? (
-        <div className={s.painelOuvir} role="dialog" aria-label="Onde ouvir">
-          <p>ouvir em</p>
-          <ul>{PLAT.map(([n, u]) => <li key={n}><a href={u} target="_blank" rel="noopener noreferrer">{n} <i>↗</i></a></li>)}</ul>
-        </div>
-      ) : null}
+      <nav className={s.canto} aria-label="Ouvir em">
+        {PLAT.map(([n, u]) => <a key={n} href={u} target="_blank" rel="noopener noreferrer" title={`Ouvir no ${n}`} aria-label={`Ouvir no ${n}`}><Logo n={n} /></a>)}
+      </nav>
     </main>
   );
 }

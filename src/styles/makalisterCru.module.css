@@ -86,3 +86,10 @@
 .tabela .plat span { font-family: var(--mk-mono), monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; opacity: .6; margin-right: 6px; }
 .tabela .plat a { display: inline; padding: 0; font-weight: 800; font-size: clamp(15px, 1.4vw, 20px); text-transform: uppercase; letter-spacing: -.01em; }
 @media (max-width: 860px) { .painelOuvir { bottom: 70px; width: 86vw; } .conta span { display: none; } }
+
+/* logos das plataformas: um canto discreto */
+.canto { position: fixed; right: 26px; bottom: 26px; z-index: 70; display: flex; gap: 12px; align-items: center; }
+.canto a { display: block; width: 20px; height: 20px; opacity: .55; transition: opacity .2s; }
+.canto a:hover { opacity: 1; }
+.canto svg { display: block; width: 100%; height: 100%; }
+@media (max-width: 860px) { .canto { right: 12px; bottom: 74px; gap: 11px; } .canto a { width: 19px; height: 19px; } }
