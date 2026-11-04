@@ -9,6 +9,9 @@ import { Inter_Tight, JetBrains_Mono } from "next/font/google";
 import MarcaTopo from "@/components/comum/MarcaTopo";
 import VoltarJodo from "@/components/comum/VoltarJodo";
 import { LANCAMENTOS } from "@/data/makalisterLancamentos";
+import { OBRA } from "@/data/makalisterObra";
+import CapaViva from "@/components/makalister/CapaViva";
+import LINKS from "@/data/makalisterLinks.json";
 import s from "@/styles/makalisterCru.module.css";
 
 const ui = Inter_Tight({ subsets: ["latin"], weight: ["400", "600", "800"], variable: "--mk-ui" });
@@ -30,18 +33,22 @@ const VIDEOS = [
 ];
 const ISO = (v) => v.iso || v.data.split(".").reverse().join("-");
 const ALIAS = { 915434391: "DSQVDVQE" }; // como ele mesmo chama o disco de 2026 (sigla do título longo, que está na capa)
-const DISCOS = LANCAMENTOS.filter((l) => l.faixas.length > 0);
+// participações em disco de outro não entram no fluxo principal (ficam para a faixa de créditos)
+const PAPEL = Object.fromEntries(OBRA.map((o) => [o.id, o]));
+const FORA = new Set(OBRA.filter((o) => o.papel === "participacao").map((o) => o.id));
+const DISCOS = LANCAMENTOS.filter((l) => l.faixas.length > 0 && !FORA.has(l.id));
 
 // uma lista só, do mais novo ao mais velho, com vídeos e discos misturados
 const ITENS = [
-  { tipo: "intro", k: "intro", ano: "", t: "MAKALISTER" },
   ...[
     ...DISCOS.map((l) => ({ tipo: "disco", k: `d${l.id}`, ano: l.d.slice(0, 4), iso: l.d, t: ALIAS[l.id] || l.t, l })),
     ...VIDEOS.map((v) => ({ tipo: "video", k: v.k, ano: v.ano, iso: ISO(v), t: v.t, v })),
   ].sort((a, b) => b.iso.localeCompare(a.iso)),
+  { tipo: "intro", k: "intro", ano: "", t: "MAKALISTER" }, // apresentação por último
 ];
 
 const SEL = { spotify: "https://open.spotify.com/intl-pt/artist/1RoerHIsbQo1h0V8KpznKV", apple: "https://music.apple.com/br/artist/makalister/1135060296", deezer: "https://www.deezer.com/artist/10709967", soundcloud: "https://soundcloud.com/saintmakalister", youtube: "https://www.youtube.com/@AlmanakOficial" };
+const COR = { "Spotify": "#1db954", "Apple Music": "#fa243c", "Deezer": "#a238ff", "SoundCloud": "#ff5500", "YouTube": "#ff0000" };
 const PLAT = [["Spotify", SEL.spotify], ["Apple Music", SEL.apple], ["Deezer", SEL.deezer], ["SoundCloud", SEL.soundcloud], ["YouTube", SEL.youtube]];
 
 // logos discretos (um traço só, na cor do texto); o desenho interno usa a cor do fundo
@@ -66,7 +73,7 @@ export default function MakalisterCru() {
   const raiz = useRef(null), vids = useRef({}), ass = useRef(null), anterior = useRef(""), trava = useRef(false), clicou = useRef(false);
   const [idx, setIdx] = useState(0), [som, setSom] = useState(false), [introK, setIntroK] = useState("pipa");
   const it = ITENS[idx];
-  const ativoK = it.tipo === "video" ? it.k : it.tipo === "intro" ? introK : null;
+  const ativoK = it.tipo === "video" ? it.k : null; // a abertura não usa clipe: evita repetir a cena do primeiro vídeo da lista
 
   const vai = useCallback((d) => { if (trava.current) return; trava.current = true; setIdx((i) => Math.max(0, Math.min(ITENS.length - 1, i + d))); setTimeout(() => { trava.current = false; }, 520); }, []);
 
@@ -118,6 +125,11 @@ export default function MakalisterCru() {
   }, []);
 
   const d = it.tipo === "disco" ? it.l : null;
+  // ícones do canto levam ao trabalho que está na tela (disco: Spotify/Apple/Deezer; clipe: YouTube); na abertura, ao artista
+  const lk = d ? LINKS[d.id] : null;
+  const plats = d
+    ? [["Spotify", lk?.spotify], ["Apple Music", lk?.apple], ["Deezer", lk?.deezer || `https://www.deezer.com/album/${d.id}`], ["YouTube", lk?.youtube]].filter(([, u]) => u)
+    : it.tipo === "video" ? [["YouTube", `https://www.youtube.com/watch?v=${it.v.yt}`]] : PLAT;
   return (
     <main ref={raiz} className={`${s.raiz} ${ui.variable} ${mono.variable} ${it.tipo === "intro" ? s.abertura : ""}`} style={{ "--i": idx }}>
       <VoltarJodo />
@@ -131,7 +143,7 @@ export default function MakalisterCru() {
 
         {d ? (
           <div className={s.disco} key={it.k}>
-            <div className={s.discoFundo} style={{ backgroundImage: `url(${d.img})` }} aria-hidden="true" />
+            <CapaViva key={"f" + d.img} className={s.discoFundo} src={d.img} alt="" />
             <img className={s.discoCapa} src={d.img} alt={`Capa de ${d.t}`} />
             <ol className={s.faixas}>{d.faixas.map((f, i) => <li key={`${f}-${i}`}>{f}</li>)}</ol>
           </div>
@@ -148,10 +160,12 @@ export default function MakalisterCru() {
           })}
         </ul>
 
+        {it.tipo === "intro" ? <img className={s.rabiscoIntro} src="/mk/mao/rabisco.png" alt="DSQV DVQE" width="1170" height="117" /> : null}
+
         {it.tipo === "intro" ? (
           <div className={s.sobre}>
             <p>Rapper e produtor de São José, na Grande Florianópolis. Rima desde 2008 e faz os próprios beats.</p>
-            <p>Desde 2013, {DISCOS.length} discos e EPs e dezenas de singles, pelos selos Almanak, Polvo Roxo, Mondé e Loopicotado. Divide o terreno, na Serraria, com o Beli Remour: mais de 50 músicas juntos.</p>
+            <p>Desde 2013, {DISCOS.length} discos e EPs e dezenas de singles, pelo selo Almanak. Divide o terreno, na Serraria, com o Beli Remour: mais de 50 músicas juntos.</p>
             <p>Shows: <a href="mailto:contatoalmanak@gmail.com">contatoalmanak@gmail.com</a></p>
             <p className={s.dica}>role, ou use as setas · clique para ligar o som</p>
           </div>
@@ -159,7 +173,6 @@ export default function MakalisterCru() {
 
         {it.tipo === "video" ? (
           <>
-            <a className={s.ver} href={`https://www.youtube.com/watch?v=${it.v.yt}`} target="_blank" rel="noopener noreferrer">VER NO YOUTUBE</a>
             <div className={s.info}><p><b>{it.v.t}</b></p><p>{it.v.data} · {it.v.views} views</p><p>{it.v.nota}</p></div>
             <div className={s.progresso} aria-hidden="true"><i /></div>
           </>
@@ -167,18 +180,17 @@ export default function MakalisterCru() {
 
         {d ? (
           <>
-            <a className={s.ver} href={`https://www.deezer.com/album/${d.id}`} target="_blank" rel="noopener noreferrer">OUVIR NO DEEZER</a>
-            <div className={s.info}><p><b>{d.t}</b></p><p>{d.d.split("-").reverse().join(".")} · {d.tipo} · {d.faixas.length} faixas</p>{d.label ? <p>{d.label}</p> : null}{d.nota ? <p>{d.nota}</p> : null}</div>
+            <div className={s.info}><p><b>{d.t}</b></p><p>{d.d.split("-").reverse().join(".")} · {d.tipo} · {d.faixas.length} faixas</p>{PAPEL[d.id]?.com?.length ? <p>com {PAPEL[d.id].com.join(" · ")}</p> : <p>solo</p>}{d.label ? <p>{d.label}</p> : null}{d.nota ? <p>{d.nota}</p> : null}</div>
           </>
         ) : null}
 
-        <p className={s.conta}>{String(idx + 1).padStart(2, "0")} / {ITENS.length}<span>↑ ↓ trocar · M som</span></p>
+        <p className={s.conta}><span>↑ ↓ trocar · M som</span></p>
       </div>
 
       <nav className={s.canto} aria-label="Som e plataformas">
         <button type="button" className={s.alto} onClick={() => { clicou.current = true; setSom((x) => !x); }} aria-pressed={som} aria-label={som ? "Desligar o som" : "Ligar o som"} title={som ? "Desligar o som" : "Ligar o som"}><Alto ligado={som} /></button>
         <i className={s.sep} aria-hidden="true" />
-        {PLAT.map(([n, u]) => <a key={n} href={u} target="_blank" rel="noopener noreferrer" title={`Ouvir no ${n}`} aria-label={`Ouvir no ${n}`}><Logo n={n} /></a>)}
+        {plats.map(([n, u]) => <a key={n} href={u} style={{ "--cor": COR[n] }} target="_blank" rel="noopener noreferrer" title={`Ouvir no ${n}`} aria-label={`Ouvir no ${n}`}><Logo n={n} /></a>)}
       </nav>
     </main>
   );
