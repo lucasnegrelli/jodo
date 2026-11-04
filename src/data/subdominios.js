@@ -9,3 +9,16 @@ const SLUGS = [
 const ESPECIAL = { "herick-olx": "olx", "romulo-spuri": "spuri", "saull-oe": "saull", "sergio-estranho": "estranho", "vicente-blow": "vblow" };
 export const SLUG_PARA_SUB = { ...Object.fromEntries(SLUGS.map((s) => [s, ESPECIAL[s] || s.replace(/-/g, "")])), olx: "olx" };
 export const SUB_PARA_SLUG = Object.fromEntries(SLUGS.map((s) => [ESPECIAL[s] || s.replace(/-/g, ""), s]));
+
+// Apelidos: 1–2 endereços alternativos por artista que redirecionam para o subdomínio principal (apelido -> subdomínio principal).
+const APELIDOS_POR_ARTISTA = {
+  "1cort3": ["caio", "1corte"], "1lum3": ["lum"], "82": ["by82"], davzera: ["davi", "davizera"], domrafa: ["rafa", "dom"],
+  "el-mandarim": ["mandarim"], headb: ["head", "hb"], "herick-olx": ["herickolx", "herick"], insyt: ["dk", "insytdk"],
+  "isa-katupyryb": ["isa", "katupyryb"], "lessa-gustavo": ["lessa"], makalister: ["maka", "jovemmaka"],
+  "margarida-the-cat": ["margarida"], phineas: ["akaphineas"], "rap-delivery": ["rd", "delivery"], rogdog: ["rog"],
+  "romulo-spuri": ["romulospuri", "romulo"], "saull-oe": ["saulloe"], "sergio-estranho": ["sergioestranho", "sergio"],
+  "van-mc": ["van"], "vicente-blow": ["vicenteblow", "vicente"],
+};
+export const APELIDO_PARA_SUB = Object.fromEntries(
+  Object.entries(APELIDOS_POR_ARTISTA).flatMap(([slug, ap]) => ap.map((a) => [a, SLUG_PARA_SUB[slug]])).filter(([a, sub]) => a !== sub && !SUB_PARA_SLUG[a])
+);

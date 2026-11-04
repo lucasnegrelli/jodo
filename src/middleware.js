@@ -1,7 +1,7 @@
 // Subdomínio por artista: makalister.jodo.com.br mostra /artistas/makalister.
 // E jodo.com.br/artistas/<slug> redireciona para o subdomínio. Lista central em src/data/subdominios.js.
 import { NextResponse } from "next/server";
-import { SUB_PARA_SLUG, SLUG_PARA_SUB, RAIZ } from "@/data/subdominios";
+import { SUB_PARA_SLUG, SLUG_PARA_SUB, APELIDO_PARA_SUB, RAIZ } from "@/data/subdominios";
 
 export function middleware(req) {
   const host = (req.headers.get("host") || "").toLowerCase().split(":")[0];
@@ -12,6 +12,11 @@ export function middleware(req) {
   else if (host.endsWith(".localhost")) sub = host.slice(0, -".localhost".length);
 
   if (sub && sub !== "www") {
+    const canon = APELIDO_PARA_SUB[sub];
+    if (canon) { // apelido (ex.: vicente.jodo.com.br) -> endereço principal (vblow.jodo.com.br)
+      const proto = req.headers.get("x-forwarded-proto") || "http";
+      return NextResponse.redirect(`${proto}://${canon}${(req.headers.get("host") || "").slice(sub.length)}${pathname}`, 308);
+    }
     const slug = SUB_PARA_SLUG[sub];
     if (!slug) return NextResponse.redirect(`https://${RAIZ}/`, 307); // subdomínio que não existe
     if (pathname === "/") {
