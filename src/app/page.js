@@ -1,3 +1,4 @@
+import { urlArtista } from "@/data/urlArtista";
 import Mapa from "@/components/mundo/Mapa";
 import { EVENTOS } from "@/data/eventos";
 import { ACERVO } from "@/data/acervo";
@@ -23,7 +24,7 @@ export default function HomePage() {
         <ul>
           {todos.map((a) => (
             <li key={a.slug}>
-              <a href={a.externo || `/artistas/${a.slug}`}>{a.nome}</a>
+              <a href={a.externo || urlArtista(a.slug)}>{a.nome}</a>
               {a.lugar ? ` (${a.lugar.cidade}, ${a.lugar.pais})` : ""}: {a.resumo}
             </li>
           ))}

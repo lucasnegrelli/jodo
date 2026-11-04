@@ -1,4 +1,5 @@
 ﻿"use client";
+import { urlArtista } from "@/data/urlArtista";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
@@ -163,7 +164,7 @@ export default function Mundo({ artistas, links }) {
     e.preventDefault();
     const r = e.currentTarget.getBoundingClientRect();
     setSaida({ x: r.left + r.width / 2, y: r.top + r.height / 2, cor: a.cor });
-    setTimeout(() => router.push(`/artistas/${a.slug}`), 650);
+    setTimeout(() => router.push(urlArtista(a.slug)), 650);
   };
 
   return (
@@ -244,7 +245,7 @@ export default function Mundo({ artistas, links }) {
           {artistas.map((a) => (
             <Link
               key={a.slug}
-              href={`/artistas/${a.slug}`}
+              href={urlArtista(a.slug)}
               className={styles.ponto}
               style={{
                 left: `${a.cena.x}%`,

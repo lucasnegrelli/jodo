@@ -12,6 +12,11 @@ export function middleware(req) {
   else if (host.endsWith(".localhost")) sub = host.slice(0, -".localhost".length);
 
   if (sub && sub !== "www") {
+    const outro = pathname.match(/^\/artistas\/([^/]+)\/?$/); // link relativo para outro artista, dentro de um subdomínio
+    if (outro && SLUG_PARA_SUB[outro[1]]) {
+      const proto = req.headers.get("x-forwarded-proto") || "http";
+      return NextResponse.redirect(`${proto}://${SLUG_PARA_SUB[outro[1]]}${(req.headers.get("host") || "").slice(sub.length)}/`, 308);
+    }
     const canon = APELIDO_PARA_SUB[sub];
     if (canon) { // apelido (ex.: vicente.jodo.com.br) -> endereço principal (vblow.jodo.com.br)
       const proto = req.headers.get("x-forwarded-proto") || "http";

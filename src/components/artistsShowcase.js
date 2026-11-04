@@ -1,3 +1,4 @@
+import { urlArtista } from "@/data/urlArtista";
 import Link from "next/link";
 import styles from "@/styles/hub.module.css";
 import { getArtistas } from "@/data/artistas";
@@ -20,7 +21,7 @@ export default function ArtistsShowcase({ showHeader = true }) {
           {artistas.map((a) => (
             <Link
               key={a.slug}
-              href={`/artistas/${a.slug}`}
+              href={urlArtista(a.slug)}
               className={`${styles.cartao} ${a.slug === "phineas" ? styles.cartaoRoxo : ""}`}
               style={{ "--cor": a.cor, "--destaque": a.destaque }}
             >

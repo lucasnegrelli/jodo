@@ -1,4 +1,5 @@
 ﻿"use client";
+import { urlArtista } from "@/data/urlArtista";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
@@ -553,7 +554,7 @@ export default function Mapa({ lugares: lugaresTodos, semLugar, eventos = [], ac
           const pos = it.ponto ? [it.ponto.lon, it.ponto.lat] : [lg.lon + dx, lg.lat + dy];
           const ea = document.createElement("a");
           ea.className = `${styles.pinoArtista} ${styles.surge} ${it.colab ? styles.pinoColab : ""}`;
-          ea.href = it.externo || `/artistas/${it.slug}`;
+          ea.href = it.externo || urlArtista(it.slug);
           if (it.externo) { ea.target = "_blank"; ea.rel = "noopener noreferrer"; }
           ea.style.setProperty("--cor", it.corPino || "var(--acento)");
           ea.setAttribute("aria-label", it.nome);
@@ -571,7 +572,7 @@ export default function Mapa({ lugares: lugaresTodos, semLugar, eventos = [], ac
             const r = ea.getBoundingClientRect();
             const tipo = tipoDeTransicao(it.slug);
             window.dispatchEvent(new CustomEvent("jodo:transicao", { detail: { x: r.left + r.width / 2, y: r.top + r.height / 2, cor: it.corPino || "#cfcfe8", tipo } }));
-            setTimeout(() => router.push(`/artistas/${it.slug}`), duracaoTransicao(tipo) - 40);
+            setTimeout(() => router.push(urlArtista(it.slug)), duracaoTransicao(tipo) - 40);
           });
           marcadores.push({ tipo: "detalhe", pos, el: ea, m: new maplibregl.Marker({ element: ea }).setLngLat(pos).addTo(map) });
         }
@@ -668,7 +669,7 @@ export default function Mapa({ lugares: lugaresTodos, semLugar, eventos = [], ac
     e.preventDefault();
     const tipo = tipoDeTransicao(a.slug);
     window.dispatchEvent(new CustomEvent("jodo:transicao", { detail: { x: e.clientX, y: e.clientY, cor: a.corPino || "#cfcfe8", tipo } }));
-    setTimeout(() => router.push(`/artistas/${a.slug}`), duracaoTransicao(tipo) - 40);
+    setTimeout(() => router.push(urlArtista(a.slug)), duracaoTransicao(tipo) - 40);
   };
   const abrirEvento = (cidade, e) => {
     setSel({ cidade, evento: e.id });
@@ -898,7 +899,7 @@ export default function Mapa({ lugares: lugaresTodos, semLugar, eventos = [], ac
                           </span>
                         </button>
                       ) : (
-                      <Link href={a.externo || `/artistas/${a.slug}`} {...(a.externo ? { target: "_blank", rel: "noopener noreferrer" } : { onClick: (e) => entrarArtista(e, a), onMouseEnter: () => router.prefetch(`/artistas/${a.slug}`) })} className={styles.item} style={{ "--cor": a.corPino || "var(--acento)" }}>
+                      <Link href={a.externo || urlArtista(a.slug)} {...(a.externo ? { target: "_blank", rel: "noopener noreferrer" } : { onClick: (e) => entrarArtista(e, a), onMouseEnter: () => router.prefetch(urlArtista(a.slug)) })} className={styles.item} style={{ "--cor": a.corPino || "var(--acento)" }}>
                         <span className={styles.bolinha} />
                         <span className={styles.itemTexto}>
                           <strong>{a.nome}</strong>

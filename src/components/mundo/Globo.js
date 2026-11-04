@@ -1,4 +1,5 @@
 ﻿"use client";
+import { urlArtista } from "@/data/urlArtista";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -306,7 +307,7 @@ export default function Globo({ lugares, semLugar, links }) {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
     e.preventDefault();
     setSaida({ x: e.clientX, y: e.clientY, cor: a.cor });
-    setTimeout(() => router.push(`/artistas/${a.slug}`), 650);
+    setTimeout(() => router.push(urlArtista(a.slug)), 650);
   };
 
   const lg = aberto !== null ? lugares[aberto] : null;
@@ -357,7 +358,7 @@ export default function Globo({ lugares, semLugar, links }) {
               {lg.artistas.map((a) => (
                 <li key={a.slug}>
                   <Link
-                    href={`/artistas/${a.slug}`}
+                    href={urlArtista(a.slug)}
                     onClick={(e) => entrar(e, a)}
                     className={styles.item}
                     style={{ "--cor": a.destaque }}
